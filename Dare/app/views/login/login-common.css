@@ -1,0 +1,15 @@
+StackLayout{
+  margin-left: 30;
+  margin-right: 30;
+  padding-bottom: 15;
+  background-color: red;
+}
+Image{
+  margin-top: 5;
+  margin-bottom: 20;
+}
+.submit-button{
+  background-color: green;
+  color: blue;
+  margin-top: 20;
+}

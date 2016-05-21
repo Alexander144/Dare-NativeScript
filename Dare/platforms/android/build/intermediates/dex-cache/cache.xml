@@ -2,18 +2,18 @@
 <items version="2" >
 
     <item
-        jar="/Users/larsen/Desktop/app/Dare/sample-Groceries/platforms/android/libs/nativescript.jar"
+        jar="C:\androiddevdir\android-sdk-windows\extras\android\m2repository\com\android\support\support-annotations\23.4.0\support-annotations-23.4.0.jar"
         jumboMode="false"
-        revision="23.0.2"
-        sha1="57b3fa4e07f606555cab1d8373106c80acd79f64">
-        <dex dex="/Users/larsen/Desktop/app/Dare/sample-Groceries/platforms/android/build/intermediates/pre-dexed/F0/debug/nativescript_b5dcf32bc1b6fe37fab73d7a2ce2e1c18719181f.jar" />
+        revision="23.0.3"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="D:\App\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\support-annotations-23.4.0_e8cdd0cee5312c5154d275b48b3f807215c9a013.jar" />
     </item>
     <item
-        jar="/usr/local/opt/android-sdk/extras/android/m2repository/com/android/support/support-annotations/23.4.0/support-annotations-23.4.0.jar"
+        jar="D:\App\Dare\platforms\android\libs\nativescript.jar"
         jumboMode="false"
-        revision="23.0.2"
-        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
-        <dex dex="/Users/larsen/Desktop/app/Dare/sample-Groceries/platforms/android/build/intermediates/pre-dexed/F0/debug/support-annotations-23.4.0_cff744a20a183c3ee3bde7040286b1eb5bb3626e.jar" />
+        revision="23.0.3"
+        sha1="57b3fa4e07f606555cab1d8373106c80acd79f64">
+        <dex dex="D:\App\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\nativescript_7eb424d1f847022840807c73ada9340429d5d52f.jar" />
     </item>
 
 </items>

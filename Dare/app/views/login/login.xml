@@ -1,0 +1,14 @@
+<!-- må loade et sted der koblingen skjer, dette skjer også i login.js-->
+<Page loaded="pageLoaded">
+	<StackLayout>
+		
+		<Label text="Hello World"/> 
+		<Button text="Tap" tap="Pop" class="submit-button"/>
+		<!--kontrollere alt via id eller class for å reffere-->
+		<Label id="lblCounter"/>	
+		<TextField id="email" text="email" hint="Emailen din" />
+		<!--<Image src="~/image/dare.png"/>-->
+		<Button text="Ok" class="submit-button" tap="submit"/>
+	</StackLayout>
+</Page>
+
