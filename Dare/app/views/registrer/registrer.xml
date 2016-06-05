@@ -1,8 +1,0 @@
-<page>
-	<GridLayout>
-		
-		<Label text="This is registrer"> </Label>
-		
-
-	</GridLayout>
-</page>
