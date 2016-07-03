@@ -1,7 +1,0 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
-  <StackLayout>
-   <Label text="Heisann"> </Label>
-   <Button text="Hello" style="color:green"> </Button>
-
-  </StackLayout>
-</Page>

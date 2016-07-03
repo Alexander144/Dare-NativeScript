@@ -1,0 +1,11 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+  <StackLayout>
+   <Label text="{{message}}"> </Label>
+  
+   <TextField hint="Email Address" keyboardType="email"></TextField>
+   <TextField hint="Password" secure="true"></TextField>
+   
+   <Button text="Log in" tap="{{login}}"> </Button>
+
+  </StackLayout>
+</Page>
