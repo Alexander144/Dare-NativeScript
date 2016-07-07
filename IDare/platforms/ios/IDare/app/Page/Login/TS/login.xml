@@ -5,8 +5,8 @@
    <TextField hint="Email Address" keyboardType="email"></TextField>
    <TextField hint="Password" secure="true"></TextField>
    
-   <TextField hint="Enter" > </TextField>
-   <Button text="Log in" id="tapt"> </Button>
+   <TextField hint="Enter" text="{{Add}}" > </TextField>
+   <Button text="Log in" id="tapt" tap="{{add}}"> </Button>
    <Repeater items="{{items}}"> 
       <Repeater.itemTemplate> 
         <Label text="{{ name }}"> </Label>

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "46534656012",
+    "firebase_url": "https://idare-8f8b1.firebaseio.com",
+    "project_id": "idare-8f8b1",
+    "storage_bucket": "idare-8f8b1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:46534656012:android:45a1cdb2d48a5243",
+        "android_client_info": {
+          "package_name": "org.nativescript.IDare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "46534656012-8kpse8mheec98q5mul4crb7j8spch610.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyFWWt2hO3leF6agjUF09GofDdgWkjaiU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

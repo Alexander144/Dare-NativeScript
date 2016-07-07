@@ -1,8 +1,7 @@
 {
   "name": "tns-core-modules-widgets",
-  "version": "2.0.0",
+  "version": "2.1.4",
   "description": "Native widgets used in the NativeScript framework.",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -24,19 +23,19 @@
       "android": "2.0.0"
     }
   },
-  "_id": "tns-core-modules-widgets@2.0.0",
-  "_shasum": "0369fd83fc30df95c33bedfa3f0c0183fd62576f",
-  "_resolved": "https://registry.npmjs.org/tns-core-modules-widgets/-/tns-core-modules-widgets-2.0.0.tgz",
-  "_from": "tns-core-modules-widgets@2.0.0",
-  "_npmVersion": "3.8.3",
-  "_nodeVersion": "5.10.0",
+  "_id": "tns-core-modules-widgets@2.1.4",
+  "_shasum": "cde508d9ec9708fbf7279119eec765730c298417",
+  "_resolved": "https://registry.npmjs.org/tns-core-modules-widgets/-/tns-core-modules-widgets-2.1.4.tgz",
+  "_from": "tns-core-modules-widgets@2.1.4",
+  "_npmVersion": "2.15.5",
+  "_nodeVersion": "4.4.5",
   "_npmUser": {
-    "name": "erjangavalji",
-    "email": "erjan.gavalji@gmail.com"
+    "name": "enchev",
+    "email": "vladimir.enchev@gmail.com"
   },
   "dist": {
-    "shasum": "0369fd83fc30df95c33bedfa3f0c0183fd62576f",
-    "tarball": "https://registry.npmjs.org/tns-core-modules-widgets/-/tns-core-modules-widgets-2.0.0.tgz"
+    "shasum": "cde508d9ec9708fbf7279119eec765730c298417",
+    "tarball": "https://registry.npmjs.org/tns-core-modules-widgets/-/tns-core-modules-widgets-2.1.4.tgz"
   },
   "maintainers": [
     {
@@ -48,29 +47,38 @@
       "email": "erjan.gavalji@gmail.com"
     },
     {
+      "name": "hamorphis",
+      "email": "rossen.hristov@progress.com"
+    },
+    {
       "name": "hdeshev",
       "email": "hristo@deshev.com"
     },
     {
-      "name": "ligaz",
-      "email": "stefan.dobrev@gmail.com"
+      "name": "hhristov",
+      "email": "hristo.hristov@outlook.com"
     },
     {
       "name": "nsndeck",
       "email": "nedyalko.nikolov@telerik.com"
     },
     {
-      "name": "sdobrev",
-      "email": "stefan.dobrev@gmail.com"
+      "name": "panayot.cankov",
+      "email": "panayot.cankov@telerik.com"
     },
     {
       "name": "vakrilov",
       "email": "alexander.vakrilov@gmail.com"
+    },
+    {
+      "name": "vchimev",
+      "email": "Vasil.Chimev@telerik.com"
     }
   ],
   "_npmOperationalInternal": {
     "host": "packages-12-west.internal.npmjs.com",
-    "tmp": "tmp/tns-core-modules-widgets-2.0.0.tgz_1461064221278_0.474402436055243"
+    "tmp": "tmp/tns-core-modules-widgets-2.1.4.tgz_1467272668355_0.020876713329926133"
   },
-  "directories": {}
+  "directories": {},
+  "readme": "ERROR: No README data found!"
 }
