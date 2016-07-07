@@ -2,7 +2,7 @@
 var observable_1 = require("data/observable");
 var observable_array_1 = require("data/observable-array");
 var item_1 = require("./Class/item");
-//import firebase = require("nativescript-plugin-firebase");
+var firebase = require("nativescript-plugin-firebase");
 var IDareModel = (function (_super) {
     __extends(IDareModel, _super);
     function IDareModel() {
@@ -12,6 +12,12 @@ var IDareModel = (function (_super) {
     IDareModel.prototype.add = function () {
         this.items.push(new item_1.default(this.Add));
         this.set("Add", "");
+        firebase.login({ type: firebase.LoginType.ANONYMOUS }).then(function (user) {
+            alert("UserID" + user.uid);
+        }, function (error) {
+            alert("Error" + error);
+        });
+        //firebase.push(null,"fdgfgfg");
     };
     return IDareModel;
 }(observable_1.Observable));
