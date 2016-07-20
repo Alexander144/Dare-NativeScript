@@ -8,7 +8,7 @@
 #import <UIKit/UIApplication.h>
 #import <JavaScriptCore/JavaScript.h>
 #import <JavaScriptCore/JSStringRefCF.h>
-#import <NativeScript.h>
+#import <NativeScript/NativeScript.h>
 
 #include <netinet/in.h>
 #include <sys/types.h>

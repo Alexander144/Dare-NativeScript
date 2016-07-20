@@ -1,3 +1,6 @@
+# 3.3.0
+* Bugfixes for Firebase/Analytics, Firebase/Auth, Firebase/Database, Firebase/DynamicLinks, Firebase/Invites, Firebase/Storage.
+
 # 3.2.1
 * Bugfixes for Firebase/Crash.
 

@@ -10,7 +10,7 @@
 #define TNSExceptionHandler_h
 
 #import <JavaScriptCore/JavaScriptCore.h>
-#import <NativeScript.h>
+#import <NativeScript/NativeScript.h>
 
 TNSRuntime* runtime;
 

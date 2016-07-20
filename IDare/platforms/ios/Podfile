@@ -1,7 +1,7 @@
 use_frameworks!
 
 target "IDare" do
-# Begin Podfile - /Users/home/Desktop/Dare/IDare/node_modules/nativescript-plugin-firebase/platforms/ios/Podfile 
+# Begin Podfile - /Users/larsen/Desktop/IDare/IDare/node_modules/nativescript-plugin-firebase/platforms/ios/Podfile 
  pod 'Firebase/Database', '~> 3.2'
 pod 'Firebase/Auth', '~> 3.2'
 
