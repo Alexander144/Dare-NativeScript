@@ -13,6 +13,11 @@ class IDareModel extends Observable{
         super();
         this.items = new ObservableArray<item>();
 
+        firebase.login({ type: firebase.LoginType.ANONYMOUS}).then((user) => {
+            alert("UserID" + user.uid);
+        },(error) => {
+            alert("Error" + error);
+        });
 
       
        
@@ -20,12 +25,8 @@ class IDareModel extends Observable{
     add(){
         this.items.push(new item(this.Add));
         this.set("Add", "");
-        firebase.login({ type: firebase.LoginType.ANONYMOUS}).then((user) => {
-            alert("UserID" + user.uid);
-        },(error) => {
-            alert("Error" + error);
-        });
-        //firebase.push(null,"fdgfgfg");
+      
+        firebase.setValue('lol',"Hello");
     }
 } 
 

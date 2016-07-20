@@ -8,16 +8,16 @@ var IDareModel = (function (_super) {
     function IDareModel() {
         _super.call(this);
         this.items = new observable_array_1.ObservableArray();
-    }
-    IDareModel.prototype.add = function () {
-        this.items.push(new item_1.default(this.Add));
-        this.set("Add", "");
         firebase.login({ type: firebase.LoginType.ANONYMOUS }).then(function (user) {
             alert("UserID" + user.uid);
         }, function (error) {
             alert("Error" + error);
         });
-        //firebase.push(null,"fdgfgfg");
+    }
+    IDareModel.prototype.add = function () {
+        this.items.push(new item_1.default(this.Add));
+        this.set("Add", "");
+        firebase.setValue('lol', "Hello");
     };
     return IDareModel;
 }(observable_1.Observable));
