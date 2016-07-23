@@ -2,7 +2,7 @@ import{ Observable } from "data/observable";
 import { ObservableArray } from "data/observable-array";
 
 import Page = require("ui/frame");
-import item from "./Class/item";
+import item from "../Class/item/item";
 import firebase = require("nativescript-plugin-firebase");
 
 class LoginModel extends Observable{
@@ -67,18 +67,20 @@ class LoginModel extends Observable{
         this.LoginPassword = this.get("Password");
       
         console.debug(this.LoginEmail);
+       
         firebase.createUser({ email: this.LoginEmail,
                         password: this.LoginPassword }).then((user) => {
             this.set("Email", null);
             this.set("Password", null);
             alert("UserID" + user.key);
+            firebase.setValue("Users/"+this.get("Username"),{ 'ID' : user.key});
         },(error) => {
             alert("Error: " + error);
         });
     }
     Send(){
     
-        firebase.push("idare-8f8b1",this.LoginEmail);
+        this.items.push(new item("Hello"));
     }
 } 
 

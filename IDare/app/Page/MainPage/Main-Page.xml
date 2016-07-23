@@ -2,5 +2,23 @@
   <StackLayout>
     <Label text="This is the MainPage"></Label>
     <Label text="Your Email is {{Email}}"></Label>
+    <Label text="Send dare"></Label>
+   <DockLayout>
+   <TextField text="{{InputDare}}" hint="I Dare You To"> </TextField>
+   <TextField text="{{Username}}" hint="Username" ></TextField>
+   <Button text="Send" tap="{{Send}}"></Button>
+   </DockLayout>
+   <Label text="Your Dares"> </Label>
+   <Repeater items="{{ Dares }}" >
+     <Repeater.itemTemplate>
+            <GridLayout columns="1*, 3*, 3*">
+                <Label col="0" text="{{ OutputDare }}"></Label>
+                <Label col="1" text="{{ From }}"></Label>
+                <Button col="2" text="Accept"> </Button>
+            </GridLayout>
+        </Repeater.itemTemplate>
+  </Repeater>
+
+    <Button text="Logout" tap="{{Logout}}"></Button>
   </StackLayout>
 </Page>

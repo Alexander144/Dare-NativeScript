@@ -2,6 +2,7 @@
 var observable_1 = require("data/observable");
 var observable_array_1 = require("data/observable-array");
 var Page = require("ui/frame");
+var item_1 = require("../Class/item/item");
 var firebase = require("nativescript-plugin-firebase");
 var LoginModel = (function (_super) {
     __extends(LoginModel, _super);
@@ -19,7 +20,6 @@ var LoginModel = (function (_super) {
         };
         this.LoginEmail = this.get("Email");
         this.LoginPassword = this.get("Password");
-        Page.topmost().navigate("login");
         console.debug(this.LoginEmail);
         firebase.login({ type: firebase.LoginType.PASSWORD,
             email: this.LoginEmail,
@@ -27,9 +27,17 @@ var LoginModel = (function (_super) {
             _this.set("Email", null);
             _this.set("Password", null);
             //alert("UserID" + user.uid);
-            Page.topmost().navigate("./supp");
+            Page.topmost().navigate({
+                moduleName: "Page/MainPage/Main-Page",
+                transition: {
+                    name: "slideBottom",
+                    duration: 380,
+                    curve: "easeIn"
+                },
+                animated: true
+            });
         }, function (error) {
-            alert("Error" + error);
+            alert("Error:" + error);
         });
         //this.items.push(new item(this.Add));
         //firebase.push('',"Hello");
@@ -44,12 +52,13 @@ var LoginModel = (function (_super) {
             _this.set("Email", null);
             _this.set("Password", null);
             alert("UserID" + user.key);
+            firebase.setValue("Users/" + _this.get("Username"), { 'ID': user.key });
         }, function (error) {
             alert("Error: " + error);
         });
     };
     LoginModel.prototype.Send = function () {
-        firebase.push("idare-8f8b1", this.LoginEmail);
+        this.items.push(new item_1.default("Hello"));
     };
     return LoginModel;
 }(observable_1.Observable));

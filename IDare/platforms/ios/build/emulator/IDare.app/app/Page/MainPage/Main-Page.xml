@@ -1,0 +1,22 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="PageLoaded">
+  <StackLayout>
+    <Label text="This is the MainPage"></Label>
+    <Label text="Your Email is {{Email}}"></Label>
+    <Label text="Send dare"></Label>
+   <DockLayout>
+   <TextField text="{{InputDare}}" hint="I Dare You To"> </TextField>
+   <TextField text="{{Username}}" hint="Username" ></TextField>
+   <Button text="Send" tap="{{Send}}"></Button>
+   </DockLayout>
+   <Label text="Your Dares"> </Label>
+   <Repeater items="{{Dares}}"> 
+      <Repeater.itemTemplate> 
+     
+        <Label text="{{ OutputDare }}"> </Label>
+        <Label text="{{ From }}"></Label>
+     
+      </Repeater.itemTemplate>
+   </Repeater>
+    <Button text="Logout" tap="{{Logout}}"></Button>
+  </StackLayout>
+</Page>
