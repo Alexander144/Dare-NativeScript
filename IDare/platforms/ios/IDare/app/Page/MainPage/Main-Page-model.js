@@ -12,24 +12,25 @@ var MainModel = (function (_super) {
     }
     MainModel.prototype.GetDares = function () {
         var onChildEvent = function (result) {
-            var matches = [];
             if (result.type === "ChildAdded") {
-                this.Dares.push(new Dare_1.default("", result.Dare, result.From));
-            }
-            else if (result.type === "ChildRemoved") {
-                matches.push(result);
-                matches.forEach(function (match) {
-                    var index = this.Dares.indexOf(match);
-                    this.Dares.splice(index, 1);
-                });
+                console.log("Event type: " + result.type);
+                console.log("Key: " + result.key);
+                console.log("Value: " + JSON.stringify(result.value.Dare));
+                this.set("lol", JSON.stringify(result.value.Dare));
             }
         };
-        return firebase.addChildEventListener(onChildEvent, "/Dares/Lol12345").then(function () {
-            console.log("firebase.addChildEventListener added");
-        }, function (error) {
-            console.log("firebase.addChildEventListener error: " + error);
-        });
+        // listen to changes in the /users path
+        firebase.addChildEventListener(onChildEvent, "/Dares/Lol12345");
+        this.Dares.push(new Dare_1.default("1", "lol", "leel"));
         //this.Dares.push(new Dare("12","Eat", this.User));
+    };
+    MainModel.prototype.authDataCallback = function (authData) {
+        if (authData) {
+            console.log("User " + authData.uid + " is logged in with " + authData.provider);
+        }
+        else {
+            console.log("User is logged out");
+        }
     };
     MainModel.prototype.Send = function () {
         console.debug("Send");

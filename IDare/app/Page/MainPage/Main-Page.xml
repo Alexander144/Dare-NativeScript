@@ -8,6 +8,8 @@
    <TextField text="{{Username}}" hint="Username" ></TextField>
    <Button text="Send" tap="{{Send}}"></Button>
    </DockLayout>
+
+   <Label text="{{lol}}"> </Label>
    <Label text="Your Dares"> </Label>
    <Repeater items="{{ Dares }}" >
      <Repeater.itemTemplate>
