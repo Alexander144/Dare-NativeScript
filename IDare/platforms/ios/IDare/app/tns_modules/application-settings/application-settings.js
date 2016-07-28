@@ -51,3 +51,4 @@ exports.remove = function (key) {
 exports.clear = function () {
     userDefaults.removePersistentDomainForName(NSBundle.mainBundle().bundleIdentifier);
 };
+//# sourceMappingURL=application-settings.ios.js.map

@@ -253,7 +253,7 @@ var Frame = (function (_super) {
         if (this.currentPage) {
             this.currentPage.onNavigatingFrom(isBack);
         }
-        backstackEntry.resolvedPage.onNavigatingTo(backstackEntry.entry.context, isBack);
+        backstackEntry.resolvedPage.onNavigatingTo(backstackEntry.entry.context, isBack, backstackEntry.entry.bindingContext);
     };
     Object.defineProperty(Frame.prototype, "animated", {
         get: function () {
@@ -433,3 +433,4 @@ function stack() {
     return frameStack;
 }
 exports.stack = stack;
+//# sourceMappingURL=frame-common.js.map

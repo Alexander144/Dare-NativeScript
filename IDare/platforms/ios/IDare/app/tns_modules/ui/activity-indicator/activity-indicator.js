@@ -56,3 +56,4 @@ var ActivityIndicatorStyler = (function () {
 }());
 exports.ActivityIndicatorStyler = ActivityIndicatorStyler;
 ActivityIndicatorStyler.registerHandlers();
+//# sourceMappingURL=activity-indicator.ios.js.map

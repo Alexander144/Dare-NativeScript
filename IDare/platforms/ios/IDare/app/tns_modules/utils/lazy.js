@@ -4,3 +4,4 @@ function lazy(action) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = lazy;
+//# sourceMappingURL=lazy.js.map

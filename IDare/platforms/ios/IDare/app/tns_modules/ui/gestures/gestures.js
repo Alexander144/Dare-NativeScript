@@ -411,3 +411,4 @@ var TouchGestureEventData = (function () {
     };
     return TouchGestureEventData;
 }());
+//# sourceMappingURL=gestures.ios.js.map

@@ -20,3 +20,4 @@ var HtmlView = (function (_super) {
     return HtmlView;
 }(view.View));
 exports.HtmlView = HtmlView;
+//# sourceMappingURL=html-view-common.js.map

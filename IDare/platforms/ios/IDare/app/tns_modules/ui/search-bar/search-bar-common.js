@@ -60,3 +60,4 @@ var SearchBar = (function (_super) {
     return SearchBar;
 }(view_1.View));
 exports.SearchBar = SearchBar;
+//# sourceMappingURL=search-bar-common.js.map

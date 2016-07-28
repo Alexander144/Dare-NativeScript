@@ -4,3 +4,4 @@ var connectionType;
     connectionType.wifi = 1;
     connectionType.mobile = 2;
 })(connectionType = exports.connectionType || (exports.connectionType = {}));
+//# sourceMappingURL=connectivity-common.js.map

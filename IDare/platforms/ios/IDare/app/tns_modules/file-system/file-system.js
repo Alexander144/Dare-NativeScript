@@ -6,6 +6,12 @@ var getFileAccess = function () {
     }
     return fileAccess;
 };
+var platform;
+function ensurePlatform() {
+    if (!platform) {
+        platform = require("platform");
+    }
+}
 var nameProperty = "_name";
 var pathProperty = "_path";
 var isKnownProperty = "_isKnown";
@@ -442,6 +448,103 @@ var knownFolders;
         }
         return _app;
     };
+    var ios;
+    (function (ios) {
+        function _checkPlatform(knownFolderName) {
+            ensurePlatform();
+            if (!platform.isIOS) {
+                throw new Error("The \"" + knownFolderName + "\" known folder is available on iOS only!");
+            }
+        }
+        var _library;
+        ios.library = function () {
+            _checkPlatform("library");
+            if (!_library) {
+                var path = getFileAccess().getKnownPath(NSSearchPathDirectory.NSLibraryDirectory);
+                _library = Folder.fromPath(path);
+                _library[pathProperty] = path;
+                _library[isKnownProperty] = true;
+            }
+            return _library;
+        };
+        var _developer;
+        ios.developer = function () {
+            _checkPlatform("developer");
+            if (!_developer) {
+                var path = getFileAccess().getKnownPath(NSSearchPathDirectory.NSDeveloperDirectory);
+                _developer = Folder.fromPath(path);
+                _developer[pathProperty] = path;
+                _developer[isKnownProperty] = true;
+            }
+            return _developer;
+        };
+        var _desktop;
+        ios.desktop = function () {
+            _checkPlatform("desktop");
+            if (!_desktop) {
+                var path = getFileAccess().getKnownPath(NSSearchPathDirectory.NSDesktopDirectory);
+                _desktop = Folder.fromPath(path);
+                _desktop[pathProperty] = path;
+                _desktop[isKnownProperty] = true;
+            }
+            return _desktop;
+        };
+        var _downloads;
+        ios.downloads = function () {
+            _checkPlatform("downloads");
+            if (!_downloads) {
+                var path = getFileAccess().getKnownPath(NSSearchPathDirectory.NSDownloadsDirectory);
+                _downloads = Folder.fromPath(path);
+                _downloads[pathProperty] = path;
+                _downloads[isKnownProperty] = true;
+            }
+            return _downloads;
+        };
+        var _movies;
+        ios.movies = function () {
+            _checkPlatform("movies");
+            if (!_movies) {
+                var path = getFileAccess().getKnownPath(NSSearchPathDirectory.NSMoviesDirectory);
+                _movies = Folder.fromPath(path);
+                _movies[pathProperty] = path;
+                _movies[isKnownProperty] = true;
+            }
+            return _movies;
+        };
+        var _music;
+        ios.music = function () {
+            _checkPlatform("music");
+            if (!_music) {
+                var path = getFileAccess().getKnownPath(NSSearchPathDirectory.NSMusicDirectory);
+                _music = Folder.fromPath(path);
+                _music[pathProperty] = path;
+                _music[isKnownProperty] = true;
+            }
+            return _music;
+        };
+        var _pictures;
+        ios.pictures = function () {
+            _checkPlatform("pictures");
+            if (!_pictures) {
+                var path = getFileAccess().getKnownPath(NSSearchPathDirectory.NSPicturesDirectory);
+                _pictures = Folder.fromPath(path);
+                _pictures[pathProperty] = path;
+                _pictures[isKnownProperty] = true;
+            }
+            return _pictures;
+        };
+        var _sharedPublic;
+        ios.sharedPublic = function () {
+            _checkPlatform("sharedPublic");
+            if (!_sharedPublic) {
+                var path = getFileAccess().getKnownPath(NSSearchPathDirectory.NSSharedPublicDirectory);
+                _sharedPublic = Folder.fromPath(path);
+                _sharedPublic[pathProperty] = path;
+                _sharedPublic[isKnownProperty] = true;
+            }
+            return _sharedPublic;
+        };
+    })(ios = knownFolders.ios || (knownFolders.ios = {}));
 })(knownFolders = exports.knownFolders || (exports.knownFolders = {}));
 var path;
 (function (path_1) {
@@ -460,3 +563,4 @@ var path;
     path_1.join = join;
     path_1.separator = getFileAccess().getPathSeparator();
 })(path = exports.path || (exports.path = {}));
+//# sourceMappingURL=file-system.js.map

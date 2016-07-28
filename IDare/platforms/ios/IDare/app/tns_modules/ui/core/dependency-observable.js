@@ -241,6 +241,13 @@ var DependencyObservable = (function (_super) {
             }
         }
     };
+    DependencyObservable.prototype._eachSetPropertyValue = function (callback) {
+        for (var i = 0, keys = Object.keys(this._propertyEntries); i < keys.length; i++) {
+            var key = keys[i];
+            var entry = this._propertyEntries[key];
+            callback(entry.property, entry.effectiveValue);
+        }
+    };
     DependencyObservable.prototype.toString = function () {
         return this.typeName;
     };
@@ -353,3 +360,4 @@ var DependencyObservable = (function (_super) {
     return DependencyObservable;
 }(observable_1.Observable));
 exports.DependencyObservable = DependencyObservable;
+//# sourceMappingURL=dependency-observable.js.map

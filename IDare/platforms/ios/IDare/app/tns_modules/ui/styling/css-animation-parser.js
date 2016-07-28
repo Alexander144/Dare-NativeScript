@@ -195,3 +195,4 @@ var CssAnimationParser = (function () {
     return CssAnimationParser;
 }());
 exports.CssAnimationParser = CssAnimationParser;
+//# sourceMappingURL=css-animation-parser.js.map

@@ -31,3 +31,4 @@ var FormattedString = (function (_super) {
     return FormattedString;
 }(formattedStringCommon.FormattedString));
 exports.FormattedString = FormattedString;
+//# sourceMappingURL=formatted-string.ios.js.map

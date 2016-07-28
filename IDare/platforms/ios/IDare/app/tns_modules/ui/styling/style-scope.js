@@ -5,6 +5,11 @@ var application = require("application");
 var keyframeAnimation = require("ui/animation/keyframe-animation");
 var cssAnimationParser = require("./css-animation-parser");
 var observable = require("ui/core/dependency-observable");
+var utils_1 = require("utils/utils");
+var css_selector_1 = require("ui/styling/css-selector");
+var style_property_1 = require("ui/styling/style-property");
+var special_properties_1 = require("ui/builder/special-properties");
+var animationsSymbol = Symbol("animations");
 var types;
 function ensureTypes() {
     if (!types) {
@@ -23,13 +28,28 @@ function ensureFS() {
         fs = require("file-system");
     }
 }
-var vs;
-function ensureVisualState() {
-    if (!vs) {
-        vs = require("./visual-state");
-    }
-}
 var pattern = /('|")(.*?)\1/;
+var CssState = (function () {
+    function CssState(view, match) {
+        this.view = view;
+        this.match = match;
+    }
+    Object.defineProperty(CssState.prototype, "changeMap", {
+        get: function () {
+            return this.match.changeMap;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    CssState.prototype.apply = function () {
+        var _this = this;
+        this.view.style._resetCssValues();
+        var matchingSelectors = this.match.selectors.filter(function (sel) { return sel.dynamic ? sel.match(_this.view) : true; });
+        matchingSelectors.forEach(function (s) { return applyDescriptors(_this.view, s.ruleset); });
+    };
+    return CssState;
+}());
+exports.CssState = CssState;
 var StyleScope = (function () {
     function StyleScope() {
         this._statesByKey = {};
@@ -71,14 +91,6 @@ var StyleScope = (function () {
         this._localCssSelectorVersion++;
         this.ensureSelectors();
     };
-    StyleScope.prototype.removeSelectors = function (selectorExpression) {
-        for (var i = this._mergedCssSelectors.length - 1; i >= 0; i--) {
-            var selector = this._mergedCssSelectors[i];
-            if (selector.expression === selectorExpression) {
-                this._mergedCssSelectors.splice(i, 1);
-            }
-        }
-    };
     StyleScope.prototype.getKeyframeAnimationWithName = function (animationName) {
         var keyframes = this._keyframes[animationName];
         if (keyframes !== undefined) {
@@ -91,10 +103,10 @@ var StyleScope = (function () {
     StyleScope.createSelectorsFromCss = function (css, cssFileName, keyframes) {
         try {
             var pageCssSyntaxTree = css ? cssParser.parse(css, { source: cssFileName }) : null;
-            var pageCssSelectors = new Array();
+            var pageCssSelectors = [];
             if (pageCssSyntaxTree) {
-                pageCssSelectors = StyleScope._joinCssSelectorsArrays([pageCssSelectors, StyleScope.createSelectorsFromImports(pageCssSyntaxTree, keyframes)]);
-                pageCssSelectors = StyleScope._joinCssSelectorsArrays([pageCssSelectors, StyleScope.createSelectorsFromSyntaxTree(pageCssSyntaxTree, keyframes)]);
+                pageCssSelectors = pageCssSelectors.concat(StyleScope.createSelectorsFromImports(pageCssSyntaxTree, keyframes));
+                pageCssSelectors = pageCssSelectors.concat(StyleScope.createSelectorsFromSyntaxTree(pageCssSyntaxTree, keyframes));
             }
             return pageCssSelectors;
         }
@@ -103,7 +115,7 @@ var StyleScope = (function () {
         }
     };
     StyleScope.createSelectorsFromImports = function (tree, keyframes) {
-        var selectors = new Array();
+        var selectors = [];
         ensureTypes();
         if (!types.isNullOrUndefined(tree)) {
             var imports = tree["stylesheet"]["rules"].filter(function (r) { return r.type === "import"; });
@@ -123,7 +135,7 @@ var StyleScope = (function () {
                             var file = fs.File.fromPath(fileName);
                             var text = file.readTextSync();
                             if (text) {
-                                selectors = StyleScope._joinCssSelectorsArrays([selectors, StyleScope.createSelectorsFromCss(text, fileName, keyframes)]);
+                                selectors = selectors.concat(StyleScope.createSelectorsFromCss(text, fileName, keyframes));
                             }
                         }
                     }
@@ -146,114 +158,33 @@ var StyleScope = (function () {
             }
         }
         if (toMerge.length > 0) {
-            this._mergedCssSelectors = StyleScope._joinCssSelectorsArrays(toMerge);
+            this._mergedCssSelectors = toMerge.filter(function (m) { return !!m; }).reduce(function (merged, next) { return merged.concat(next); }, []);
             this._applyKeyframesOnSelectors();
-            return true;
         }
         else {
             return false;
         }
-    };
-    StyleScope._joinCssSelectorsArrays = function (arrays) {
-        var mergedResult = [];
-        var i;
-        for (i = 0; i < arrays.length; i++) {
-            if (arrays[i]) {
-                mergedResult.push.apply(mergedResult, arrays[i]);
-            }
-        }
-        ensureUtils();
-        mergedResult = utils.mergeSort(mergedResult, function (a, b) { return a.specificity - b.specificity; });
-        return mergedResult;
+        this._selectors = new css_selector_1.SelectorsMap(this._mergedCssSelectors);
+        return true;
     };
     StyleScope.prototype.applySelectors = function (view) {
         this.ensureSelectors();
-        view.style._beginUpdate();
-        var i;
-        var selector;
-        var matchedStateSelectors = new Array();
-        for (i = 0; i < this._mergedCssSelectors.length; i++) {
-            selector = this._mergedCssSelectors[i];
-            if (selector.matches(view)) {
-                if (selector instanceof cssSelector.CssVisualStateSelector) {
-                    matchedStateSelectors.push(selector);
-                }
-                else {
-                    selector.apply(view, observable.ValueSource.Css);
-                }
-            }
-        }
-        if (matchedStateSelectors.length > 0) {
-            var key_1 = "";
-            matchedStateSelectors.forEach(function (s) { return key_1 += s.key + "|"; });
-            this._viewIdToKey[view._domId] = key_1;
-            if (!this._statesByKey[key_1]) {
-                this._createVisualsStatesForSelectors(key_1, matchedStateSelectors);
-            }
-        }
-        view.style._endUpdate();
+        var state = this._selectors.query(view);
+        var previousState = view._cssState;
+        var nextState = new CssState(view, state);
+        view._cssState = nextState;
+        view._onCssStateChange(previousState, nextState);
     };
-    StyleScope.prototype.getVisualStates = function (view) {
-        var key = this._viewIdToKey[view._domId];
-        if (key === undefined) {
-            return undefined;
-        }
-        return this._statesByKey[key];
-    };
-    StyleScope.prototype._createVisualsStatesForSelectors = function (key, matchedStateSelectors) {
-        var i, allStates = {}, stateSelector;
-        this._statesByKey[key] = allStates;
-        ensureVisualState();
-        var _loop_1 = function() {
-            stateSelector = matchedStateSelectors[i];
-            var visualState = allStates[stateSelector.state];
-            if (!visualState) {
-                visualState = new vs.VisualState();
-                allStates[stateSelector.state] = visualState;
-            }
-            if (stateSelector.animations && stateSelector.animations.length > 0) {
-                visualState.animatedSelectors.push(stateSelector);
-            }
-            else {
-                stateSelector.eachSetter(function (property, value) {
-                    visualState.setters[property.name] = value;
-                });
-            }
-        };
-        for (i = 0; i < matchedStateSelectors.length; i++) {
-            _loop_1();
-        }
+    StyleScope.prototype.query = function (node) {
+        this.ensureSelectors();
+        return this._selectors.query(node).selectors;
     };
     StyleScope.createSelectorsFromSyntaxTree = function (ast, keyframes) {
-        var result = [];
-        var rules = ast.stylesheet.rules;
-        var rule;
-        var i;
-        var j;
-        for (i = 0; i < rules.length; i++) {
-            rule = rules[i];
-            if (rule.type === "rule") {
-                var filteredDeclarations = [];
-                if (rule.declarations) {
-                    for (j = 0; j < rule.declarations.length; j++) {
-                        var declaration = rule.declarations[j];
-                        if (declaration.type === "declaration") {
-                            filteredDeclarations.push({
-                                property: declaration.property.toLowerCase(),
-                                value: declaration.value
-                            });
-                        }
-                    }
-                }
-                for (j = 0; j < rule.selectors.length; j++) {
-                    result.push(cssSelector.createSelector(rule.selectors[j], filteredDeclarations));
-                }
-            }
-            else if (rule.type === "keyframes") {
-                keyframes[rule.name] = rule;
-            }
-        }
-        return result;
+        var nodes = ast.stylesheet.rules;
+        nodes.filter(isKeyframe).forEach(function (node) { return keyframes[node.name] = node; });
+        var rulesets = cssSelector.fromAstNodes(nodes);
+        rulesets.forEach(function (rule) { return rule[animationsSymbol] = cssAnimationParser.CssAnimationParser.keyframeAnimationsFromCSSDeclarations(rule.declarations); });
+        return rulesets;
     };
     StyleScope.prototype._reset = function () {
         this._statesByKey = {};
@@ -261,10 +192,11 @@ var StyleScope = (function () {
     };
     StyleScope.prototype._applyKeyframesOnSelectors = function () {
         for (var i = this._mergedCssSelectors.length - 1; i >= 0; i--) {
-            var selector = this._mergedCssSelectors[i];
-            if (selector.animations !== undefined) {
-                for (var _i = 0, _a = selector.animations; _i < _a.length; _i++) {
-                    var animation = _a[_i];
+            var ruleset = this._mergedCssSelectors[i];
+            var animations = ruleset[animationsSymbol];
+            if (animations !== undefined) {
+                for (var _i = 0, animations_1 = animations; _i < animations_1.length; _i++) {
+                    var animation = animations_1[_i];
                     var keyframe = this._keyframes[animation.name];
                     if (keyframe !== undefined) {
                         animation.keyframes = cssAnimationParser.CssAnimationParser.keyframesArrayFromCSS(keyframe);
@@ -273,17 +205,80 @@ var StyleScope = (function () {
             }
         }
     };
+    StyleScope.prototype.getAnimations = function (ruleset) {
+        return ruleset[animationsSymbol];
+    };
     return StyleScope;
 }());
 exports.StyleScope = StyleScope;
 function applyInlineSyle(view, style) {
     try {
         var syntaxTree = cssParser.parse("local { " + style + " }", undefined);
-        var filteredDeclarations = syntaxTree.stylesheet.rules[0].declarations.filter(function (val, i, arr) { return val.type === "declaration"; });
-        cssSelector.applyInlineSyle(view, filteredDeclarations);
+        var filteredDeclarations = syntaxTree.stylesheet.rules.filter(isRule)[0].declarations.filter(isDeclaration);
+        applyInlineStyle(view, filteredDeclarations);
     }
     catch (ex) {
         trace.write("Applying local style failed: " + ex, trace.categories.Error, trace.messageType.error);
     }
 }
 exports.applyInlineSyle = applyInlineSyle;
+function isRule(node) {
+    return node.type === "rule";
+}
+function isDeclaration(node) {
+    return node.type === "declaration";
+}
+function isKeyframe(node) {
+    return node.type === "keyframes";
+}
+function applyDescriptors(view, ruleset) {
+    var modifier = observable.ValueSource.Css;
+    ruleset.declarations.forEach(function (d) { return style_property_1.withStyleProperty(d.property, d.value, function (property, value) {
+        if (types.isString(property)) {
+            var propertyName = property;
+            var attrHandled = false;
+            var specialSetter = special_properties_1.getSpecialPropertySetter(propertyName);
+            if (!attrHandled && specialSetter) {
+                specialSetter(view, value);
+                attrHandled = true;
+            }
+            if (!attrHandled && propertyName in view) {
+                view[propertyName] = utils_1.convertString(value);
+            }
+        }
+        else {
+            var resolvedProperty = property;
+            try {
+                view.style._setValue(resolvedProperty, value, modifier);
+            }
+            catch (ex) {
+                if (trace.enabled) {
+                    trace.write("Error setting property: " + resolvedProperty.name + " view: " + view + " value: " + value + " " + ex, trace.categories.Style, trace.messageType.error);
+                }
+            }
+        }
+    }); });
+    var ruleAnimations = ruleset[animationsSymbol];
+    if (ruleAnimations && view.isLoaded && view._nativeView !== undefined) {
+        var _loop_1 = function(animationInfo) {
+            var animation = keyframeAnimation.KeyframeAnimation.keyframeAnimationFromInfo(animationInfo, modifier);
+            if (animation) {
+                view._registerAnimation(animation);
+                animation.play(view)
+                    .then(function () { view._unregisterAnimation(animation); })
+                    .catch(function (e) { view._unregisterAnimation(animation); });
+            }
+        };
+        for (var _i = 0, ruleAnimations_1 = ruleAnimations; _i < ruleAnimations_1.length; _i++) {
+            var animationInfo = ruleAnimations_1[_i];
+            _loop_1(animationInfo);
+        }
+    }
+}
+function applyInlineStyle(view, declarations) {
+    declarations.forEach(function (d) { return style_property_1.withStyleProperty(d.property, d.value, function (property, value) {
+        var resolvedProperty = property;
+        view.style._setValue(resolvedProperty, value, observable.ValueSource.Local);
+    }); });
+}
+//# sourceMappingURL=style-scope.js.map

@@ -1,513 +1,521 @@
-var observable = require("ui/core/dependency-observable");
-var trace = require("trace");
-var style_property_1 = require("ui/styling/style-property");
-var types = require("utils/types");
-var utils = require("utils/utils");
-var keyframeAnimation = require("ui/animation/keyframe-animation");
-var cssAnimationParser = require("./css-animation-parser");
-var special_properties_1 = require("ui/builder/special-properties");
-var ID_SPECIFICITY = 1000000;
-var ATTR_SPECIFITY = 10000;
-var CLASS_SPECIFICITY = 100;
-var TYPE_SPECIFICITY = 1;
-var CssSelector = (function () {
-    function CssSelector(expression, declarations) {
-        if (expression) {
-            var leftSquareBracketIndex = expression.indexOf(LSBRACKET);
-            if (leftSquareBracketIndex >= 0) {
-                var paramsRegex = /\[\s*(.*)\s*\]/;
-                var attrParams = paramsRegex.exec(expression);
-                if (attrParams && attrParams.length > 1) {
-                    this._attrExpression = attrParams[1].trim();
-                }
-                this._expression = expression.substr(0, leftSquareBracketIndex);
-            }
-            else {
-                this._expression = expression;
-            }
-        }
-        this._declarations = declarations;
-        this.animations = cssAnimationParser.CssAnimationParser.keyframeAnimationsFromCSSDeclarations(declarations);
+var types_1 = require("utils/types");
+var utils_1 = require("utils/utils");
+var selectorParser = require("./css-selector-parser");
+var Match;
+(function (Match) {
+    Match.Dynamic = true;
+    Match.Static = false;
+})(Match || (Match = {}));
+function SelectorProperties(specificity, rarity, dynamic) {
+    if (dynamic === void 0) { dynamic = false; }
+    return function (cls) {
+        cls.prototype.specificity = specificity;
+        cls.prototype.rarity = rarity;
+        cls.prototype.combinator = "";
+        cls.prototype.dynamic = dynamic;
+        return cls;
+    };
+}
+var SelectorCore = (function () {
+    function SelectorCore() {
     }
-    Object.defineProperty(CssSelector.prototype, "expression", {
-        get: function () {
-            return this._expression;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CssSelector.prototype, "attrExpression", {
-        get: function () {
-            return this._attrExpression;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CssSelector.prototype, "declarations", {
-        get: function () {
-            return this._declarations;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CssSelector.prototype, "specificity", {
-        get: function () {
-            throw "Specificity property is abstract";
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CssSelector.prototype, "valueSourceModifier", {
-        get: function () {
-            return observable.ValueSource.Css;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    CssSelector.prototype.matches = function (view) {
-        return false;
-    };
-    CssSelector.prototype.apply = function (view, valueSourceModifier) {
-        view._unregisterAllAnimations();
-        var modifier = valueSourceModifier || this.valueSourceModifier;
-        this.eachSetter(function (property, value) {
-            if (types.isString(property)) {
-                var propertyName = property;
-                var attrHandled = false;
-                var specialSetter = special_properties_1.getSpecialPropertySetter(propertyName);
-                if (!attrHandled && specialSetter) {
-                    specialSetter(view, value);
-                    attrHandled = true;
-                }
-                if (!attrHandled && propertyName in view) {
-                    view[propertyName] = utils.convertString(value);
-                }
-            }
-            else {
-                var resolvedProperty = property;
-                try {
-                    view.style._setValue(resolvedProperty, value, modifier);
-                }
-                catch (ex) {
-                    if (trace.enabled) {
-                        trace.write("Error setting property: " + resolvedProperty.name + " view: " + view + " value: " + value + " " + ex, trace.categories.Style, trace.messageType.error);
-                    }
-                }
-            }
-        });
-        if (this.animations && view.isLoaded && view._nativeView !== undefined) {
-            var _loop_1 = function(animationInfo) {
-                var animation = keyframeAnimation.KeyframeAnimation.keyframeAnimationFromInfo(animationInfo, modifier);
-                if (animation) {
-                    view._registerAnimation(animation);
-                    animation.play(view)
-                        .then(function () { view._unregisterAnimation(animation); })
-                        .catch(function (e) { view._unregisterAnimation(animation); });
-                }
-            };
-            for (var _i = 0, _a = this.animations; _i < _a.length; _i++) {
-                var animationInfo = _a[_i];
-                _loop_1(animationInfo);
-            }
-        }
-    };
-    CssSelector.prototype.eachSetter = function (callback) {
-        for (var i = 0; i < this._declarations.length; i++) {
-            var declaration = this._declarations[i];
-            var name_1 = declaration.property;
-            var resolvedValue = declaration.value;
-            style_property_1.withStyleProperty(name_1, resolvedValue, callback);
-        }
-    };
-    Object.defineProperty(CssSelector.prototype, "declarationText", {
-        get: function () {
-            return this.declarations.map(function (declaration) { return (declaration.property + ": " + declaration.value); }).join("; ");
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CssSelector.prototype, "attrExpressionText", {
-        get: function () {
-            if (this.attrExpression) {
-                return "[" + this.attrExpression + "]";
-            }
-            else {
-                return "";
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return CssSelector;
+    SelectorCore.prototype.lookupSort = function (sorter, base) { sorter.sortAsUniversal(base || this); };
+    SelectorCore = __decorate([
+        SelectorProperties(0, 0, Match.Static)
+    ], SelectorCore);
+    return SelectorCore;
 }());
-exports.CssSelector = CssSelector;
-var CssTypeSelector = (function (_super) {
-    __extends(CssTypeSelector, _super);
-    function CssTypeSelector() {
+exports.SelectorCore = SelectorCore;
+var SimpleSelector = (function (_super) {
+    __extends(SimpleSelector, _super);
+    function SimpleSelector() {
         _super.apply(this, arguments);
     }
-    Object.defineProperty(CssTypeSelector.prototype, "specificity", {
-        get: function () {
-            var result = TYPE_SPECIFICITY;
-            var dotIndex = this.expression.indexOf(DOT);
-            if (dotIndex > -1) {
-                result += CLASS_SPECIFICITY;
-            }
-            return result;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    CssTypeSelector.prototype.matches = function (view) {
-        var result = matchesType(this.expression, view);
-        if (result && this.attrExpression) {
-            return matchesAttr(this.attrExpression, view);
+    SimpleSelector.prototype.accumulateChanges = function (node, map) {
+        if (!this.dynamic) {
+            return this.match(node);
         }
-        return result;
+        else if (this.mayMatch(node)) {
+            this.trackChanges(node, map);
+            return true;
+        }
+        return false;
     };
-    CssTypeSelector.prototype.toString = function () {
-        return "CssTypeSelector " + this.expression + this.attrExpressionText + " { " + this.declarationText + " }";
+    SimpleSelector.prototype.mayMatch = function (node) { return this.match(node); };
+    SimpleSelector.prototype.trackChanges = function (node, map) {
     };
-    return CssTypeSelector;
-}(CssSelector));
-function matchesType(expression, view) {
-    var exprArr = expression.split(".");
-    var exprTypeName = exprArr[0];
-    var exprClassName = exprArr[1];
-    var typeCheck = exprTypeName.toLowerCase() === view.typeName.toLowerCase() ||
-        exprTypeName.toLowerCase() === view.typeName.split(/(?=[A-Z])/).join("-").toLowerCase();
-    if (typeCheck) {
-        if (exprClassName) {
-            return view._cssClasses.some(function (cssClass, i, arr) { return cssClass === exprClassName; });
+    return SimpleSelector;
+}(SelectorCore));
+exports.SimpleSelector = SimpleSelector;
+function wrap(text) {
+    return text ? " " + text + " " : "";
+}
+var InvalidSelector = (function (_super) {
+    __extends(InvalidSelector, _super);
+    function InvalidSelector(e) {
+        _super.call(this);
+        this.e = e;
+    }
+    InvalidSelector.prototype.toString = function () { return "<error: " + this.e + ">"; };
+    InvalidSelector.prototype.match = function (node) { return false; };
+    InvalidSelector.prototype.lookupSort = function (sorter, base) {
+    };
+    InvalidSelector = __decorate([
+        SelectorProperties(0, 4, Match.Static)
+    ], InvalidSelector);
+    return InvalidSelector;
+}(SimpleSelector));
+exports.InvalidSelector = InvalidSelector;
+var UniversalSelector = (function (_super) {
+    __extends(UniversalSelector, _super);
+    function UniversalSelector() {
+        _super.apply(this, arguments);
+    }
+    UniversalSelector.prototype.toString = function () { return "*" + wrap(this.combinator); };
+    UniversalSelector.prototype.match = function (node) { return true; };
+    UniversalSelector = __decorate([
+        SelectorProperties(0, 0, Match.Static)
+    ], UniversalSelector);
+    return UniversalSelector;
+}(SimpleSelector));
+exports.UniversalSelector = UniversalSelector;
+var IdSelector = (function (_super) {
+    __extends(IdSelector, _super);
+    function IdSelector(id) {
+        _super.call(this);
+        this.id = id;
+    }
+    IdSelector.prototype.toString = function () { return "#" + this.id + wrap(this.combinator); };
+    IdSelector.prototype.match = function (node) { return node.id === this.id; };
+    IdSelector.prototype.lookupSort = function (sorter, base) { sorter.sortById(this.id, base || this); };
+    IdSelector = __decorate([
+        SelectorProperties(65536, 3, Match.Static)
+    ], IdSelector);
+    return IdSelector;
+}(SimpleSelector));
+exports.IdSelector = IdSelector;
+var TypeSelector = (function (_super) {
+    __extends(TypeSelector, _super);
+    function TypeSelector(cssType) {
+        _super.call(this);
+        this.cssType = cssType;
+    }
+    TypeSelector.prototype.toString = function () { return "" + this.cssType + wrap(this.combinator); };
+    TypeSelector.prototype.match = function (node) { return node.cssType === this.cssType; };
+    TypeSelector.prototype.lookupSort = function (sorter, base) { sorter.sortByType(this.cssType, base || this); };
+    TypeSelector = __decorate([
+        SelectorProperties(1, 1, Match.Static)
+    ], TypeSelector);
+    return TypeSelector;
+}(SimpleSelector));
+exports.TypeSelector = TypeSelector;
+var ClassSelector = (function (_super) {
+    __extends(ClassSelector, _super);
+    function ClassSelector(cssClass) {
+        _super.call(this);
+        this.cssClass = cssClass;
+    }
+    ClassSelector.prototype.toString = function () { return "." + this.cssClass + wrap(this.combinator); };
+    ClassSelector.prototype.match = function (node) { return node.cssClasses && node.cssClasses.has(this.cssClass); };
+    ClassSelector.prototype.lookupSort = function (sorter, base) { sorter.sortByClass(this.cssClass, base || this); };
+    ClassSelector = __decorate([
+        SelectorProperties(256, 2, Match.Static)
+    ], ClassSelector);
+    return ClassSelector;
+}(SimpleSelector));
+exports.ClassSelector = ClassSelector;
+var AttributeSelector = (function (_super) {
+    __extends(AttributeSelector, _super);
+    function AttributeSelector(attribute, test, value) {
+        _super.call(this);
+        this.attribute = attribute;
+        this.test = test;
+        this.value = value;
+        if (!test) {
+            this.match = function (node) { return !types_1.isNullOrUndefined(node[attribute]); };
+            return;
+        }
+        if (!value) {
+            this.match = function (node) { return false; };
+        }
+        var escapedValue = utils_1.escapeRegexSymbols(value);
+        var regexp = null;
+        switch (test) {
+            case "^=":
+                regexp = new RegExp("^" + escapedValue);
+                break;
+            case "$=":
+                regexp = new RegExp(escapedValue + "$");
+                break;
+            case "*=":
+                regexp = new RegExp(escapedValue);
+                break;
+            case "=":
+                regexp = new RegExp("^" + escapedValue + "$");
+                break;
+            case "~=":
+                if (/\s/.test(value)) {
+                    this.match = function (node) { return false; };
+                    return;
+                }
+                regexp = new RegExp("(^|\\s)" + escapedValue + "(\\s|$)");
+                break;
+            case "|=":
+                regexp = new RegExp("^" + escapedValue + "(-|$)");
+                break;
+        }
+        if (regexp) {
+            this.match = function (node) { return regexp.test(node[attribute] + ""); };
+            return;
         }
         else {
-            return typeCheck;
+            this.match = function (node) { return false; };
+            return;
         }
     }
-    else {
-        return false;
-    }
-}
-var CssIdSelector = (function (_super) {
-    __extends(CssIdSelector, _super);
-    function CssIdSelector() {
-        _super.apply(this, arguments);
-    }
-    Object.defineProperty(CssIdSelector.prototype, "specificity", {
-        get: function () {
-            return ID_SPECIFICITY;
-        },
+    Object.defineProperty(AttributeSelector.prototype, "specificity", {
+        get: function () { return 256; },
         enumerable: true,
         configurable: true
     });
-    CssIdSelector.prototype.matches = function (view) {
-        var result = this.expression === view.id;
-        if (result && this.attrExpression) {
-            return matchesAttr(this.attrExpression, view);
-        }
-        return result;
-    };
-    CssIdSelector.prototype.toString = function () {
-        return "CssIdSelector " + this.expression + this.attrExpressionText + " { " + this.declarationText + " }";
-    };
-    return CssIdSelector;
-}(CssSelector));
-var CssClassSelector = (function (_super) {
-    __extends(CssClassSelector, _super);
-    function CssClassSelector() {
-        _super.apply(this, arguments);
-    }
-    Object.defineProperty(CssClassSelector.prototype, "specificity", {
-        get: function () {
-            return CLASS_SPECIFICITY;
-        },
+    Object.defineProperty(AttributeSelector.prototype, "rarity", {
+        get: function () { return 256; },
         enumerable: true,
         configurable: true
     });
-    CssClassSelector.prototype.matches = function (view) {
-        var expectedClass = this.expression;
-        var result = view._cssClasses.some(function (cssClass, i, arr) { return cssClass === expectedClass; });
-        if (result && this.attrExpression) {
-            return matchesAttr(this.attrExpression, view);
-        }
-        return result;
-    };
-    CssClassSelector.prototype.toString = function () {
-        return "CssClassSelector " + this.expression + this.attrExpressionText + " { " + this.declarationText + " }";
-    };
-    return CssClassSelector;
-}(CssSelector));
-var CssCompositeSelector = (function (_super) {
-    __extends(CssCompositeSelector, _super);
-    function CssCompositeSelector(expr, declarations) {
-        _super.call(this, expr, declarations);
-        var expressions = this.splitExpression(expr);
-        var onlyParent = false;
-        this.parentCssSelectors = [];
-        for (var i = expressions.length - 1; i >= 0; i--) {
-            if (expressions[i].trim() === GTHAN) {
-                onlyParent = true;
-                continue;
-            }
-            this.parentCssSelectors.push({ selector: createSelector(expressions[i].trim(), null), onlyDirectParent: onlyParent });
-            onlyParent = false;
-        }
+    AttributeSelector.prototype.toString = function () { return "[" + this.attribute + wrap(this.test) + ((this.test && this.value) || '') + "]" + wrap(this.combinator); };
+    AttributeSelector.prototype.match = function (node) { return false; };
+    AttributeSelector.prototype.mayMatch = function (node) { return true; };
+    AttributeSelector.prototype.trackChanges = function (node, map) { map.addAttribute(node, this.attribute); };
+    AttributeSelector = __decorate([
+        SelectorProperties(256, 0, Match.Dynamic)
+    ], AttributeSelector);
+    return AttributeSelector;
+}(SimpleSelector));
+exports.AttributeSelector = AttributeSelector;
+var PseudoClassSelector = (function (_super) {
+    __extends(PseudoClassSelector, _super);
+    function PseudoClassSelector(cssPseudoClass) {
+        _super.call(this);
+        this.cssPseudoClass = cssPseudoClass;
     }
-    Object.defineProperty(CssCompositeSelector.prototype, "specificity", {
-        get: function () {
-            var result = 0;
-            for (var i = 0; i < this.parentCssSelectors.length; i++) {
-                result += this.parentCssSelectors[i].selector.specificity;
-            }
-            return result;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    CssCompositeSelector.prototype.splitExpression = function (expression) {
-        var result = [];
-        var tempArr = [];
-        var validSpace = true;
-        for (var i = 0; i < expression.length; i++) {
-            if (expression[i] === LSBRACKET) {
-                validSpace = false;
-            }
-            if (expression[i] === RSBRACKET) {
-                validSpace = true;
-            }
-            if ((expression[i] === SPACE && validSpace) || (expression[i] === GTHAN)) {
-                if (tempArr.length > 0) {
-                    result.push(tempArr.join(""));
-                    tempArr = [];
-                }
-                if (expression[i] === GTHAN) {
-                    result.push(GTHAN);
-                }
-                continue;
-            }
-            tempArr.push(expression[i]);
-        }
-        if (tempArr.length > 0) {
-            result.push(tempArr.join(""));
-        }
-        return result;
+    PseudoClassSelector.prototype.toString = function () { return ":" + this.cssPseudoClass + wrap(this.combinator); };
+    PseudoClassSelector.prototype.match = function (node) { return node.cssPseudoClasses && node.cssPseudoClasses.has(this.cssPseudoClass); };
+    PseudoClassSelector.prototype.mayMatch = function (node) { return true; };
+    PseudoClassSelector.prototype.trackChanges = function (node, map) { map.addPseudoClass(node, this.cssPseudoClass); };
+    PseudoClassSelector = __decorate([
+        SelectorProperties(256, 0, Match.Dynamic)
+    ], PseudoClassSelector);
+    return PseudoClassSelector;
+}(SimpleSelector));
+exports.PseudoClassSelector = PseudoClassSelector;
+var SimpleSelectorSequence = (function (_super) {
+    __extends(SimpleSelectorSequence, _super);
+    function SimpleSelectorSequence(selectors) {
+        _super.call(this);
+        this.selectors = selectors;
+        this.specificity = selectors.reduce(function (sum, sel) { return sel.specificity + sum; }, 0);
+        this.head = this.selectors.reduce(function (prev, curr) { return !prev || (curr.rarity > prev.rarity) ? curr : prev; }, null);
+        this.dynamic = selectors.some(function (sel) { return sel.dynamic; });
+    }
+    SimpleSelectorSequence.prototype.toString = function () { return "" + this.selectors.join("") + wrap(this.combinator); };
+    SimpleSelectorSequence.prototype.match = function (node) { return this.selectors.every(function (sel) { return sel.match(node); }); };
+    SimpleSelectorSequence.prototype.mayMatch = function (node) {
+        return this.selectors.every(function (sel) { return sel.mayMatch(node); });
     };
-    CssCompositeSelector.prototype.matches = function (view) {
-        var result = this.parentCssSelectors[0].selector.matches(view);
-        if (!result) {
-            return result;
-        }
-        var tempView = view.parent;
-        for (var i = 1; i < this.parentCssSelectors.length; i++) {
-            var parentCounter = 0;
-            while (tempView && parentCounter === 0) {
-                result = this.parentCssSelectors[i].selector.matches(tempView);
-                if (result) {
-                    tempView = tempView.parent;
+    SimpleSelectorSequence.prototype.trackChanges = function (node, map) {
+        this.selectors.forEach(function (sel) { return sel.trackChanges(node, map); });
+    };
+    SimpleSelectorSequence.prototype.lookupSort = function (sorter, base) {
+        this.head.lookupSort(sorter, base || this);
+    };
+    return SimpleSelectorSequence;
+}(SimpleSelector));
+exports.SimpleSelectorSequence = SimpleSelectorSequence;
+var Selector = (function (_super) {
+    __extends(Selector, _super);
+    function Selector(selectors) {
+        _super.call(this);
+        this.selectors = selectors;
+        var lastGroup;
+        var groups = [];
+        selectors.reverse().forEach(function (sel) {
+            switch (sel.combinator) {
+                case undefined:
+                case " ":
+                    groups.push(lastGroup = []);
+                case ">":
+                    lastGroup.push(sel);
                     break;
-                }
-                if (this.parentCssSelectors[i].onlyDirectParent) {
-                    parentCounter++;
-                }
-                tempView = tempView.parent;
+                default:
+                    throw new Error("Unsupported combinator \"" + sel.combinator + "\".");
             }
-            if (!result) {
-                break;
+        });
+        this.groups = groups.map(function (g) { return new Selector.ChildGroup(g); });
+        this.last = selectors[0];
+        this.specificity = selectors.reduce(function (sum, sel) { return sel.specificity + sum; }, 0);
+        this.dynamic = selectors.some(function (sel) { return sel.dynamic; });
+    }
+    Selector.prototype.toString = function () { return this.selectors.join(""); };
+    Selector.prototype.match = function (node) {
+        return this.groups.every(function (group, i) {
+            if (i === 0) {
+                node = group.match(node);
+                return !!node;
             }
-        }
-        return result;
-    };
-    CssCompositeSelector.prototype.toString = function () {
-        return "CssCompositeSelector " + this.expression + this.attrExpressionText + " { " + this.declarationText + " }";
-    };
-    return CssCompositeSelector;
-}(CssSelector));
-var CssAttrSelector = (function (_super) {
-    __extends(CssAttrSelector, _super);
-    function CssAttrSelector() {
-        _super.apply(this, arguments);
-    }
-    Object.defineProperty(CssAttrSelector.prototype, "specificity", {
-        get: function () {
-            return ATTR_SPECIFITY;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    CssAttrSelector.prototype.matches = function (view) {
-        return matchesAttr(this.attrExpression, view);
-    };
-    CssAttrSelector.prototype.toString = function () {
-        return "CssAttrSelector " + this.expression + this.attrExpressionText + " { " + this.declarationText + " }";
-    };
-    return CssAttrSelector;
-}(CssSelector));
-function matchesAttr(attrExpression, view) {
-    var equalSignIndex = attrExpression.indexOf(EQUAL);
-    if (equalSignIndex > 0) {
-        var nameValueRegex = /(.*[^~|\^\$\*])[~|\^\$\*]?=(.*)/;
-        var nameValueRegexRes = nameValueRegex.exec(attrExpression);
-        var attrName = void 0;
-        var attrValue = void 0;
-        if (nameValueRegexRes && nameValueRegexRes.length > 2) {
-            attrName = nameValueRegexRes[1].trim();
-            attrValue = nameValueRegexRes[2].trim().replace(/^(["'])*(.*)\1$/, '$2');
-        }
-        var escapedAttrValue = utils.escapeRegexSymbols(attrValue);
-        var attrCheckRegex = void 0;
-        switch (attrExpression.charAt(equalSignIndex - 1)) {
-            case "~":
-                attrCheckRegex = new RegExp("(^|[^a-zA-Z-])" + escapedAttrValue + "([^a-zA-Z-]|$)");
-                break;
-            case "|":
-                attrCheckRegex = new RegExp("^" + escapedAttrValue + "\\b");
-                break;
-            case "^":
-                attrCheckRegex = new RegExp("^" + escapedAttrValue);
-                break;
-            case "$":
-                attrCheckRegex = new RegExp(escapedAttrValue + "$");
-                break;
-            case "*":
-                attrCheckRegex = new RegExp(escapedAttrValue);
-                break;
-            default:
-                attrCheckRegex = new RegExp("^" + escapedAttrValue + "$");
-                break;
-        }
-        return !types.isNullOrUndefined(view[attrName]) && attrCheckRegex.test(view[attrName] + "");
-    }
-    else {
-        return !types.isNullOrUndefined(view[attrExpression]);
-    }
-}
-var CssVisualStateSelector = (function (_super) {
-    __extends(CssVisualStateSelector, _super);
-    function CssVisualStateSelector(expression, declarations) {
-        _super.call(this, expression, declarations);
-        var args = expression.split(COLON);
-        this._key = args[0];
-        this._state = args[1];
-        if (this._key.charAt(0) === HASH) {
-            this._match = this._key.substring(1);
-            this._isById = true;
-        }
-        else if (this._key.charAt(0) === DOT) {
-            this._match = this._key.substring(1);
-            this._isByClass = true;
-        }
-        else if (this._key.charAt(0) === LSBRACKET) {
-            this._match = this._key;
-            this._isByAttr = true;
-        }
-        else if (this._key.length > 0) {
-            this._match = this._key;
-            this._isByType = true;
-        }
-    }
-    Object.defineProperty(CssVisualStateSelector.prototype, "specificity", {
-        get: function () {
-            return (this._isById ? ID_SPECIFICITY : 0) +
-                (this._isByAttr ? ATTR_SPECIFITY : 0) +
-                (this._isByClass ? CLASS_SPECIFICITY : 0) +
-                (this._isByType ? TYPE_SPECIFICITY : 0);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CssVisualStateSelector.prototype, "key", {
-        get: function () {
-            return this._key;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CssVisualStateSelector.prototype, "state", {
-        get: function () {
-            return this._state;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CssVisualStateSelector.prototype, "valueSourceModifier", {
-        get: function () {
-            return observable.ValueSource.VisualState;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    CssVisualStateSelector.prototype.matches = function (view) {
-        var matches = true;
-        if (this._isById) {
-            matches = this._match === view.id;
-        }
-        if (this._isByClass) {
-            var expectedClass_1 = this._match;
-            matches = view._cssClasses.some(function (cssClass, i, arr) { return cssClass === expectedClass_1; });
-        }
-        if (this._isByType) {
-            matches = matchesType(this._match, view);
-        }
-        if (this._isByAttr) {
-            matches = matchesAttr(this._key, view);
-        }
-        return matches;
-    };
-    CssVisualStateSelector.prototype.toString = function () {
-        return "CssVisualStateSelector " + this.expression + this.attrExpressionText + " { " + this.declarationText + " }";
-    };
-    return CssVisualStateSelector;
-}(CssSelector));
-exports.CssVisualStateSelector = CssVisualStateSelector;
-var HASH = "#";
-var DOT = ".";
-var COLON = ":";
-var SPACE = " ";
-var GTHAN = ">";
-var LSBRACKET = "[";
-var RSBRACKET = "]";
-var EQUAL = "=";
-function createSelector(expression, declarations) {
-    var goodExpr = expression.replace(/>/g, " > ").replace(/\s\s+/g, " ");
-    var spaceIndex = goodExpr.indexOf(SPACE);
-    if (spaceIndex >= 0) {
-        return new CssCompositeSelector(goodExpr, declarations);
-    }
-    var leftSquareBracketIndex = goodExpr.indexOf(LSBRACKET);
-    if (leftSquareBracketIndex === 0) {
-        return new CssAttrSelector(goodExpr, declarations);
-    }
-    var colonIndex = goodExpr.indexOf(COLON);
-    if (colonIndex >= 0) {
-        return new CssVisualStateSelector(goodExpr, declarations);
-    }
-    if (goodExpr.charAt(0) === HASH) {
-        return new CssIdSelector(goodExpr.substring(1), declarations);
-    }
-    if (goodExpr.charAt(0) === DOT) {
-        return new CssClassSelector(goodExpr.substring(1), declarations);
-    }
-    return new CssTypeSelector(goodExpr, declarations);
-}
-exports.createSelector = createSelector;
-var InlineStyleSelector = (function (_super) {
-    __extends(InlineStyleSelector, _super);
-    function InlineStyleSelector(declarations) {
-        _super.call(this, undefined, declarations);
-    }
-    InlineStyleSelector.prototype.apply = function (view) {
-        this.eachSetter(function (property, value) {
-            var resolvedProperty = property;
-            view.style._setValue(resolvedProperty, value, observable.ValueSource.Local);
+            else {
+                var ancestor = node;
+                while (ancestor = ancestor.parent) {
+                    if (node = group.match(ancestor)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
         });
     };
-    InlineStyleSelector.prototype.toString = function () {
-        return "InlineStyleSelector " + this.expression + this.attrExpressionText + " { " + this.declarationText + " }";
+    Selector.prototype.lookupSort = function (sorter, base) {
+        this.last.lookupSort(sorter, this);
     };
-    return InlineStyleSelector;
-}(CssSelector));
-function applyInlineSyle(view, declarations) {
-    var localStyleSelector = new InlineStyleSelector(declarations);
-    localStyleSelector.apply(view);
+    Selector.prototype.accumulateChanges = function (node, map) {
+        if (!this.dynamic) {
+            return this.match(node);
+        }
+        var bounds = [];
+        var mayMatch = this.groups.every(function (group, i) {
+            if (i === 0) {
+                var nextNode = group.mayMatch(node);
+                bounds.push({ left: node, right: node });
+                node = nextNode;
+                return !!node;
+            }
+            else {
+                var ancestor = node;
+                while (ancestor = ancestor.parent) {
+                    var nextNode = group.mayMatch(ancestor);
+                    if (nextNode) {
+                        bounds.push({ left: ancestor, right: null });
+                        node = nextNode;
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+        if (!mayMatch) {
+            return false;
+        }
+        if (!map) {
+            return mayMatch;
+        }
+        for (var i = 0; i < this.groups.length; i++) {
+            var group = this.groups[i];
+            if (!group.dynamic) {
+                continue;
+            }
+            var bound = bounds[i];
+            var node_1 = bound.left;
+            do {
+                if (group.mayMatch(node_1)) {
+                    group.trackChanges(node_1, map);
+                }
+            } while ((node_1 !== bound.right) && (node_1 = node_1.parent));
+        }
+        return mayMatch;
+    };
+    return Selector;
+}(SelectorCore));
+exports.Selector = Selector;
+var Selector;
+(function (Selector) {
+    var ChildGroup = (function () {
+        function ChildGroup(selectors) {
+            this.selectors = selectors;
+            this.dynamic = selectors.some(function (sel) { return sel.dynamic; });
+        }
+        ChildGroup.prototype.match = function (node) {
+            return this.selectors.every(function (sel, i) { return (i === 0 ? node : node = node.parent) && sel.match(node); }) ? node : null;
+        };
+        ChildGroup.prototype.mayMatch = function (node) {
+            return this.selectors.every(function (sel, i) { return (i === 0 ? node : node = node.parent) && sel.mayMatch(node); }) ? node : null;
+        };
+        ChildGroup.prototype.trackChanges = function (node, map) {
+            this.selectors.forEach(function (sel, i) { return (i === 0 ? node : node = node.parent) && sel.trackChanges(node, map); });
+        };
+        return ChildGroup;
+    }());
+    Selector.ChildGroup = ChildGroup;
+})(Selector = exports.Selector || (exports.Selector = {}));
+var RuleSet = (function () {
+    function RuleSet(selectors, declarations) {
+        var _this = this;
+        this.selectors = selectors;
+        this.declarations = declarations;
+        this.selectors.forEach(function (sel) { return sel.ruleset = _this; });
+    }
+    RuleSet.prototype.toString = function () { return this.selectors.join(", ") + " {" + this.declarations.map(function (d, i) { return ("" + (i === 0 ? " " : "") + d.property + ": " + d.value); }).join("; ") + " }"; };
+    RuleSet.prototype.lookupSort = function (sorter) { this.selectors.forEach(function (sel) { return sel.lookupSort(sorter); }); };
+    return RuleSet;
+}());
+exports.RuleSet = RuleSet;
+function fromAstNodes(astRules) {
+    return astRules.filter(isRule).map(function (rule) {
+        var declarations = rule.declarations.filter(isDeclaration).map(createDeclaration);
+        var selectors = rule.selectors.map(createSelector);
+        var ruleset = new RuleSet(selectors, declarations);
+        return ruleset;
+    });
 }
-exports.applyInlineSyle = applyInlineSyle;
+exports.fromAstNodes = fromAstNodes;
+function createDeclaration(decl) {
+    return { property: decl.property.toLowerCase(), value: decl.value };
+}
+function createSelector(sel) {
+    try {
+        var ast = selectorParser.parse(sel);
+        if (ast.length === 0) {
+            return new InvalidSelector(new Error("Empty selector"));
+        }
+        var selectors = ast.map(createSimpleSelector);
+        var sequences = [];
+        for (var seqStart = 0, seqEnd = 0, last = selectors.length - 1; seqEnd <= last; seqEnd++) {
+            var sel_1 = selectors[seqEnd];
+            var astComb = ast[seqEnd].comb;
+            if (astComb || seqEnd === last) {
+                if (seqStart === seqEnd) {
+                    sel_1.combinator = astComb;
+                    sequences.push(sel_1);
+                }
+                else {
+                    var sequence = new SimpleSelectorSequence(selectors.slice(seqStart, seqEnd + 1));
+                    sequence.combinator = astComb;
+                    sequences.push(sequence);
+                }
+                seqStart = seqEnd + 1;
+            }
+        }
+        if (sequences.length === 1) {
+            return sequences[0];
+        }
+        else {
+            return new Selector(sequences);
+        }
+    }
+    catch (e) {
+        return new InvalidSelector(e);
+    }
+}
+function createSimpleSelector(sel) {
+    if (selectorParser.isUniversal(sel)) {
+        return new UniversalSelector();
+    }
+    else if (selectorParser.isId(sel)) {
+        return new IdSelector(sel.ident);
+    }
+    else if (selectorParser.isType(sel)) {
+        return new TypeSelector(sel.ident.replace(/-/, '').toLowerCase());
+    }
+    else if (selectorParser.isClass(sel)) {
+        return new ClassSelector(sel.ident);
+    }
+    else if (selectorParser.isPseudo(sel)) {
+        return new PseudoClassSelector(sel.ident);
+    }
+    else if (selectorParser.isAttribute(sel)) {
+        if (sel.test) {
+            return new AttributeSelector(sel.prop, sel.test, sel.value);
+        }
+        else {
+            return new AttributeSelector(sel.prop);
+        }
+    }
+}
+function isRule(node) {
+    return node.type === "rule";
+}
+function isDeclaration(node) {
+    return node.type === "declaration";
+}
+var SelectorsMap = (function () {
+    function SelectorsMap(rulesets) {
+        var _this = this;
+        this.id = {};
+        this.class = {};
+        this.type = {};
+        this.universal = [];
+        this.position = 0;
+        rulesets.forEach(function (rule) { return rule.lookupSort(_this); });
+    }
+    SelectorsMap.prototype.query = function (node) {
+        var _this = this;
+        var selectorClasses = [
+            this.universal,
+            this.id[node.id],
+            this.type[node.cssType]
+        ];
+        if (node.cssClasses) {
+            node.cssClasses.forEach(function (c) { return selectorClasses.push(_this.class[c]); });
+        }
+        var selectors = selectorClasses
+            .filter(function (arr) { return !!arr; })
+            .reduce(function (cur, next) { return cur.concat(next); }, []);
+        var selectorsMatch = new SelectorsMatch();
+        selectorsMatch.selectors = selectors
+            .filter(function (sel) { return sel.sel.accumulateChanges(node, selectorsMatch); })
+            .sort(function (a, b) { return a.sel.specificity - b.sel.specificity || a.pos - b.pos; })
+            .map(function (docSel) { return docSel.sel; });
+        return selectorsMatch;
+    };
+    SelectorsMap.prototype.sortById = function (id, sel) { this.addToMap(this.id, id, sel); };
+    SelectorsMap.prototype.sortByClass = function (cssClass, sel) {
+        this.addToMap(this.class, cssClass, sel);
+    };
+    SelectorsMap.prototype.sortByType = function (cssType, sel) {
+        this.addToMap(this.type, cssType, sel);
+    };
+    SelectorsMap.prototype.sortAsUniversal = function (sel) { this.universal.push(this.makeDocSelector(sel)); };
+    SelectorsMap.prototype.addToMap = function (map, head, sel) {
+        this.position++;
+        var list = map[head];
+        if (list) {
+            list.push(this.makeDocSelector(sel));
+        }
+        else {
+            map[head] = [this.makeDocSelector(sel)];
+        }
+    };
+    SelectorsMap.prototype.makeDocSelector = function (sel) {
+        return { sel: sel, pos: this.position++ };
+    };
+    return SelectorsMap;
+}());
+exports.SelectorsMap = SelectorsMap;
+var SelectorsMatch = (function () {
+    function SelectorsMatch() {
+        this.changeMap = new Map();
+    }
+    SelectorsMatch.prototype.addAttribute = function (node, attribute) {
+        var deps = this.properties(node);
+        if (!deps.attributes) {
+            deps.attributes = new Set();
+        }
+        deps.attributes.add(attribute);
+    };
+    SelectorsMatch.prototype.addPseudoClass = function (node, pseudoClass) {
+        var deps = this.properties(node);
+        if (!deps.pseudoClasses) {
+            deps.pseudoClasses = new Set();
+        }
+        deps.pseudoClasses.add(pseudoClass);
+    };
+    SelectorsMatch.prototype.properties = function (node) {
+        var set = this.changeMap.get(node);
+        if (!set) {
+            this.changeMap.set(node, set = {});
+        }
+        return set;
+    };
+    return SelectorsMatch;
+}());
+exports.SelectorsMatch = SelectorsMatch;
+//# sourceMappingURL=css-selector.js.map

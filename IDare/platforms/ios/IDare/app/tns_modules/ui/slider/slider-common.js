@@ -57,3 +57,4 @@ var Slider = (function (_super) {
     return Slider;
 }(view.View));
 exports.Slider = Slider;
+//# sourceMappingURL=slider-common.js.map

@@ -27,3 +27,4 @@ var Placeholder = (function (_super) {
     return Placeholder;
 }(common.Placeholder));
 exports.Placeholder = Placeholder;
+//# sourceMappingURL=placeholder.ios.js.map

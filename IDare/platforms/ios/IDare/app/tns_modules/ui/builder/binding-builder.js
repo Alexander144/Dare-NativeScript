@@ -178,3 +178,4 @@ var xmlBindingProperties = {
     source: true,
     defaultProperty: bindingConstants.sourceProperty
 };
+//# sourceMappingURL=binding-builder.js.map

@@ -139,3 +139,4 @@ var SegmentedBar = (function (_super) {
     return SegmentedBar;
 }(view.View));
 exports.SegmentedBar = SegmentedBar;
+//# sourceMappingURL=segmented-bar-common.js.map

@@ -60,3 +60,4 @@ function isDialogOptions(arg) {
     return !types.isNullOrUndefined(arg) && (arg.message || arg.title);
 }
 exports.isDialogOptions = isDialogOptions;
+//# sourceMappingURL=dialogs-common.js.map

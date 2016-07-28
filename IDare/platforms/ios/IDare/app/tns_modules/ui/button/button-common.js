@@ -122,3 +122,4 @@ function onTextWrapPropertyChanged(data) {
     v.style.whiteSpace = data.newValue ? enums_1.WhiteSpace.normal : enums_1.WhiteSpace.nowrap;
 }
 Button.textWrapProperty.metadata.onSetNativeValue = onTextWrapPropertyChanged;
+//# sourceMappingURL=button-common.js.map

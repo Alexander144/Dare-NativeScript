@@ -75,3 +75,4 @@ function notify(fps) {
         callback(fps, _minFps);
     }
 }
+//# sourceMappingURL=fps-meter.js.map

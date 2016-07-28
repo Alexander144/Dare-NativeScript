@@ -32,3 +32,4 @@ var FadeTransition = (function (_super) {
     return FadeTransition;
 }(transition.Transition));
 exports.FadeTransition = FadeTransition;
+//# sourceMappingURL=fade-transition.ios.js.map

@@ -270,3 +270,4 @@ var TabView = (function (_super) {
     return TabView;
 }(view_1.View));
 exports.TabView = TabView;
+//# sourceMappingURL=tab-view-common.js.map

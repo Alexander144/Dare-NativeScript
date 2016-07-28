@@ -55,3 +55,4 @@ var DockLayout = (function (_super) {
     return DockLayout;
 }(layout_base_1.LayoutBase));
 exports.DockLayout = DockLayout;
+//# sourceMappingURL=dock-layout-common.js.map

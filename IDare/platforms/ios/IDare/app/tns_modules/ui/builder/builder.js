@@ -444,3 +444,4 @@ var xml2ui;
     }());
     xml2ui.ComponentParser = ComponentParser;
 })(xml2ui || (xml2ui = {}));
+//# sourceMappingURL=builder.js.map

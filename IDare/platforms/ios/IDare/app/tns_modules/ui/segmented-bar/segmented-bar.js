@@ -196,3 +196,4 @@ var SegmentedBarStyler = (function () {
 }());
 exports.SegmentedBarStyler = SegmentedBarStyler;
 SegmentedBarStyler.registerHandlers();
+//# sourceMappingURL=segmented-bar.ios.js.map

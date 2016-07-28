@@ -10,16 +10,12 @@ var proxy_1 = require("ui/core/proxy");
 var dependency_observable_1 = require("ui/core/dependency-observable");
 var special_properties_1 = require("ui/builder/special-properties");
 var style_1 = require("ui/styling/style");
-var visualStateConstants = require("ui/styling/visual-state-constants");
 var debug_1 = require("utils/debug");
-var visualState;
-function ensureVisualState() {
-    if (!visualState) {
-        visualState = require("../styling/visual-state");
-    }
-}
 special_properties_1.registerSpecialProperty("class", function (instance, propertyValue) {
     instance.className = propertyValue;
+});
+special_properties_1.registerSpecialProperty("text", function (instance, propertyValue) {
+    instance.set("text", propertyValue);
 });
 function getEventOrGestureName(name) {
     return name.indexOf("on") === 0 ? name.substr(2, name.length - 2) : name;
@@ -84,14 +80,35 @@ function getAncestor(view, criterion) {
     return null;
 }
 exports.getAncestor = getAncestor;
+function PseudoClassHandler() {
+    var pseudoClasses = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        pseudoClasses[_i - 0] = arguments[_i];
+    }
+    var stateEventNames = pseudoClasses.map(function (s) { return ":" + s; });
+    var listeners = Symbol("listeners");
+    return function (target, propertyKey, descriptor) {
+        function update(change) {
+            var prev = this[listeners] || 0;
+            var next = prev + change;
+            if (prev <= 0 && next > 0) {
+                this[propertyKey](true);
+            }
+            else if (prev > 0 && next <= 0) {
+                this[propertyKey](false);
+            }
+        }
+        stateEventNames.forEach(function (s) { return target[s] = update; });
+    };
+}
+exports.PseudoClassHandler = PseudoClassHandler;
 var viewIdCounter = 0;
 function onCssClassPropertyChanged(data) {
     var view = data.object;
+    var classes = view.cssClasses;
+    classes.clear();
     if (types.isString(data.newValue)) {
-        view._cssClasses = data.newValue.split(" ");
-    }
-    else {
-        view._cssClasses.length = 0;
+        data.newValue.split(" ").forEach(function (c) { return classes.add(c); });
     }
 }
 var cssClassProperty = new dependency_observable_1.Property("cssClass", "View", new proxy_1.PropertyMetadata(undefined, dependency_observable_1.PropertyMetadataSettings.AffectsStyle, onCssClassPropertyChanged));
@@ -117,11 +134,12 @@ var View = (function (_super) {
         this._oldBottom = 0;
         this._isLayoutValid = false;
         this._isAddedToNativeVisualTree = false;
-        this._cssClasses = [];
         this._gestureObservers = {};
+        this.cssClasses = new Set();
+        this.cssPseudoClasses = new Set();
         this._style = new style.Style(this);
         this._domId = viewIdCounter++;
-        this._visualState = visualStateConstants.Normal;
+        this._goToVisualState("normal");
     }
     View.prototype.getGestureObservers = function (type) {
         return this._gestureObservers[type];
@@ -562,16 +580,12 @@ var View = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(View.prototype, "visualState", {
-        get: function () {
-            return this._visualState;
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(View.prototype, "cssType", {
         get: function () {
-            return this.typeName.toLowerCase();
+            if (!this._cssType) {
+                this._cssType = this.typeName.toLowerCase();
+            }
+            return this._cssType;
         },
         enumerable: true,
         configurable: true
@@ -606,6 +620,8 @@ var View = (function (_super) {
         }
     };
     View.prototype.onUnloaded = function () {
+        this._onCssStateChange(this._cssState, null);
+        this._cssState = null;
         this._unloadEachChildView();
         this._isLoaded = false;
         this._emit("unloaded");
@@ -690,6 +706,18 @@ var View = (function (_super) {
     View.prototype.onLayout = function (left, top, right, bottom) {
     };
     View.prototype.layoutNativeView = function (left, top, right, bottom) {
+    };
+    View.prototype.addPseudoClass = function (name) {
+        if (!this.cssPseudoClasses.has(name)) {
+            this.cssPseudoClasses.add(name);
+            this.notifyPseudoClassChanged(name);
+        }
+    };
+    View.prototype.deletePseudoClass = function (name) {
+        if (this.cssPseudoClasses.has(name)) {
+            this.cssPseudoClasses.delete(name);
+            this.notifyPseudoClassChanged(name);
+        }
     };
     View.resolveSizeAndState = function (size, specSize, specMode, childMeasuredState) {
         var result = size;
@@ -923,7 +951,6 @@ var View = (function (_super) {
     };
     View.prototype._addViewCore = function (view, atIndex) {
         this._propagateInheritableProperties(view);
-        view.style._inheritStyleProperties();
         if (!view._isAddedToNativeVisualTree) {
             var nativeIndex = this._childIndexToNativeChildIndex(atIndex);
             view._isAddedToNativeVisualTree = this._addViewToNativeVisualTree(view, nativeIndex);
@@ -934,6 +961,7 @@ var View = (function (_super) {
     };
     View.prototype._propagateInheritableProperties = function (view) {
         view._inheritProperties(this);
+        view.style._inheritStyleProperties(this);
     };
     View.prototype._inheritProperties = function (parentView) {
         var _this = this;
@@ -988,12 +1016,12 @@ var View = (function (_super) {
         if (trace.enabled) {
             trace.write(this + " going to state: " + state, trace.categories.Style);
         }
-        if (state === this._visualState || this._requestedVisualState === state) {
+        if (state === this._visualState) {
             return;
         }
-        ensureVisualState();
-        this._visualState = visualState.goToState(this, state);
-        this._requestedVisualState = state;
+        this.deletePseudoClass(this._visualState);
+        this._visualState = state;
+        this.addPseudoClass(state);
     };
     View.prototype._applyXmlAttribute = function (attribute, value) {
         if (attribute === "style") {
@@ -1101,6 +1129,71 @@ var View = (function (_super) {
     View.prototype._canApplyNativeProperty = function () {
         return !!this._nativeView;
     };
+    View.prototype.notifyPseudoClassChanged = function (pseudoClass) {
+        this.notify({ eventName: ":" + pseudoClass, object: this });
+    };
+    View.prototype._onCssStateChange = function (previous, next) {
+        var _this = this;
+        if (!this._invalidateCssHandler) {
+            this._invalidateCssHandler = function () {
+                if (_this._invalidateCssHandlerSuspended) {
+                    return;
+                }
+                _this.applyCssState();
+            };
+        }
+        try {
+            this._invalidateCssHandlerSuspended = true;
+            if (next) {
+                next.changeMap.forEach(function (changes, view) {
+                    if (changes.attributes) {
+                        changes.attributes.forEach(function (attribute) {
+                            view.addEventListener(attribute + "Change", _this._invalidateCssHandler);
+                        });
+                    }
+                    if (changes.pseudoClasses) {
+                        changes.pseudoClasses.forEach(function (pseudoClass) {
+                            var eventName = ":" + pseudoClass;
+                            view.addEventListener(":" + pseudoClass, _this._invalidateCssHandler);
+                            if (view[eventName]) {
+                                view[eventName](+1);
+                            }
+                        });
+                    }
+                });
+            }
+            if (previous) {
+                previous.changeMap.forEach(function (changes, view) {
+                    if (changes.attributes) {
+                        changes.attributes.forEach(function (attribute) {
+                            view.removeEventListener("onPropertyChanged:" + attribute, _this._invalidateCssHandler);
+                        });
+                    }
+                    if (changes.pseudoClasses) {
+                        changes.pseudoClasses.forEach(function (pseudoClass) {
+                            var eventName = ":" + pseudoClass;
+                            view.removeEventListener(eventName, _this._invalidateCssHandler);
+                            if (view[eventName]) {
+                                view[eventName](-1);
+                            }
+                        });
+                    }
+                });
+            }
+        }
+        finally {
+            this._invalidateCssHandlerSuspended = false;
+        }
+        this.applyCssState();
+    };
+    View.prototype.applyCssState = function () {
+        if (!this._cssState) {
+            return;
+        }
+        this.style._beginUpdate();
+        this._cssState.apply();
+        this.style._endUpdate();
+    };
     View.loadedEvent = "loaded";
     View.unloadedEvent = "unloaded";
     View.automationTextProperty = automationTextProperty;
@@ -1114,3 +1207,4 @@ var View = (function (_super) {
     return View;
 }(proxy_1.ProxyObject));
 exports.View = View;
+//# sourceMappingURL=view-common.js.map

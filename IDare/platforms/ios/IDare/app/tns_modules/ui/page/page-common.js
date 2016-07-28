@@ -5,6 +5,7 @@ var action_bar_1 = require("ui/action-bar");
 var dependency_observable_1 = require("ui/core/dependency-observable");
 var style = require("../styling/style");
 var proxy = require("ui/core/proxy");
+var types = require("utils/types");
 var fs;
 function ensureFS() {
     if (!fs) {
@@ -146,10 +147,6 @@ var Page = (function (_super) {
             }
         }
     };
-    Page.prototype.removeCssSelectors = function (selectorExpression) {
-        this._styleScope.removeSelectors(selectorExpression);
-        this._refreshCss();
-    };
     Page.prototype.getKeyframeAnimationWithName = function (animationName) {
         return this._styleScope.getKeyframeAnimationWithName(animationName);
     };
@@ -168,8 +165,11 @@ var Page = (function (_super) {
             isBackNavigation: isBackNavigation
         };
     };
-    Page.prototype.onNavigatingTo = function (context, isBackNavigation) {
+    Page.prototype.onNavigatingTo = function (context, isBackNavigation, bindingContext) {
         this._navigationContext = context;
+        if (!isBackNavigation && !types.isNullOrUndefined(bindingContext)) {
+            this.bindingContext = bindingContext;
+        }
         this.notify(this.createNavigatedData(Page.navigatingToEvent, isBackNavigation));
     };
     Page.prototype.onNavigatedTo = function (isBackNavigation) {
@@ -189,17 +189,17 @@ var Page = (function (_super) {
             return this;
         }
         else {
-            var context = arguments[1];
+            var context_1 = arguments[1];
             var closeCallback = arguments[2];
             var fullscreen = arguments[3];
-            var page;
+            var page = void 0;
             if (arguments[0] instanceof Page) {
                 page = arguments[0];
             }
             else {
                 page = frame.resolvePageFromEntry({ moduleName: arguments[0] });
             }
-            page._showNativeModalView(this, context, closeCallback, fullscreen);
+            page._showNativeModalView(this, context_1, closeCallback, fullscreen);
             return page;
         }
     };
@@ -305,3 +305,4 @@ var Page = (function (_super) {
     return Page;
 }(content_view_1.ContentView));
 exports.Page = Page;
+//# sourceMappingURL=page-common.js.map

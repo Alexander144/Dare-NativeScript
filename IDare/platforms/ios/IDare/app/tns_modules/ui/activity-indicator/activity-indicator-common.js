@@ -21,3 +21,4 @@ var ActivityIndicator = (function (_super) {
     return ActivityIndicator;
 }(view_1.View));
 exports.ActivityIndicator = ActivityIndicator;
+//# sourceMappingURL=activity-indicator-common.js.map

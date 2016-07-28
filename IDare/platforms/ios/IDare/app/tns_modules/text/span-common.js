@@ -221,3 +221,4 @@ var Span = (function (_super) {
     return Span;
 }(bindable.Bindable));
 exports.Span = Span;
+//# sourceMappingURL=span-common.js.map

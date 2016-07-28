@@ -13,6 +13,13 @@ function isFunction(value) {
     return typeof value === "function";
 }
 exports.isFunction = isFunction;
+function isObject(value) {
+    if (!value) {
+        return false;
+    }
+    return typeof value === "object";
+}
+exports.isObject = isObject;
 function isUndefined(value) {
     return typeof value === "undefined";
 }
@@ -100,3 +107,4 @@ function toUIString(obj) {
     return isNullOrUndefined(obj) ? "" : obj + "";
 }
 exports.toUIString = toUIString;
+//# sourceMappingURL=types.js.map

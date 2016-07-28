@@ -1,6 +1,7 @@
 require("globals");
 var observable = require("data/observable");
 var frame = require("ui/frame");
+require("../bundle-entry-points");
 var builder;
 function ensureBuilder() {
     if (!builder) {
@@ -83,3 +84,4 @@ function __onLiveSync() {
     }
 }
 exports.__onLiveSync = __onLiveSync;
+//# sourceMappingURL=application-common.js.map

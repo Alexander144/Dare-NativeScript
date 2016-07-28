@@ -350,3 +350,4 @@ var Console = (function () {
     return Console;
 }());
 exports.Console = Console;
+//# sourceMappingURL=console.js.map

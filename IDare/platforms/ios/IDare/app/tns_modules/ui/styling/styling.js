@@ -1,6 +1,5 @@
 var styleModule = require("./style");
 var stylePropertyModule = require("./style-property");
-var visualStateConstatnsModule = require("./visual-state-constants");
 var convertersModule = require("./converters");
 exports.Property = stylePropertyModule.Property;
 exports.Style = styleModule.Style;
@@ -25,10 +24,4 @@ var converters;
     converters.visibilityConverter = convertersModule.visibilityConverter;
 })(converters = exports.converters || (exports.converters = {}));
 ;
-var visualStates;
-(function (visualStates) {
-    visualStates.Normal = visualStateConstatnsModule.Normal;
-    visualStates.Hovered = visualStateConstatnsModule.Hovered;
-    visualStates.Pressed = visualStateConstatnsModule.Pressed;
-})(visualStates = exports.visualStates || (exports.visualStates = {}));
-;
+//# sourceMappingURL=styling.js.map

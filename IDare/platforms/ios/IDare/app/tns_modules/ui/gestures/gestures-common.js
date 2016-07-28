@@ -147,3 +147,4 @@ var GesturesObserver = (function () {
     return GesturesObserver;
 }());
 exports.GesturesObserver = GesturesObserver;
+//# sourceMappingURL=gestures-common.js.map

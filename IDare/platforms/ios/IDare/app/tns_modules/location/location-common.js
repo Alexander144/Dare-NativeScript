@@ -71,3 +71,4 @@ exports.getLocation = function (options) {
         }
     });
 };
+//# sourceMappingURL=location-common.js.map

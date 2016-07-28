@@ -135,3 +135,4 @@ var ProxyViewContainer = (function (_super) {
     return ProxyViewContainer;
 }(layout_base_1.LayoutBase));
 exports.ProxyViewContainer = ProxyViewContainer;
+//# sourceMappingURL=proxy-view-container.js.map

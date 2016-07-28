@@ -3,3 +3,4 @@ exports.merge = function (sourceExports, destExports) {
         destExports[key] = sourceExports[key];
     }
 };
+//# sourceMappingURL=module-merge.js.map

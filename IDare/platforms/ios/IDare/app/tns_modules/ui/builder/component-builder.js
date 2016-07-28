@@ -177,3 +177,4 @@ function isBinding(value) {
     }
     return isBinding;
 }
+//# sourceMappingURL=component-builder.js.map

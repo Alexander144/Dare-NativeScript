@@ -82,3 +82,4 @@ var Property = (function (_super) {
     return Property;
 }(observable.Property));
 exports.Property = Property;
+//# sourceMappingURL=style-property.js.map

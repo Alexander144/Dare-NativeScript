@@ -345,3 +345,4 @@ function isVisible(item) {
     return item.visibility === enums.Visibility.visible;
 }
 exports.isVisible = isVisible;
+//# sourceMappingURL=action-bar-common.js.map

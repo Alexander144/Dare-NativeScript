@@ -86,3 +86,4 @@ function onItemsPropertyChanged(data) {
 }
 ListPicker.selectedIndexProperty.metadata.onSetNativeValue = onSelectedIndexPropertyChanged;
 ListPicker.itemsProperty.metadata.onSetNativeValue = onItemsPropertyChanged;
+//# sourceMappingURL=list-picker-common.js.map

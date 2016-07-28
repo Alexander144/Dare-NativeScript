@@ -11,6 +11,14 @@ var MainModel = (function (_super) {
         this.Dares = new observable_array_1.ObservableArray();
         this.GetDares();
     }
+    MainModel.prototype.onChildEvent = function (result) {
+        if (result.type === "ChildAdded" && result.type != "undefined") {
+            console.log("Event type: " + result.type);
+            console.log("Key: " + result.key);
+            console.log("Value: " + JSON.stringify(result.value.Dare));
+            this.m_Dare = JSON.stringify(result.value.Dare);
+        }
+    };
     MainModel.prototype.GetDares = function () {
         // listen to changes in the /users path
         firebase.addChildEventListener(this.onChildEvent, "/Dares/Lol12345");
@@ -18,14 +26,6 @@ var MainModel = (function (_super) {
         console.log("This is::::::" + M_Dare);
         this.Dares.push(new Dare_1.default("1", "lol", "leel"));
         //this.Dares.push(new Dare("12","Eat", this.User));
-    };
-    MainModel.prototype.onChildEvent = function (result) {
-        if (result.type === "ChildAdded" && result.type != "undefined") {
-            console.log("Event type: " + result.type);
-            console.log("Key: " + result.key);
-            console.log("Value: " + JSON.stringify(result.value.Dare));
-            M_Dare = JSON.stringify(result.value.Dare);
-        }
     };
     MainModel.prototype.Send = function () {
         console.debug("Send");

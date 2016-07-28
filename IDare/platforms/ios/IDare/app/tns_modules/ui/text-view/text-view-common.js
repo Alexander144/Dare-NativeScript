@@ -9,3 +9,4 @@ var TextView = (function (_super) {
     return TextView;
 }(editableTextBase.EditableTextBase));
 exports.TextView = TextView;
+//# sourceMappingURL=text-view-common.js.map

@@ -17,3 +17,4 @@ function getSpecialPropertySetter(name) {
     return specialProperties.get(propertyKey);
 }
 exports.getSpecialPropertySetter = getSpecialPropertySetter;
+//# sourceMappingURL=special-properties.js.map

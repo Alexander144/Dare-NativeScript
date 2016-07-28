@@ -164,3 +164,4 @@ function getKnownColor(name) {
     return _allColors[name.toLowerCase()];
 }
 exports.getKnownColor = getKnownColor;
+//# sourceMappingURL=known-colors.js.map

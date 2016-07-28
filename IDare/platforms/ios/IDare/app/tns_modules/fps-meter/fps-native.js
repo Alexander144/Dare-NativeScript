@@ -51,3 +51,4 @@ var FPSCallback = (function () {
     return FPSCallback;
 }());
 exports.FPSCallback = FPSCallback;
+//# sourceMappingURL=fps-native.ios.js.map

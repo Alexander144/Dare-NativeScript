@@ -26,3 +26,4 @@ var StackLayout = (function (_super) {
     return StackLayout;
 }(layout_base_1.LayoutBase));
 exports.StackLayout = StackLayout;
+//# sourceMappingURL=stack-layout-common.js.map

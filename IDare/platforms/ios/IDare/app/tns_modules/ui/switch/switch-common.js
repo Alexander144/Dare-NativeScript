@@ -20,3 +20,4 @@ var Switch = (function (_super) {
     return Switch;
 }(view.View));
 exports.Switch = Switch;
+//# sourceMappingURL=switch-common.js.map

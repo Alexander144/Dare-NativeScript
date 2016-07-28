@@ -185,3 +185,4 @@ var NetworkDomainDebugger = (function () {
     return NetworkDomainDebugger;
 }());
 exports.NetworkDomainDebugger = NetworkDomainDebugger;
+//# sourceMappingURL=webinspector.ios.js.map

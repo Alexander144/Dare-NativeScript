@@ -27,3 +27,4 @@ function notNegative(value) {
     return value >= 0;
 }
 exports.notNegative = notNegative;
+//# sourceMappingURL=number-utils.js.map

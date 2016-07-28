@@ -1,6 +1,6 @@
 {
   "name": "tns-core-modules-widgets",
-  "version": "2.1.4",
+  "version": "2.2.0-2016-07-19-76",
   "description": "Native widgets used in the NativeScript framework.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,19 +23,21 @@
       "android": "2.0.0"
     }
   },
-  "_id": "tns-core-modules-widgets@2.1.4",
-  "_shasum": "cde508d9ec9708fbf7279119eec765730c298417",
-  "_resolved": "https://registry.npmjs.org/tns-core-modules-widgets/-/tns-core-modules-widgets-2.1.4.tgz",
-  "_from": "tns-core-modules-widgets@2.1.4",
-  "_npmVersion": "2.15.5",
-  "_nodeVersion": "4.4.5",
+  "publishConfig": {
+    "tag": "next"
+  },
+  "_id": "tns-core-modules-widgets@2.2.0-2016-07-19-76",
+  "_shasum": "d6127d937d9996bcbf2199563fb872db0d3accf5",
+  "_from": "tns-core-modules-widgets@next",
+  "_npmVersion": "3.8.6",
+  "_nodeVersion": "6.0.0",
   "_npmUser": {
-    "name": "enchev",
-    "email": "vladimir.enchev@gmail.com"
+    "name": "erjangavalji",
+    "email": "erjan.gavalji@gmail.com"
   },
   "dist": {
-    "shasum": "cde508d9ec9708fbf7279119eec765730c298417",
-    "tarball": "https://registry.npmjs.org/tns-core-modules-widgets/-/tns-core-modules-widgets-2.1.4.tgz"
+    "shasum": "d6127d937d9996bcbf2199563fb872db0d3accf5",
+    "tarball": "https://registry.npmjs.org/tns-core-modules-widgets/-/tns-core-modules-widgets-2.2.0-2016-07-19-76.tgz"
   },
   "maintainers": [
     {
@@ -59,12 +61,20 @@
       "email": "hristo.hristov@outlook.com"
     },
     {
+      "name": "nativescript",
+      "email": "nativescript@telerik.com"
+    },
+    {
       "name": "nsndeck",
       "email": "nedyalko.nikolov@telerik.com"
     },
     {
       "name": "panayot.cankov",
       "email": "panayot.cankov@telerik.com"
+    },
+    {
+      "name": "tns-bot",
+      "email": "nativescript@telerik.com"
     },
     {
       "name": "vakrilov",
@@ -76,9 +86,9 @@
     }
   ],
   "_npmOperationalInternal": {
-    "host": "packages-12-west.internal.npmjs.com",
-    "tmp": "tmp/tns-core-modules-widgets-2.1.4.tgz_1467272668355_0.020876713329926133"
+    "host": "packages-16-east.internal.npmjs.com",
+    "tmp": "tmp/tns-core-modules-widgets-2.2.0-2016-07-19-76.tgz_1468945497683_0.29817570094019175"
   },
   "directories": {},
-  "readme": "ERROR: No README data found!"
+  "_resolved": "https://registry.npmjs.org/tns-core-modules-widgets/-/tns-core-modules-widgets-2.2.0-2016-07-19-76.tgz"
 }

@@ -164,3 +164,4 @@ var ConsoleWriter = (function () {
     return ConsoleWriter;
 }());
 addWriter(new ConsoleWriter());
+//# sourceMappingURL=trace.js.map

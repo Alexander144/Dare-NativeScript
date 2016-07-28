@@ -116,3 +116,4 @@ var TextBase = (function (_super) {
 }(view.View));
 exports.TextBase = TextBase;
 tbs.TextBaseStyler.registerHandlers();
+//# sourceMappingURL=text-base-common.js.map

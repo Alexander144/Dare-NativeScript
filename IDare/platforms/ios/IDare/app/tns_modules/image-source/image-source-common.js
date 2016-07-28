@@ -50,3 +50,4 @@ function isFileOrResourcePath(path) {
     return utils.isFileOrResourcePath(path);
 }
 exports.isFileOrResourcePath = isFileOrResourcePath;
+//# sourceMappingURL=image-source-common.js.map

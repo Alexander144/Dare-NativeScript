@@ -224,3 +224,4 @@ var LayoutBase = (function (_super) {
     return LayoutBase;
 }(view.CustomLayoutView));
 exports.LayoutBase = LayoutBase;
+//# sourceMappingURL=layout-base-common.js.map

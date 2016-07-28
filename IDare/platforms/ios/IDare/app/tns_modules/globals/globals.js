@@ -1,3 +1,13 @@
+require("./decorators");
+global.__extends = global.__extends || function (d, b) {
+    for (var p in b) {
+        if (b.hasOwnProperty(p)) {
+            d[p] = b[p];
+        }
+    }
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 global.moduleMerge = function (sourceExports, destExports) {
     for (var key in sourceExports) {
         destExports[key] = sourceExports[key];
@@ -16,7 +26,9 @@ global.loadModule = function (name) {
         return loader();
     }
     else {
-        return global.require(name);
+        var result_1 = global.require(name);
+        modules.set(name, function () { return result_1; });
+        return result_1;
     }
 };
 global.zonedCallback = function (callback) {
@@ -29,15 +41,6 @@ global.zonedCallback = function (callback) {
     else {
         return callback;
     }
-};
-global.__extends = global.__extends || function (d, b) {
-    for (var p in b) {
-        if (b.hasOwnProperty(p)) {
-            d[p] = b[p];
-        }
-    }
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 global.registerModule("timer", function () { return require("timer"); });
 global.registerModule("ui/dialogs", function () { return require("ui/dialogs"); });
@@ -99,7 +102,6 @@ if (platform.device.os === platform.platformNames.android) {
 else if (platform.device.os === platform.platformNames.ios) {
     global.console.dump = function (args) { c.dump(args); };
 }
-require("./decorators");
 function Deprecated(target, key, descriptor) {
     if (descriptor) {
         var originalMethod = descriptor.value;
@@ -140,3 +142,4 @@ function Experimental(target, key, descriptor) {
 }
 exports.Experimental = Experimental;
 global.Experimental = Experimental;
+//# sourceMappingURL=globals.js.map

@@ -17,6 +17,17 @@ class MainModel extends Observable{
        
         this.GetDares();
     }
+    onChildEvent(result:any) {
+
+      
+         if (result.type === "ChildAdded" && result.type != "undefined") {
+               console.log("Event type: " + result.type);
+                console.log("Key: " + result.key);
+                console.log("Value: " + JSON.stringify(result.value.Dare));
+            this.m_Dare = JSON.stringify(result.value.Dare);
+
+         }
+     }
     GetDares(){
         
 
@@ -28,17 +39,6 @@ class MainModel extends Observable{
      this.Dares.push(new Dare("1","lol","leel"));
         //this.Dares.push(new Dare("12","Eat", this.User));
     }
-     onChildEvent(result:any) {
-
-      
-         if (result.type === "ChildAdded" && result.type != "undefined") {
-               console.log("Event type: " + result.type);
-                console.log("Key: " + result.key);
-                console.log("Value: " + JSON.stringify(result.value.Dare));
-            M_Dare = JSON.stringify(result.value.Dare);
-
-         }
-     }
     Send(){
         console.debug("Send");
         firebase.push("Dares/"+this.get("Username"),{'From': "Username", 'Dare':this.get("InputDare")});

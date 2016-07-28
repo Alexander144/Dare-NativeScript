@@ -1,16 +1,12 @@
 var textModule = require("text");
 var FileSystemAccess = (function () {
     function FileSystemAccess() {
-        this.keyModificationTime = "NSFileModificationDate";
-        this.documentDir = 9;
-        this.cachesDir = 13;
-        this.userDomain = 1;
     }
     FileSystemAccess.prototype.getLastModified = function (path) {
         var fileManager = NSFileManager.defaultManager();
         var attributes = fileManager.attributesOfItemAtPathError(path);
         if (attributes) {
-            return attributes.objectForKey(this.keyModificationTime);
+            return attributes.objectForKey("NSFileModificationDate");
         }
         else {
             return new Date();
@@ -177,10 +173,10 @@ var FileSystemAccess = (function () {
         return resolvedPath;
     };
     FileSystemAccess.prototype.getDocumentsFolderPath = function () {
-        return this.getKnownPath(this.documentDir);
+        return this.getKnownPath(NSSearchPathDirectory.NSDocumentDirectory);
     };
     FileSystemAccess.prototype.getTempFolderPath = function () {
-        return this.getKnownPath(this.cachesDir);
+        return this.getKnownPath(NSSearchPathDirectory.NSCachesDirectory);
     };
     FileSystemAccess.prototype.getCurrentAppPath = function () {
         var currentDir = __dirname;
@@ -243,7 +239,7 @@ var FileSystemAccess = (function () {
     };
     FileSystemAccess.prototype.getKnownPath = function (folderType) {
         var fileManager = NSFileManager.defaultManager();
-        var paths = fileManager.URLsForDirectoryInDomains(folderType, this.userDomain);
+        var paths = fileManager.URLsForDirectoryInDomains(folderType, NSSearchPathDirectory.NSApplicationDirectory);
         var url = paths.objectAtIndex(0);
         return url.path;
     };
@@ -329,3 +325,4 @@ var FileSystemAccess = (function () {
     return FileSystemAccess;
 }());
 exports.FileSystemAccess = FileSystemAccess;
+//# sourceMappingURL=file-system-access.ios.js.map

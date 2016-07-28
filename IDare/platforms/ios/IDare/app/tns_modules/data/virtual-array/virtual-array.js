@@ -134,3 +134,4 @@ var VirtualArray = (function (_super) {
     return VirtualArray;
 }(observable.Observable));
 exports.VirtualArray = VirtualArray;
+//# sourceMappingURL=virtual-array.js.map

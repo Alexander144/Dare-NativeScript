@@ -93,3 +93,4 @@ var SliderStyler = (function () {
 }());
 exports.SliderStyler = SliderStyler;
 SliderStyler.registerHandlers();
+//# sourceMappingURL=slider.ios.js.map

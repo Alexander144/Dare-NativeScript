@@ -8,3 +8,4 @@ var Placeholder = (function (_super) {
     return Placeholder;
 }(view.View));
 exports.Placeholder = Placeholder;
+//# sourceMappingURL=placeholder-common.js.map

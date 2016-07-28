@@ -92,3 +92,4 @@ var ProxyObject = (function (_super) {
     return ProxyObject;
 }(bindable.Bindable));
 exports.ProxyObject = ProxyObject;
+//# sourceMappingURL=proxy.js.map

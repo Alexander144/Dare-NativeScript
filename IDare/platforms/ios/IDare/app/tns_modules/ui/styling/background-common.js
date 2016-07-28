@@ -2,6 +2,7 @@ var colorModule = require("color");
 var enums = require("ui/enums");
 var cssValue = require("css-value");
 var utils = require("utils/utils");
+var platform_1 = require("platform");
 var types;
 function ensureTypes() {
     if (!types) {
@@ -9,27 +10,45 @@ function ensureTypes() {
     }
 }
 var Background = (function () {
-    function Background(color, image, repeat, position, size) {
+    function Background(color, image, repeat, position, size, borderWidth, borderColor, borderRadius, clipPath) {
+        this.borderWidth = 0;
+        this.borderRadius = 0;
         this.color = color;
         this.image = image;
         this.repeat = repeat;
         this.position = position;
         this.size = size;
+        this.borderWidth = borderWidth;
+        this.borderColor = borderColor;
+        this.borderRadius = borderRadius;
+        this.clipPath = clipPath;
     }
     Background.prototype.withColor = function (value) {
-        return new Background(value, this.image, this.repeat, this.position, this.size);
+        return new Background(value, this.image, this.repeat, this.position, this.size, this.borderWidth, this.borderColor, this.borderRadius, this.clipPath);
     };
     Background.prototype.withImage = function (value) {
-        return new Background(this.color, value, this.repeat, this.position, this.size);
+        return new Background(this.color, value, this.repeat, this.position, this.size, this.borderWidth, this.borderColor, this.borderRadius, this.clipPath);
     };
     Background.prototype.withRepeat = function (value) {
-        return new Background(this.color, this.image, value, this.position, this.size);
+        return new Background(this.color, this.image, value, this.position, this.size, this.borderWidth, this.borderColor, this.borderRadius, this.clipPath);
     };
     Background.prototype.withPosition = function (value) {
-        return new Background(this.color, this.image, this.repeat, value, this.size);
+        return new Background(this.color, this.image, this.repeat, value, this.size, this.borderWidth, this.borderColor, this.borderRadius, this.clipPath);
     };
     Background.prototype.withSize = function (value) {
-        return new Background(this.color, this.image, this.repeat, this.position, value);
+        return new Background(this.color, this.image, this.repeat, this.position, value, this.borderWidth, this.borderColor, this.borderRadius, this.clipPath);
+    };
+    Background.prototype.withBorderWidth = function (value) {
+        return new Background(this.color, this.image, this.repeat, this.position, this.size, value, this.borderColor, this.borderRadius, this.clipPath);
+    };
+    Background.prototype.withBorderColor = function (value) {
+        return new Background(this.color, this.image, this.repeat, this.position, this.size, this.borderWidth, value, this.borderRadius, this.clipPath);
+    };
+    Background.prototype.withBorderRadius = function (value) {
+        return new Background(this.color, this.image, this.repeat, this.position, this.size, this.borderWidth, this.borderColor, value, this.clipPath);
+    };
+    Background.prototype.withClipPath = function (value) {
+        return new Background(this.color, this.image, this.repeat, this.position, this.size, this.borderWidth, this.borderColor, this.borderRadius, value);
     };
     Background.prototype.getDrawParams = function (width, height) {
         if (!this.image) {
@@ -162,7 +181,17 @@ var Background = (function () {
     ;
     Background.prototype.isEmpty = function () {
         ensureTypes();
-        return types.isNullOrUndefined(this.image) && types.isNullOrUndefined(this.color);
+        if (platform_1.isAndroid) {
+            return types.isNullOrUndefined(this.image)
+                && types.isNullOrUndefined(this.color)
+                && !this.borderWidth
+                && !this.borderRadius
+                && !this.clipPath;
+        }
+        else {
+            return types.isNullOrUndefined(this.image)
+                && types.isNullOrUndefined(this.color);
+        }
     };
     Background.equals = function (value1, value2) {
         if (!value1 && !value2) {
@@ -171,13 +200,29 @@ var Background = (function () {
         if (!value1 || !value2) {
             return false;
         }
-        return value1.image === value2.image &&
-            value1.position === value2.position &&
-            value1.repeat === value2.repeat &&
-            value1.size === value2.size &&
-            colorModule.Color.equals(value1.color, value2.color);
+        if (platform_1.isAndroid) {
+            return value1.image === value2.image
+                && value1.position === value2.position
+                && value1.repeat === value2.repeat
+                && value1.size === value2.size
+                && colorModule.Color.equals(value1.color, value2.color)
+                && value1.borderWidth === value2.borderWidth
+                && colorModule.Color.equals(value1.borderColor, value2.borderColor)
+                && value1.borderRadius === value2.borderRadius
+                && value1.clipPath === value2.clipPath;
+        }
+        else {
+            return value1.image === value2.image
+                && value1.position === value2.position
+                && value1.repeat === value2.repeat
+                && value1.size === value2.size
+                && colorModule.Color.equals(value1.color, value2.color);
+        }
     };
-    Background.default = new Background(undefined, undefined, undefined, undefined, undefined);
+    Background.prototype.toString = function () {
+        return "isEmpty: " + this.isEmpty() + "; color: " + this.color + "; image: " + this.image + "; repeat: " + this.repeat + "; position: " + this.position + "; size: " + this.size + "; borderWidth: " + this.borderWidth + "; borderColor: " + this.borderColor + "; borderRadius: " + this.borderRadius + "; clipPath: " + this.clipPath + ";";
+    };
+    Background.default = new Background(undefined, undefined, undefined, undefined, undefined, 0, undefined, 0, undefined);
     return Background;
 }());
 exports.Background = Background;
@@ -196,3 +241,4 @@ function cssValueToDevicePixels(source, total) {
     return utils.layout.toDevicePixels(result);
 }
 exports.cssValueToDevicePixels = cssValueToDevicePixels;
+//# sourceMappingURL=background-common.js.map

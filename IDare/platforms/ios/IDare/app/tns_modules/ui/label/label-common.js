@@ -18,3 +18,4 @@ var Label = (function (_super) {
     return Label;
 }(textBase.TextBase));
 exports.Label = Label;
+//# sourceMappingURL=label-common.js.map

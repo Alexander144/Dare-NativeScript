@@ -188,3 +188,4 @@ var ObservableArray = (function (_super) {
     return ObservableArray;
 }(observable.Observable));
 exports.ObservableArray = ObservableArray;
+//# sourceMappingURL=observable-array.js.map

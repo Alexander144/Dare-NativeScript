@@ -8,3 +8,4 @@ function getAspectSafeDimensions(sourceWidth, sourceHeight, reqWidth, reqHeight)
     };
 }
 exports.getAspectSafeDimensions = getAspectSafeDimensions;
+//# sourceMappingURL=camera-common.js.map

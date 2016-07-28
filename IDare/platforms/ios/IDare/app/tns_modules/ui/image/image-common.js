@@ -152,3 +152,4 @@ var Image = (function (_super) {
     return Image;
 }(view.View));
 exports.Image = Image;
+//# sourceMappingURL=image-common.js.map

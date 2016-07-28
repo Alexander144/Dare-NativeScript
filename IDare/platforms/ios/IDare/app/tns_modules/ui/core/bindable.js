@@ -519,3 +519,4 @@ var Binding = (function () {
     return Binding;
 }());
 exports.Binding = Binding;
+//# sourceMappingURL=bindable.js.map

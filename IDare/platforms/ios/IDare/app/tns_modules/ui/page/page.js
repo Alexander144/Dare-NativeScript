@@ -8,7 +8,7 @@ var enums_1 = require("ui/enums");
 global.moduleMerge(pageCommon, exports);
 var ENTRY = "_entry";
 var DELEGATE = "_delegate";
-function isBackNavigation(page, entry) {
+function isBackNavigationTo(page, entry) {
     var frame = page.frame;
     if (!frame) {
         return false;
@@ -25,6 +25,18 @@ function isBackNavigation(page, entry) {
         }
     }
     return false;
+}
+function isBackNavigationFrom(controller, page) {
+    if (!page.frame) {
+        return false;
+    }
+    if (controller.isBackstackCleared || controller.isBackstackSkipped) {
+        return false;
+    }
+    if (controller.navigationController && controller.navigationController.viewControllers.containsObject(controller)) {
+        return false;
+    }
+    return true;
 }
 var UIViewControllerImpl = (function (_super) {
     __extends(UIViewControllerImpl, _super);
@@ -108,8 +120,8 @@ var UIViewControllerImpl = (function (_super) {
         var frame = this.navigationController ? this.navigationController.owner : null;
         var newEntry = this[ENTRY];
         if (!page._presentedViewController && newEntry && (!frame || frame.currentPage !== page)) {
-            var isBack = isBackNavigation(page, newEntry);
-            page.onNavigatingTo(newEntry.entry.context, isBack);
+            var isBack = isBackNavigationTo(page, newEntry);
+            page.onNavigatingTo(newEntry.entry.context, isBack, newEntry.entry.bindingContext);
         }
         if (frame) {
             if (!page.parent) {
@@ -146,7 +158,7 @@ var UIViewControllerImpl = (function (_super) {
         var frame = this.navigationController ? this.navigationController.owner : null;
         if (!page._presentedViewController && frame) {
             var newEntry = this[ENTRY];
-            var isBack = isBackNavigation(page, newEntry);
+            var isBack = isBackNavigationTo(page, newEntry);
             if (frame.currentPage === page && frame._navigationQueue.length === 0) {
                 isBack = false;
             }
@@ -177,7 +189,7 @@ var UIViewControllerImpl = (function (_super) {
         }
         var frame = page.frame;
         if (!page._presentedViewController && frame && frame.currentPage === page) {
-            var isBack = page.frame && (!this.navigationController || !this.navigationController.viewControllers.containsObject(this));
+            var isBack = isBackNavigationFrom(this, page);
             page.onNavigatingFrom(isBack);
         }
         page._viewWillDisappear = true;
@@ -201,7 +213,7 @@ var UIViewControllerImpl = (function (_super) {
             frame._backStack.pop();
         }
         page._enableLoadedEvents = true;
-        var isBack = frame && (!this.navigationController || !this.navigationController.viewControllers.containsObject(this));
+        var isBack = isBackNavigationFrom(this, page);
         if (isBack) {
             frame._removeView(page);
         }
@@ -301,7 +313,13 @@ var Page = (function (_super) {
         }
         _super.prototype._raiseShowingModallyEvent.call(this);
         parent.ios.presentViewControllerAnimatedCompletion(this._ios, utils.ios.MajorVersion >= 7, null);
-        UIViewControllerTransitionCoordinator.prototype.animateAlongsideTransitionCompletion.call(parent.ios.transitionCoordinator(), null, function () { return _this._raiseShownModallyEvent(); });
+        var transitionCoordinator = parent.ios.transitionCoordinator();
+        if (transitionCoordinator) {
+            UIViewControllerTransitionCoordinator.prototype.animateAlongsideTransitionCompletion.call(transitionCoordinator, null, function () { return _this._raiseShownModallyEvent(); });
+        }
+        else {
+            this._raiseShownModallyEvent();
+        }
     };
     Page.prototype._hideNativeModalView = function (parent) {
         parent.requestLayout();
@@ -365,3 +383,4 @@ var Page = (function (_super) {
     return Page;
 }(pageCommon.Page));
 exports.Page = Page;
+//# sourceMappingURL=page.ios.js.map
