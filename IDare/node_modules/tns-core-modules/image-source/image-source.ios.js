@@ -159,3 +159,4 @@ function getImageData(instance, format, quality) {
     }
     return data;
 }
+//# sourceMappingURL=image-source.ios.js.map

@@ -243,3 +243,4 @@ global.__onLiveSync = function () {
     common.__onLiveSync();
     loadCss();
 };
+//# sourceMappingURL=application.ios.js.map

@@ -534,3 +534,4 @@ var ViewStyler = (function () {
 }());
 exports.ViewStyler = ViewStyler;
 ViewStyler.registerHandlers();
+//# sourceMappingURL=view.ios.js.map

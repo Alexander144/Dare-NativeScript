@@ -3,6 +3,7 @@ var stateChanged = require("ui/core/control-state-change");
 var style = require("ui/styling/style");
 var utils = require("utils/utils");
 var enums = require("ui/enums");
+var view_1 = require("ui/core/view");
 var TapHandlerImpl = (function (_super) {
     __extends(TapHandlerImpl, _super);
     function TapHandlerImpl() {
@@ -28,29 +29,11 @@ global.moduleMerge(common, exports);
 var Button = (function (_super) {
     __extends(Button, _super);
     function Button() {
-        var _this = this;
         _super.call(this);
         this._ios = UIButton.buttonWithType(UIButtonType.UIButtonTypeSystem);
         this._tapHandler = TapHandlerImpl.initWithOwner(new WeakRef(this));
         this._ios.addTargetActionForControlEvents(this._tapHandler, "tap", UIControlEvents.UIControlEventTouchUpInside);
-        this._stateChangedHandler = new stateChanged.ControlStateChangeListener(this._ios, function (s) {
-            _this._goToVisualState(s);
-        });
     }
-    Button.prototype.onLoaded = function () {
-        _super.prototype.onLoaded.call(this);
-        this._updateHandler();
-    };
-    Button.prototype.onUnloaded = function () {
-        _super.prototype.onUnloaded.call(this);
-        this._stateChangedHandler.stop();
-    };
-    Button.prototype._onPropertyChanged = function (property, oldValue, newValue) {
-        _super.prototype._onPropertyChanged.call(this, property, oldValue, newValue);
-        if (property.affectsStyle) {
-            this._updateHandler();
-        }
-    };
     Object.defineProperty(Button.prototype, "ios", {
         get: function () {
             return this._ios;
@@ -66,18 +49,23 @@ var Button = (function (_super) {
         this.ios.setAttributedTitleForState(newText, UIControlState.UIControlStateNormal);
         this.style._updateTextDecoration();
     };
-    Button.prototype._updateHandler = function () {
-        if (this.parent !== null && this.page !== null) {
-            var rootPage = this.page;
-            var scope = rootPage._getStyleScope();
-            if (scope.getVisualStates(this) !== undefined) {
-                this._stateChangedHandler.start();
+    Button.prototype._updateHandler = function (subscribe) {
+        var _this = this;
+        if (subscribe) {
+            if (!this._stateChangedHandler) {
+                this._stateChangedHandler = new stateChanged.ControlStateChangeListener(this._ios, function (s) {
+                    _this._goToVisualState(s);
+                });
             }
-            else {
-                this._stateChangedHandler.stop();
-            }
+            this._stateChangedHandler.start();
+        }
+        else {
+            this._stateChangedHandler.stop();
         }
     };
+    __decorate([
+        view_1.PseudoClassHandler("normal", "highlighted")
+    ], Button.prototype, "_updateHandler", null);
     return Button;
 }(common.Button));
 exports.Button = Button;
@@ -185,3 +173,4 @@ var ButtonStyler = (function () {
 }());
 exports.ButtonStyler = ButtonStyler;
 ButtonStyler.registerHandlers();
+//# sourceMappingURL=button.ios.js.map

@@ -60,3 +60,4 @@ function setInterval(callback, milliseconds) {
 }
 exports.setInterval = setInterval;
 exports.clearInterval = clearTimeout;
+//# sourceMappingURL=timer.ios.js.map

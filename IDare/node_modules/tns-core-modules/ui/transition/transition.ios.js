@@ -117,3 +117,4 @@ function _createIOSAnimatedTransitioning(navigationTransition, nativeCurve, oper
     return null;
 }
 exports._createIOSAnimatedTransitioning = _createIOSAnimatedTransitioning;
+//# sourceMappingURL=transition.ios.js.map

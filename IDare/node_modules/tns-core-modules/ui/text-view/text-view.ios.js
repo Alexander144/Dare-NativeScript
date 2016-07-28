@@ -161,3 +161,4 @@ var TextViewStyler = (function () {
 }());
 exports.TextViewStyler = TextViewStyler;
 TextViewStyler.registerHandlers();
+//# sourceMappingURL=text-view.ios.js.map

@@ -44,9 +44,20 @@ var UITabBarControllerDelegateImpl = (function (_super) {
         delegate._owner = owner;
         return delegate;
     };
+    UITabBarControllerDelegateImpl.prototype.tabBarControllerShouldSelectViewController = function (tabBarController, viewController) {
+        if (trace.enabled) {
+            trace.write("TabView.delegate.SHOULD_select(" + tabBarController + ", " + viewController + ");", trace.categories.Debug);
+        }
+        var owner = this._owner.get();
+        if (owner) {
+            var backToMoreWillBeVisible = false;
+            owner._handleTwoNavigationBars(backToMoreWillBeVisible);
+        }
+        return true;
+    };
     UITabBarControllerDelegateImpl.prototype.tabBarControllerDidSelectViewController = function (tabBarController, viewController) {
         if (trace.enabled) {
-            trace.write("TabView.UITabBarControllerDelegateClass.tabBarControllerDidSelectViewController(" + tabBarController + ", " + viewController + ");", trace.categories.Debug);
+            trace.write("TabView.delegate.DID_select(" + tabBarController + ", " + viewController + ");", trace.categories.Debug);
         }
         var owner = this._owner.get();
         if (owner) {
@@ -66,9 +77,19 @@ var UINavigationControllerDelegateImpl = (function (_super) {
         delegate._owner = owner;
         return delegate;
     };
+    UINavigationControllerDelegateImpl.prototype.navigationControllerWillShowViewControllerAnimated = function (navigationController, viewController, animated) {
+        if (trace.enabled) {
+            trace.write("TabView.moreNavigationController.WILL_show(" + navigationController + ", " + viewController + ", " + animated + ");", trace.categories.Debug);
+        }
+        var owner = this._owner.get();
+        if (owner) {
+            var backToMoreWillBeVisible = owner._ios.viewControllers.containsObject(viewController);
+            owner._handleTwoNavigationBars(backToMoreWillBeVisible);
+        }
+    };
     UINavigationControllerDelegateImpl.prototype.navigationControllerDidShowViewControllerAnimated = function (navigationController, viewController, animated) {
         if (trace.enabled) {
-            trace.write("TabView.UINavigationControllerDelegateClass.navigationControllerDidShowViewControllerAnimated(" + navigationController + ", " + viewController + ", " + animated + ");", trace.categories.Debug);
+            trace.write("TabView.moreNavigationController.DID_show(" + navigationController + ", " + viewController + ", " + animated + ");", trace.categories.Debug);
         }
         navigationController.navigationBar.topItem.rightBarButtonItem = null;
         var owner = this._owner.get();
@@ -157,12 +178,38 @@ var TabView = (function (_super) {
         }
         if (this._ios.viewControllers.containsObject(viewController)) {
             this.selectedIndex = this._ios.viewControllers.indexOfObject(viewController);
-            ;
         }
         else {
             if (trace.enabled) {
                 trace.write("TabView._onViewControllerShown: viewController is not one of our viewControllers", trace.categories.Debug);
             }
+        }
+    };
+    TabView.prototype._handleTwoNavigationBars = function (backToMoreWillBeVisible) {
+        if (trace.enabled) {
+            trace.write("TabView._handleTwoNavigationBars(backToMoreWillBeVisible: " + backToMoreWillBeVisible + ")", trace.categories.Debug);
+        }
+        var page = this.page;
+        var actionBarVisible = page.frame._getNavBarVisible(page);
+        if (backToMoreWillBeVisible && actionBarVisible) {
+            page.frame.ios._disableNavBarAnimation = true;
+            page.actionBarHidden = true;
+            page.frame.ios._disableNavBarAnimation = false;
+            this._actionBarHiddenByTabView = true;
+            if (trace.enabled) {
+                trace.write("TabView hid action bar", trace.categories.Debug);
+            }
+            return;
+        }
+        if (!backToMoreWillBeVisible && this._actionBarHiddenByTabView) {
+            page.frame.ios._disableNavBarAnimation = true;
+            page.actionBarHidden = false;
+            page.frame.ios._disableNavBarAnimation = false;
+            this._actionBarHiddenByTabView = undefined;
+            if (trace.enabled) {
+                trace.write("TabView restored action bar", trace.categories.Debug);
+            }
+            return;
         }
     };
     TabView.prototype._removeTabs = function (oldItems) {
@@ -234,7 +281,7 @@ var TabView = (function (_super) {
             ensureImageSource();
             var is = imageSource.fromFileOrResource(iconSource);
             if (is && is.ios) {
-                var originalRenderedImage = is.ios.imageWithRenderingMode(UIImageRenderingMode.UIImageRenderingModeAlwaysOriginal);
+                var originalRenderedImage = is.ios.imageWithRenderingMode(UIImageRenderingMode.UIImageRenderingModeAutomatic);
                 this._iconsCache[iconSource] = originalRenderedImage;
                 image = originalRenderedImage;
             }
@@ -370,3 +417,4 @@ var TabViewStyler = (function () {
 }());
 exports.TabViewStyler = TabViewStyler;
 TabViewStyler.registerHandlers();
+//# sourceMappingURL=tab-view.ios.js.map

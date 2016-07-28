@@ -260,21 +260,25 @@ var ios;
     }
     ios.registerFont = registerFont;
 })(ios = exports.ios || (exports.ios = {}));
-function registerCustomFonts() {
-    var fontsFolderPath = fs.path.join(__dirname.substring(0, __dirname.indexOf("/tns_modules")), "fonts");
-    if (fs.Folder.exists(fontsFolderPath)) {
-        var fontsFolder = fs.Folder.fromPath(fontsFolderPath);
-        var onEachEntityFunc = function (fileEntity) {
-            if (fs.Folder.exists(fs.path.join(fontsFolderPath, fileEntity.name))) {
-                return true;
-            }
-            if (fileEntity instanceof fs.File &&
-                (fileEntity.extension === ".ttf" || fileEntity.extension === ".otf")) {
-                ios.registerFont(fileEntity.name);
-            }
+function registerFontsInFolder(fontsFolderPath) {
+    var fontsFolder = fs.Folder.fromPath(fontsFolderPath);
+    fontsFolder.eachEntity(function (fileEntity) {
+        if (fs.Folder.exists(fs.path.join(fontsFolderPath, fileEntity.name))) {
             return true;
-        };
-        fontsFolder.eachEntity(onEachEntityFunc);
+        }
+        if (fileEntity instanceof fs.File &&
+            (fileEntity.extension === ".ttf" || fileEntity.extension === ".otf")) {
+            ios.registerFont(fileEntity.name);
+        }
+        return true;
+    });
+}
+function registerCustomFonts() {
+    var appDir = fs.knownFolders.currentApp().path;
+    var fontsDir = fs.path.join(appDir, "fonts");
+    if (fs.Folder.exists(fontsDir)) {
+        registerFontsInFolder(fontsDir);
     }
 }
 registerCustomFonts();
+//# sourceMappingURL=font.ios.js.map

@@ -146,3 +146,4 @@ var StackLayout = (function (_super) {
     return StackLayout;
 }(common.StackLayout));
 exports.StackLayout = StackLayout;
+//# sourceMappingURL=stack-layout.ios.js.map

@@ -93,6 +93,10 @@ var Frame = (function (_super) {
             viewController.navigationItem.hidesBackButton = true;
             var newControllers = NSMutableArray.alloc().initWithCapacity(1);
             newControllers.addObject(viewController);
+            var oldControllers = this._ios.controller.viewControllers;
+            for (var i = 0; i < oldControllers.count; i++) {
+                oldControllers.objectAtIndex(i).isBackstackCleared = true;
+            }
             this._ios.controller.setViewControllersAnimated(newControllers, animated);
             if (trace.enabled) {
                 trace.write(this + ".setViewControllersAnimated([" + viewController + "], " + animated + "); depth = " + navDepth, trace.categories.Navigation);
@@ -105,6 +109,8 @@ var Frame = (function (_super) {
                 throw new Error("Wrong controllers count.");
             }
             viewController.navigationItem.hidesBackButton = this.backStack.length === 0;
+            var skippedNavController = newControllers.lastObject;
+            skippedNavController.isBackstackSkipped = true;
             newControllers.removeLastObject();
             newControllers.addObject(viewController);
             this._ios.controller.setViewControllersAnimated(newControllers, animated);
@@ -133,7 +139,7 @@ var Frame = (function (_super) {
     };
     Frame.prototype._updateActionBar = function (page) {
         _super.prototype._updateActionBar.call(this, page);
-        var page = page || this.currentPage;
+        page = page || this.currentPage;
         var newValue = this._getNavBarVisible(page);
         this._ios.showNavigationBar = newValue;
         if (this._ios.controller.navigationBar) {
@@ -576,7 +582,7 @@ var iOSFrame = (function () {
         set: function (value) {
             var change = this._showNavigationBar !== value;
             this._showNavigationBar = value;
-            var animated = !this._frame._isInitialNavigation;
+            var animated = !this._frame._isInitialNavigation && !this._disableNavBarAnimation;
             this._controller.setNavigationBarHiddenAnimated(!value, animated);
             var currentPage = this._controller.owner.currentPage;
             if (currentPage && change) {
@@ -598,3 +604,4 @@ var iOSFrame = (function () {
     });
     return iOSFrame;
 }());
+//# sourceMappingURL=frame.ios.js.map

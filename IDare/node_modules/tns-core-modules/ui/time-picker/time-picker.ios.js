@@ -108,3 +108,4 @@ var TimePickerStyler = (function () {
 }());
 exports.TimePickerStyler = TimePickerStyler;
 TimePickerStyler.registerHandlers();
+//# sourceMappingURL=time-picker.ios.js.map

@@ -121,3 +121,4 @@ var DockLayout = (function (_super) {
     return DockLayout;
 }(common.DockLayout));
 exports.DockLayout = DockLayout;
+//# sourceMappingURL=dock-layout.ios.js.map

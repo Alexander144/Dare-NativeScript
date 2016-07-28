@@ -1,4 +1,3 @@
-var visualStateConstants = require("ui/styling/visual-state-constants");
 var ObserverClass = NSObject.extend({
     observeValueForKeyPathOfObjectChangeContext: function (path, obj, change, context) {
         if (path === "selected") {
@@ -24,6 +23,7 @@ var ControlStateChangeListener = (function () {
         if (!this._observing) {
             this._control.addObserverForKeyPathOptionsContext(this._observer, "highlighted", NSKeyValueObservingOptions.NSKeyValueObservingOptionNew, null);
             this._observing = true;
+            this._updateState();
         }
     };
     ControlStateChangeListener.prototype.stop = function () {
@@ -42,7 +42,7 @@ var ControlStateChangeListener = (function () {
         this._updateState();
     };
     ControlStateChangeListener.prototype._updateState = function () {
-        var state = visualStateConstants.Normal;
+        var state = "normal";
         if (this._control.highlighted) {
             state = "highlighted";
         }
@@ -51,3 +51,4 @@ var ControlStateChangeListener = (function () {
     return ControlStateChangeListener;
 }());
 exports.ControlStateChangeListener = ControlStateChangeListener;
+//# sourceMappingURL=control-state-change.ios.js.map

@@ -161,3 +161,4 @@ var screen;
     screen.mainScreen = new MainScreen();
 })(screen = exports.screen || (exports.screen = {}));
 exports.isIOS = true;
+//# sourceMappingURL=platform.ios.js.map

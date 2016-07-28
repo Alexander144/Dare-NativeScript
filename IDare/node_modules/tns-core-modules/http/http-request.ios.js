@@ -123,3 +123,4 @@ exports.request = request;
 function NSDataToString(data) {
     return NSString.alloc().initWithDataEncoding(data, 4).toString();
 }
+//# sourceMappingURL=http-request.ios.js.map

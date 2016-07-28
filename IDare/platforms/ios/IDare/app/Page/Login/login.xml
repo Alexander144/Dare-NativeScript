@@ -8,7 +8,7 @@
    <Button text="Log in" tap="{{login}}"> </Button>
    <Button text="Sign Up" tap="{{SignUp}}"> </Button>
    <Button text="Send push" tap="{{Send}}"> </Button>
-
+  <Label text="{{M_Dare}}"> </Label>
    <Repeater items="{{items}}"> 
       <Repeater.itemTemplate> 
         <Label text="{{ name }}"> </Label>

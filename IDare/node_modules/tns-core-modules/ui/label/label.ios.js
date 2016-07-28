@@ -161,3 +161,4 @@ var LabelStyler = (function () {
 }());
 exports.LabelStyler = LabelStyler;
 LabelStyler.registerHandlers();
+//# sourceMappingURL=label.ios.js.map

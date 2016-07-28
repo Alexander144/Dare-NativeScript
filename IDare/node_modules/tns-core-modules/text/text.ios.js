@@ -7,3 +7,4 @@ var encoding;
     encoding.UTF_16LE = 0x94000100;
     encoding.UTF_8 = 4;
 })(encoding = exports.encoding || (exports.encoding = {}));
+//# sourceMappingURL=text.ios.js.map

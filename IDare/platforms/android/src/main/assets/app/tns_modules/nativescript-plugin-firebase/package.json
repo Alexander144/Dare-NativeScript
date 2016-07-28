@@ -1,0 +1,68 @@
+{
+  "name": "nativescript-plugin-firebase",
+  "version": "3.3.0",
+  "description": "Fire. Base. Firebase!",
+  "main": "firebase.js",
+  "nativescript": {
+    "platforms": {
+      "android": "1.7.0",
+      "ios": "1.7.0"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eddyverbruggen/nativescript-plugin-firebase.git"
+  },
+  "keywords": [
+    "NativeScript",
+    "Firebase",
+    "Database",
+    "Authentication",
+    "Push Notifications",
+    "Notifications",
+    "Messaging",
+    "Remote Configuration",
+    "Facebook",
+    "Google"
+  ],
+  "author": {
+    "name": "Telerik / Eddy Verbruggen",
+    "email": "eddyverbruggen@gmail.com"
+  },
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/eddyverbruggen/nativescript-plugin-firebase/blob/master/LICENSE"
+  },
+  "bugs": {
+    "url": "https://github.com/eddyverbruggen/nativescript-plugin-firebase/issues"
+  },
+  "homepage": "https://github.com/eddyverbruggen/nativescript-plugin-firebase",
+  "gitHead": "204d65566b795455d3de923944177c0359602651",
+  "_id": "nativescript-plugin-firebase@3.3.0",
+  "scripts": {},
+  "_shasum": "fbdcf3c9d1df8380e8d25f9357e22c870488a967",
+  "_from": "nativescript-plugin-firebase@latest",
+  "_npmVersion": "2.14.7",
+  "_nodeVersion": "4.2.2",
+  "_npmUser": {
+    "name": "eddyverbruggen",
+    "email": "eddyverbruggen@gmail.com"
+  },
+  "dist": {
+    "shasum": "fbdcf3c9d1df8380e8d25f9357e22c870488a967",
+    "tarball": "https://registry.npmjs.org/nativescript-plugin-firebase/-/nativescript-plugin-firebase-3.3.0.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "eddyverbruggen",
+      "email": "eddyverbruggen@gmail.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "packages-16-east.internal.npmjs.com",
+    "tmp": "tmp/nativescript-plugin-firebase-3.3.0.tgz_1466967368432_0.15585026564076543"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/nativescript-plugin-firebase/-/nativescript-plugin-firebase-3.3.0.tgz",
+  "readme": "ERROR: No README data found!"
+}

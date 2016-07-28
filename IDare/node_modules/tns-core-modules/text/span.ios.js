@@ -73,3 +73,4 @@ var Span = (function (_super) {
     return Span;
 }(spanCommon.Span));
 exports.Span = Span;
+//# sourceMappingURL=span.ios.js.map

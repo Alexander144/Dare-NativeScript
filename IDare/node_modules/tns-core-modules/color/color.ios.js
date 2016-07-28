@@ -28,3 +28,4 @@ var Color = (function (_super) {
     return Color;
 }(common.Color));
 exports.Color = Color;
+//# sourceMappingURL=color.ios.js.map

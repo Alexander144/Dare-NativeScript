@@ -106,3 +106,4 @@ exports.takePicture = function (options) {
 exports.isAvailable = function () {
     return UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.UIImagePickerControllerSourceTypeCamera);
 };
+//# sourceMappingURL=camera.ios.js.map

@@ -2,7 +2,7 @@
   <StackLayout>
     <Label text="This is the MainPage"></Label>
     <Label text="Your Email is {{Email}}"></Label>
-    <Label text="Send dare"></Label>
+    <Label text="{{M_Dare}}"></Label>
    <DockLayout>
    <TextField text="{{InputDare}}" hint="I Dare You To"> </TextField>
    <TextField text="{{Username}}" hint="Username" ></TextField>

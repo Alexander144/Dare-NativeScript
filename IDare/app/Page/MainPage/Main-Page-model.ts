@@ -2,10 +2,11 @@ import{ Observable } from "data/observable";
 import { ObservableArray } from "data/observable-array";
 import firebase = require("nativescript-plugin-firebase");
 import Dare from "../Class/Dare/Dare";
-
+var M_Dare;
 class MainModel extends Observable{
     Dares: ObservableArray<Dare>;
     User: string;
+    lol: string;
     m_Dare: string;
     m_Key: Array<string>;
     m_From: Array<string>;
@@ -18,28 +19,26 @@ class MainModel extends Observable{
     }
     GetDares(){
         
-    var onChildEvent = function(result) {
-    
-         if (result.type === "ChildAdded") {
-               console.log("Event type: " + result.type);
-                console.log("Key: " + result.key);
-                console.log("Value: " + JSON.stringify(result.value.Dare));
-                this.set("lol", JSON.stringify(result.value.Dare));
-         }
-     };
 
     // listen to changes in the /users path
-    firebase.addChildEventListener(onChildEvent, "/Dares/Lol12345");
+    firebase.addChildEventListener(this.onChildEvent, "/Dares/Lol12345");
+    this.set('M_Dare',M_Dare);
+    console.log("This is::::::" + M_Dare);
+    
      this.Dares.push(new Dare("1","lol","leel"));
         //this.Dares.push(new Dare("12","Eat", this.User));
     }
-    authDataCallback(authData) {
-     if (authData) {
-      console.log("User " + authData.uid + " is logged in with " + authData.provider);
-     } else {
-      console.log("User is logged out");
+     onChildEvent(result:any) {
+
+      
+         if (result.type === "ChildAdded" && result.type != "undefined") {
+               console.log("Event type: " + result.type);
+                console.log("Key: " + result.key);
+                console.log("Value: " + JSON.stringify(result.value.Dare));
+            M_Dare = JSON.stringify(result.value.Dare);
+
+         }
      }
-    }   
     Send(){
         console.debug("Send");
         firebase.push("Dares/"+this.get("Username"),{'From': "Username", 'Dare':this.get("InputDare")});

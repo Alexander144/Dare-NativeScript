@@ -4,7 +4,8 @@ import { ObservableArray } from "data/observable-array";
 import Page = require("ui/frame");
 import item from "../Class/item/item";
 import firebase = require("nativescript-plugin-firebase");
-
+ var SignUpConfirm;
+ var Username;
 class LoginModel extends Observable{
 
     
@@ -18,7 +19,7 @@ class LoginModel extends Observable{
     constructor(){
         super();
         this.items = new ObservableArray<item>();
-         
+        SignUpConfirm = false;
      
         
         //this.set("Add", firebase.);
@@ -63,11 +64,14 @@ class LoginModel extends Observable{
         //firebase.push('',"Hello");
     }
     SignUp(){
+       
+        Username = this.get("Username");
         this.LoginEmail = this.get("Email");
         this.LoginPassword = this.get("Password");
-      
+       firebase.addChildEventListener(this.onChildEvent, "/Dares");
+
         console.debug(this.LoginEmail);
-       
+      if(SignUpConfirm == true){
         firebase.createUser({ email: this.LoginEmail,
                         password: this.LoginPassword }).then((user) => {
             this.set("Email", null);
@@ -77,6 +81,18 @@ class LoginModel extends Observable{
         },(error) => {
             alert("Error: " + error);
         });
+       }
+       else{
+           alert("Username already taken");
+       }
+    }
+    onChildEvent(result) {
+            
+         if (result.type === "ChildAdded") {
+                if(result.value != Username){
+                  return SignUpConfirm = true;
+                }
+     }
     }
     Send(){
     
