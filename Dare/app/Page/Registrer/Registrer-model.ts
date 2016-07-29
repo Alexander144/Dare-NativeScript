@@ -1,7 +1,7 @@
 import{ Observable } from "data/observable";
 import { ObservableArray } from "data/observable-array";
 
-var firebase = require("nativescript-plugin-firebase-common");
+import firebase = require("nativescript-plugin-firebase");
 
 class RegistrerModel extends Observable{
 

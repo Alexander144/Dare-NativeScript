@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>46534656012-li0hqa2igii5jklkrhfm8l5iv6cbl5p3.apps.googleusercontent.com</string>
+	<string>717308691000-ps8bodjrmpqsrdlnmi2o35s6ioigsn53.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.46534656012-li0hqa2igii5jklkrhfm8l5iv6cbl5p3</string>
+	<string>com.googleusercontent.apps.717308691000-ps8bodjrmpqsrdlnmi2o35s6ioigsn53</string>
 	<key>API_KEY</key>
-	<string>AIzaSyA4k9FyTbpeI8CSaviX2gAVVm7DNliYYws</string>
+	<string>AIzaSyA6oJDHBnGblqIHhysWEAvPxVwWpR1KAJE</string>
 	<key>GCM_SENDER_ID</key>
-	<string>46534656012</string>
+	<string>717308691000</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>org.nativescript.IDare</string>
 	<key>PROJECT_ID</key>
-	<string>idare-8f8b1</string>
+	<string>dare-662df</string>
 	<key>STORAGE_BUCKET</key>
-	<string>idare-8f8b1.appspot.com</string>
+	<string>dare-662df.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:46534656012:ios:45a1cdb2d48a5243</string>
+	<string>1:717308691000:ios:45a1cdb2d48a5243</string>
 	<key>DATABASE_URL</key>
-	<string>https://idare-8f8b1.firebaseio.com</string>
+	<string>https://dare-662df.firebaseio.com</string>
 </dict>
 </plist>

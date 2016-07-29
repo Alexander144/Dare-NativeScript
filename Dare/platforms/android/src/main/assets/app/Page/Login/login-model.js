@@ -3,7 +3,7 @@ var observable_1 = require("data/observable");
 var observable_array_1 = require("data/observable-array");
 var Page = require("ui/frame");
 var item_1 = require("../Class/item/item");
-var firebase = require("nativescript-plugin-firebase-common");
+var firebase = require("nativescript-plugin-firebase");
 var SignUpConfirm;
 var Username;
 var LoginModel = (function (_super) {
@@ -11,7 +11,7 @@ var LoginModel = (function (_super) {
     function LoginModel() {
         _super.call(this);
         this.items = new observable_array_1.ObservableArray();
-        SignUpConfirm = false;
+        SignUpConfirm = true;
         //this.set("Add", firebase.);
     }
     LoginModel.prototype.login = function () {
@@ -50,8 +50,7 @@ var LoginModel = (function (_super) {
         Username = this.get("Username");
         this.LoginEmail = this.get("Email");
         this.LoginPassword = this.get("Password");
-        firebase.addChildEventListener(this.onChildEvent, "/Dares");
-        console.debug(this.LoginEmail);
+        firebase.addChildEventListener(this.onChildEvent, "/Users");
         if (SignUpConfirm == true) {
             firebase.createUser({ email: this.LoginEmail,
                 password: this.LoginPassword }).then(function (user) {
@@ -66,15 +65,20 @@ var LoginModel = (function (_super) {
         else {
             alert("Username already taken");
         }
+        SignUpConfirm = true;
     };
     LoginModel.prototype.onChildEvent = function (result) {
-        if (result.type === "ChildAdded") {
-            if (result.value != Username) {
-                return SignUpConfirm = true;
-            }
+        console.log("Event type: " + result.type);
+        console.log("Key: " + JSON.stringify(result.key));
+        console.log("Value: " + JSON.stringify(result.value));
+        console.log("UserName is§§::" + Username);
+        if (result.key == Username) {
+            console.log("Dette er::::::" + result.key + Username);
+            SignUpConfirm = false;
         }
     };
     LoginModel.prototype.Send = function () {
+        firebase.push("Users", "lolll");
         this.items.push(new item_1.default("Hello"));
     };
     return LoginModel;

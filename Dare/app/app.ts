@@ -1,5 +1,5 @@
 ﻿import application = require("application");
-var firebase = require("nativescript-plugin-firebase-common");
+import firebase = require("nativescript-plugin-firebase");
 
 firebase.init({
   // Optionally pass in properties for database, authentication and cloud messaging,

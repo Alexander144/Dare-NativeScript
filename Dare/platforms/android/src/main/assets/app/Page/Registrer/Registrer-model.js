@@ -1,6 +1,6 @@
 "use strict";
 var observable_1 = require("data/observable");
-var firebase = require("nativescript-plugin-firebase-common");
+var firebase = require("nativescript-plugin-firebase");
 var RegistrerModel = (function (_super) {
     __extends(RegistrerModel, _super);
     function RegistrerModel() {

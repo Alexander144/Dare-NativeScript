@@ -1,6 +1,6 @@
 import{ Observable } from "data/observable";
 import { ObservableArray } from "data/observable-array";
-var firebase = require("nativescript-plugin-firebase-common");
+import firebase = require("nativescript-plugin-firebase");
 import Dare from "../Class/Dare/Dare";
 var M_Dare;
 class MainModel extends Observable{
@@ -24,7 +24,7 @@ class MainModel extends Observable{
                console.log("Event type: " + result.type);
                 console.log("Key: " + result.key);
                 console.log("Value: " + JSON.stringify(result.value.Dare));
-            this.m_Dare = JSON.stringify(result.value.Dare);
+                M_Dare = JSON.stringify(result.value.Dare);
 
          }
      }
@@ -32,7 +32,7 @@ class MainModel extends Observable{
         
 
     // listen to changes in the /users path
-    firebase.addChildEventListener(this.onChildEvent, "/Dares/Lol12345");
+    firebase.addChildEventListener(this.onChildEvent, "/Dares/Alexander144");
     this.set('M_Dare',M_Dare);
     console.log("This is::::::" + M_Dare);
     

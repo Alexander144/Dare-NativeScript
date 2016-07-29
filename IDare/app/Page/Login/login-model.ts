@@ -68,8 +68,8 @@ class LoginModel extends Observable{
         Username = this.get("Username");
         this.LoginEmail = this.get("Email");
         this.LoginPassword = this.get("Password");
-       firebase.addChildEventListener(this.onChildEvent, "/Dares");
-
+       //firebase.addChildEventListener(this.onChildEvent, "/Dares");
+       SignUpConfirm = true;
         console.debug(this.LoginEmail);
       if(SignUpConfirm == true){
         firebase.createUser({ email: this.LoginEmail,

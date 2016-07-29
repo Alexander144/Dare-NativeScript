@@ -1,6 +1,6 @@
 "use strict";
 var application = require("application");
-var firebase = require("nativescript-plugin-firebase-common");
+var firebase = require("nativescript-plugin-firebase");
 firebase.init({}).then(function (instance) {
     console.log("firebase.init done");
 }, function (error) {

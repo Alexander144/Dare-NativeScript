@@ -9,13 +9,13 @@
 		3883116F613C4E7E93E88339 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 002031F4FB7643BDB30CD699 /* LaunchScreen.storyboard */; };
 		59D53FD4722942F38B0A6CFE /* TNSWidgets.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 35804E7C1FC8464FBD7D2D41 /* TNSWidgets.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		858B842D18CA22B800AB12DE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 858B833A18CA111C00AB12DE /* InfoPlist.strings */; };
-		90D66164B4B4428ABB86E31A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 925E1A6E803C49F9A7C239E1 /* GoogleService-Info.plist */; };
 		A2D5AA60FCD646279FE6BCBB /* build.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0414AB16EED646EC82D423F7 /* build.xcconfig */; };
 		C9DDFFE417B746138E7D463E /* TNSWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35804E7C1FC8464FBD7D2D41 /* TNSWidgets.framework */; };
 		CA0B96E8D41D82C25DFA1296 /* Pods_IDare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79A843BBA63148CF33734F1D /* Pods_IDare.framework */; };
 		CD45EE7C18DC2D5800FB50C0 /* app in Resources */ = {isa = PBXBuildFile; fileRef = CD45EE7A18DC2D5800FB50C0 /* app */; };
 		CD62955D1BB2678900AE3A93 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CD62955C1BB2678900AE3A93 /* main.m */; };
 		D15C642DD9334236ABF1A9D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5939036619F451DB5F8ACE2 /* Assets.xcassets */; };
+		9A5D273826454DFAAF711621 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFE7C53ABDD74310913620B5 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,13 +42,13 @@
 		858B833B18CA111C00AB12DE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		858B833F18CA111C00AB12DE /* IDare-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IDare-Prefix.pch"; sourceTree = "<group>"; };
 		858B843318CA22B800AB12DE /* IDare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IDare.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		925E1A6E803C49F9A7C239E1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = unknown; name = "GoogleService-Info.plist"; path = "IDare/Resources/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A5939036619F451DB5F8ACE2 /* Assets.xcassets */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = unknown; name = Assets.xcassets; path = IDare/Resources/Assets.xcassets; sourceTree = "<group>"; };
 		CD45EE7A18DC2D5800FB50C0 /* app */ = {isa = PBXFileReference; lastKnownFileType = folder; path = app; sourceTree = "<group>"; };
 		CD62955C1BB2678900AE3A93 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = internal/main.m; sourceTree = SOURCE_ROOT; };
 		CDD59A261BB43B5D00EC2671 /* build-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "build-debug.xcconfig"; sourceTree = "<group>"; };
 		CDD59A271BB43B5D00EC2671 /* build-release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "build-release.xcconfig"; sourceTree = "<group>"; };
 		CDF4743E1BA4855C0087EA85 /* build.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = build.xcconfig; sourceTree = "<group>"; };
+		CFE7C53ABDD74310913620B5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "GoogleService-Info.plist"; path = "IDare/Resources/GoogleService-Info.plist"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,9 +127,9 @@
 			isa = PBXGroup;
 			children = (
 				A5939036619F451DB5F8ACE2 /* Assets.xcassets */,
-				925E1A6E803C49F9A7C239E1 /* GoogleService-Info.plist */,
 				002031F4FB7643BDB30CD699 /* LaunchScreen.storyboard */,
 				0414AB16EED646EC82D423F7 /* build.xcconfig */,
+				CFE7C53ABDD74310913620B5 /* GoogleService-Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -196,9 +196,9 @@
 				CD45EE7C18DC2D5800FB50C0 /* app in Resources */,
 				858B842D18CA22B800AB12DE /* InfoPlist.strings in Resources */,
 				D15C642DD9334236ABF1A9D5 /* Assets.xcassets in Resources */,
-				90D66164B4B4428ABB86E31A /* GoogleService-Info.plist in Resources */,
 				3883116F613C4E7E93E88339 /* LaunchScreen.storyboard in Resources */,
 				A2D5AA60FCD646279FE6BCBB /* build.xcconfig in Resources */,
+				9A5D273826454DFAAF711621 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

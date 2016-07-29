@@ -1,7 +1,7 @@
 "use strict";
 var observable_1 = require("data/observable");
 var observable_array_1 = require("data/observable-array");
-var firebase = require("nativescript-plugin-firebase-common");
+var firebase = require("nativescript-plugin-firebase");
 var Dare_1 = require("../Class/Dare/Dare");
 var M_Dare;
 var MainModel = (function (_super) {
@@ -16,12 +16,12 @@ var MainModel = (function (_super) {
             console.log("Event type: " + result.type);
             console.log("Key: " + result.key);
             console.log("Value: " + JSON.stringify(result.value.Dare));
-            this.m_Dare = JSON.stringify(result.value.Dare);
+            M_Dare = JSON.stringify(result.value.Dare);
         }
     };
     MainModel.prototype.GetDares = function () {
         // listen to changes in the /users path
-        firebase.addChildEventListener(this.onChildEvent, "/Dares/Lol12345");
+        firebase.addChildEventListener(this.onChildEvent, "/Dares/Alexander144");
         this.set('M_Dare', M_Dare);
         console.log("This is::::::" + M_Dare);
         this.Dares.push(new Dare_1.default("1", "lol", "leel"));

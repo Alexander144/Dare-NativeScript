@@ -3,7 +3,7 @@ import { ObservableArray } from "data/observable-array";
 
 import Page = require("ui/frame");
 import item from "../Class/item/item";
-var firebase = require("nativescript-plugin-firebase-common");
+import firebase = require("nativescript-plugin-firebase");
  var SignUpConfirm;
  var Username;
 class LoginModel extends Observable{
@@ -19,7 +19,7 @@ class LoginModel extends Observable{
     constructor(){
         super();
         this.items = new ObservableArray<item>();
-        SignUpConfirm = false;
+        SignUpConfirm = true;
      
         
         //this.set("Add", firebase.);
@@ -68,9 +68,8 @@ class LoginModel extends Observable{
         Username = this.get("Username");
         this.LoginEmail = this.get("Email");
         this.LoginPassword = this.get("Password");
-       firebase.addChildEventListener(this.onChildEvent, "/Dares");
-
-        console.debug(this.LoginEmail);
+       firebase.addChildEventListener(this.onChildEvent, "/Users");
+       
       if(SignUpConfirm == true){
         firebase.createUser({ email: this.LoginEmail,
                         password: this.LoginPassword }).then((user) => {
@@ -85,17 +84,25 @@ class LoginModel extends Observable{
        else{
            alert("Username already taken");
        }
+       SignUpConfirm = true;
     }
     onChildEvent(result) {
-            
-         if (result.type === "ChildAdded") {
-                if(result.value != Username){
-                  return SignUpConfirm = true;
+         
+              console.log("Event type: " + result.type);
+             console.log("Key: " + JSON.stringify(result.key));
+             
+            console.log("Value: " + JSON.stringify(result.value));
+            console.log("UserName is§§::" + Username);
+           
+                if(result.key == Username){
+                    console.log("Dette er::::::"+result.key + Username);
+                   SignUpConfirm = false;
+                   
                 }
-     }
+               
     }
     Send(){
-    
+        firebase.push("Users", "lolll");
         this.items.push(new item("Hello"));
     }
 } 
