@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\Alexander\Desktop\Dare\Dare\platforms\android\build\intermediates\exploded-aar\Dare\runtime\unspecified\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="f8c8ebc987f6538a65f5cfd308d5984746999d79">
+        <dex dex="C:\Users\Alexander\Desktop\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\Dare-runtime-unspecified_5bb1d461725cefc94a02dc5297d30878e41908e1.jar" />
+    </item>
+    <item
+        jar="C:\Users\Alexander\Desktop\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\libs\internal_impl-23.4.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="C:\Users\Alexander\Desktop\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\internal_impl-23.4.0_1f980daf63a1605deb68ff7112378ec9c95a9bf5.jar" />
+    </item>
+    <item
+        jar="C:\Users\Alexander\Desktop\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="C:\Users\Alexander\Desktop\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.android.support-support-v4-23.4.0_ea1275218121cfd244286b359d134354a7ca461f.jar" />
+    </item>
+    <item
+        jar="C:\Users\Alexander\Desktop\Dare\Dare\node_modules\nativescript-plugin-firebase-common\platforms\android\firebase-client-android-2.5.2.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="b54cf0400e2248d6c133c7b0a77dea1be09978cc">
+        <dex dex="C:\Users\Alexander\Desktop\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\firebase-client-android-2.5.2_d69e912e854e15a43bc88cda34302c27a1d2561b.jar" />
+    </item>
+    <item
+        jar="C:\Users\Alexander\Desktop\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
+        <dex dex="C:\Users\Alexander\Desktop\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.android.support-appcompat-v7-23.4.0_41b04dcc3f0c5a820d7ddc19ba00e07ebcf449b9.jar" />
+    </item>
+    <item
+        jar="C:\androiddevdir\android-sdk-windows\extras\android\m2repository\com\android\support\support-annotations\23.4.0\support-annotations-23.4.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="C:\Users\Alexander\Desktop\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\support-annotations-23.4.0_e8cdd0cee5312c5154d275b48b3f807215c9a013.jar" />
+    </item>
+    <item
+        jar="C:\Users\Alexander\Desktop\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
+        <dex dex="C:\Users\Alexander\Desktop\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.android.support-support-vector-drawable-23.4.0_0491937976da311e8a1d685dd467024bf402bac9.jar" />
+    </item>
+    <item
+        jar="C:\Users\Alexander\Desktop\Dare\Dare\platforms\android\build\intermediates\exploded-aar\Dare\binding-generator\unspecified\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="cd7dd3d8b3faa7a457003b040d45b12c7e268dc6">
+        <dex dex="C:\Users\Alexander\Desktop\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\Dare-binding-generator-unspecified_28646777afe8107f4c87325ab93420021d96c9e8.jar" />
+    </item>
+    <item
+        jar="C:\Users\Alexander\Desktop\Dare\Dare\platforms\android\build\intermediates\exploded-aar\widgets-release\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="f2e5203427159d06a7104c1a113eee1c22e0ceb9">
+        <dex dex="C:\Users\Alexander\Desktop\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\intermediates-exploded-aar-widgets-release_f2cf3bb71695e7b64e82aed627a9efa427ba7ebe.jar" />
+    </item>
+    <item
+        jar="C:\Users\Alexander\Desktop\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
+        <dex dex="C:\Users\Alexander\Desktop\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.android.support-animated-vector-drawable-23.4.0_69e374032966de379c4f48932d95ba795d6dc1de.jar" />
+    </item>
+
+</items>
