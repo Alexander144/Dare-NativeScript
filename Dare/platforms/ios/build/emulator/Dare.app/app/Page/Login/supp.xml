@@ -1,0 +1,5 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="PageLoaded">
+  <StackLayout>
+   <Label text="Hello baus" > </Label>
+  </StackLayout>
+</Page>

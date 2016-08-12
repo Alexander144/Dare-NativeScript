@@ -1,0 +1,69 @@
+{
+  "name": "nativescript-plugin-firebase",
+  "version": "3.5.0",
+  "description": "Fire. Base. Firebase!",
+  "main": "firebase.js",
+  "nativescript": {
+    "platforms": {
+      "android": "1.7.0",
+      "ios": "1.7.0"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eddyverbruggen/nativescript-plugin-firebase.git"
+  },
+  "keywords": [
+    "NativeScript",
+    "Firebase",
+    "Database",
+    "Authentication",
+    "Push Notifications",
+    "Notifications",
+    "Messaging",
+    "Remote Configuration",
+    "Storage",
+    "Facebook",
+    "Google"
+  ],
+  "author": {
+    "name": "Telerik / Eddy Verbruggen",
+    "email": "eddyverbruggen@gmail.com"
+  },
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/eddyverbruggen/nativescript-plugin-firebase/blob/master/LICENSE"
+  },
+  "bugs": {
+    "url": "https://github.com/eddyverbruggen/nativescript-plugin-firebase/issues"
+  },
+  "homepage": "https://github.com/eddyverbruggen/nativescript-plugin-firebase",
+  "gitHead": "e9c0621816eccb2103382bbc9861caea437fa4df",
+  "_id": "nativescript-plugin-firebase@3.5.0",
+  "scripts": {},
+  "_shasum": "bbfb40be8b3b66bbd80ea94c37b7ac1f32d3ccaa",
+  "_from": "nativescript-plugin-firebase@latest",
+  "_npmVersion": "2.14.7",
+  "_nodeVersion": "4.2.2",
+  "_npmUser": {
+    "name": "eddyverbruggen",
+    "email": "eddyverbruggen@gmail.com"
+  },
+  "dist": {
+    "shasum": "bbfb40be8b3b66bbd80ea94c37b7ac1f32d3ccaa",
+    "tarball": "https://registry.npmjs.org/nativescript-plugin-firebase/-/nativescript-plugin-firebase-3.5.0.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "eddyverbruggen",
+      "email": "eddyverbruggen@gmail.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/nativescript-plugin-firebase-3.5.0.tgz_1470768151358_0.21515897358767688"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/nativescript-plugin-firebase/-/nativescript-plugin-firebase-3.5.0.tgz",
+  "readme": "ERROR: No README data found!"
+}

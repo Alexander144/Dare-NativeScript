@@ -1,0 +1,125 @@
+clang version 3.8.0 (tags/RELEASE_380/final)
+Target: i386-apple-darwin15.4.0
+Thread model: posix
+InstalledDir: 
+clang Invocation:
+ "clang-tool" "-cc1" "-triple" "i386-apple-ios8.0.0" "-fsyntax-only" "-disable-free" "-disable-llvm-verifier" "-main-file-name" "umbrella.h" "-mrelocation-model" "pic" "-pic-level" "2" "-mthread-model" "posix" "-mdisable-fp-elim" "-masm-verbose" "-target-cpu" "yonah" "-target-linker-version" "242" "-v" "-dwarf-column-info" "-debugger-tuning=lldb" "-resource-dir" "../lib/clang/3.8.0" "-isysroot" "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.3.sdk" "-isystem" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public" "-isystem" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/Firebase" "-isystem" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseAnalytics" "-isystem" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseAuth" "-isystem" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseCrash" "-isystem" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseDatabase" "-isystem" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseInstanceID" "-isystem" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleInterchangeUtilities" "-isystem" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleNetworkingUtilities" "-isystem" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleParsingUtilities" "-isystem" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleSymbolUtilities" "-isystem" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleUtilities" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/build/emulator/include" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Firebase/Headers" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/Firebase" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseAnalytics" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseAuth" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseCrash" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseDatabase" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseInstanceID" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleInterchangeUtilities" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleNetworkingUtilities" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleParsingUtilities" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleSymbolUtilities" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleUtilities" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/internal" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/build/emulator" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/FirebaseAnalytics/Frameworks/frameworks" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/FirebaseAuth/Frameworks/frameworks" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/FirebaseCrash/Frameworks" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/FirebaseDatabase/Frameworks" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/FirebaseInstanceID/Frameworks" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/GoogleInterchangeUtilities/Frameworks" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/GoogleNetworkingUtilities/Frameworks" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/GoogleParsingUtilities/Frameworks" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/GoogleSymbolUtilities/Frameworks" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/GoogleUtilities/Frameworks" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/internal/" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/../../lib/iOS" "-F../../lib/iOS" "-D" "COCOAPODS=1" "-D" "DEBUG=1" "-Wno-unknown-pragmas" "-Wno-ignored-attributes" "-std=gnu99" "-fdebug-compilation-dir" "/Users/home/Desktop/Dare/Dare/platforms/ios/internal/metadata-generator/bin" "-ferror-limit" "0" "-fmessage-length" "0" "-stack-protector" "1" "-fblocks" "-fimplicit-module-maps" "-fobjc-runtime=ios-8.0.0" "-fencode-extended-block-signature" "-fobjc-exceptions" "-fexceptions" "-fmax-type-align=16" "-fdiagnostics-show-option" "-x" "objective-c" "umbrella.h"
+
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/build/emulator/include"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseAnalytics"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseAuth"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseCrash"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseDatabase"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleInterchangeUtilities"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleNetworkingUtilities"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleParsingUtilities"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleSymbolUtilities"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleUtilities"
+ignoring nonexistent directory "../../lib/iOS"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseAnalytics"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseAuth"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseCrash"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseDatabase"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleInterchangeUtilities"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleNetworkingUtilities"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleParsingUtilities"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleSymbolUtilities"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleUtilities"
+ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.3.sdk/usr/local/include"
+ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.3.sdk/Library/Frameworks"
+ignoring duplicate directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public"
+  as it is a non-system directory that duplicates a system directory
+ignoring duplicate directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/Firebase"
+  as it is a non-system directory that duplicates a system directory
+ignoring duplicate directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseInstanceID"
+  as it is a non-system directory that duplicates a system directory
+#include "..." search starts here:
+#include <...> search starts here:
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Firebase/Headers
+ /Users/home/Desktop/Dare/Dare/platforms/ios/internal
+ /Users/home/Desktop/Dare/Dare/platforms/ios/build/emulator (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/FirebaseAnalytics/Frameworks/frameworks (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/FirebaseAuth/Frameworks/frameworks (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/FirebaseCrash/Frameworks (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/FirebaseDatabase/Frameworks (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/FirebaseInstanceID/Frameworks (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/GoogleInterchangeUtilities/Frameworks (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/GoogleNetworkingUtilities/Frameworks (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/GoogleParsingUtilities/Frameworks (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/GoogleSymbolUtilities/Frameworks (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/GoogleUtilities/Frameworks (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/internal (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/../../lib/iOS (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/Firebase
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseInstanceID
+ ../lib/clang/3.8.0/include
+ /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.3.sdk/usr/include
+ /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.3.sdk/System/Library/Frameworks (framework directory)
+End of search list.
+clang version 3.8.0 (tags/RELEASE_380/final)
+Target: i386-apple-darwin15.4.0
+Thread model: posix
+InstalledDir: 
+clang Invocation:
+ "clang-tool" "-cc1" "-triple" "i386-apple-ios8.0.0" "-fsyntax-only" "-disable-free" "-disable-llvm-verifier" "-main-file-name" "umbrella.h" "-mrelocation-model" "pic" "-pic-level" "2" "-mthread-model" "posix" "-mdisable-fp-elim" "-masm-verbose" "-target-cpu" "yonah" "-target-linker-version" "242" "-v" "-dwarf-column-info" "-debugger-tuning=lldb" "-resource-dir" "../lib/clang/3.8.0" "-isysroot" "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.3.sdk" "-isystem" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public" "-isystem" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/Firebase" "-isystem" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseAnalytics" "-isystem" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseAuth" "-isystem" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseCrash" "-isystem" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseDatabase" "-isystem" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseInstanceID" "-isystem" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleInterchangeUtilities" "-isystem" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleNetworkingUtilities" "-isystem" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleParsingUtilities" "-isystem" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleSymbolUtilities" "-isystem" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleUtilities" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/build/emulator/include" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Firebase/Headers" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/Firebase" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseAnalytics" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseAuth" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseCrash" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseDatabase" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseInstanceID" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleInterchangeUtilities" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleNetworkingUtilities" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleParsingUtilities" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleSymbolUtilities" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleUtilities" "-I" "/Users/home/Desktop/Dare/Dare/platforms/ios/internal" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/build/emulator" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/FirebaseAnalytics/Frameworks/frameworks" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/FirebaseAuth/Frameworks/frameworks" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/FirebaseCrash/Frameworks" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/FirebaseDatabase/Frameworks" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/FirebaseInstanceID/Frameworks" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/GoogleInterchangeUtilities/Frameworks" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/GoogleNetworkingUtilities/Frameworks" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/GoogleParsingUtilities/Frameworks" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/GoogleSymbolUtilities/Frameworks" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/GoogleUtilities/Frameworks" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/internal/" "-F/Users/home/Desktop/Dare/Dare/platforms/ios/../../lib/iOS" "-F../../lib/iOS" "-D" "COCOAPODS=1" "-D" "DEBUG=1" "-Wno-unknown-pragmas" "-Wno-ignored-attributes" "-std=gnu99" "-fdebug-compilation-dir" "/Users/home/Desktop/Dare/Dare/platforms/ios/internal/metadata-generator/bin" "-ferror-limit" "0" "-fmessage-length" "0" "-stack-protector" "1" "-fblocks" "-fimplicit-module-maps" "-fobjc-runtime=ios-8.0.0" "-fencode-extended-block-signature" "-fobjc-exceptions" "-fexceptions" "-fmax-type-align=16" "-fdiagnostics-show-option" "-x" "objective-c" "umbrella.h"
+
+clang -cc1 version 3.8.0 based upon LLVM 3.8.0 default target x86_64-apple-darwin15.4.0
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/build/emulator/include"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseAnalytics"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseAuth"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseCrash"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseDatabase"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleInterchangeUtilities"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleNetworkingUtilities"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleParsingUtilities"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleSymbolUtilities"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleUtilities"
+ignoring nonexistent directory "../../lib/iOS"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseAnalytics"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseAuth"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseCrash"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseDatabase"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleInterchangeUtilities"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleNetworkingUtilities"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleParsingUtilities"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleSymbolUtilities"
+ignoring nonexistent directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/GoogleUtilities"
+ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.3.sdk/usr/local/include"
+ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.3.sdk/Library/Frameworks"
+ignoring duplicate directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public"
+  as it is a non-system directory that duplicates a system directory
+ignoring duplicate directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/Firebase"
+  as it is a non-system directory that duplicates a system directory
+ignoring duplicate directory "/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseInstanceID"
+  as it is a non-system directory that duplicates a system directory
+#include "..." search starts here:
+#include <...> search starts here:
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Firebase/Headers
+ /Users/home/Desktop/Dare/Dare/platforms/ios/internal
+ /Users/home/Desktop/Dare/Dare/platforms/ios/build/emulator (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/FirebaseAnalytics/Frameworks/frameworks (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/FirebaseAuth/Frameworks/frameworks (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/FirebaseCrash/Frameworks (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/FirebaseDatabase/Frameworks (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/FirebaseInstanceID/Frameworks (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/GoogleInterchangeUtilities/Frameworks (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/GoogleNetworkingUtilities/Frameworks (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/GoogleParsingUtilities/Frameworks (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/GoogleSymbolUtilities/Frameworks (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/GoogleUtilities/Frameworks (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/internal (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/../../lib/iOS (framework directory)
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/Firebase
+ /Users/home/Desktop/Dare/Dare/platforms/ios/Pods/Headers/Public/FirebaseInstanceID
+ ../lib/clang/3.8.0/include
+ /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.3.sdk/usr/include
+ /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.3.sdk/System/Library/Frameworks (framework directory)
+End of search list.
+In file included from umbrella.h:537:
+/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/FirebaseAnalytics/Frameworks/frameworks/FirebaseAnalytics.framework/Headers/FIRConfiguration.h:26:1: warning: no 'assign', 'retain', or 'copy' attribute is specified - 'assign' is assumed [-Wobjc-property-no-attribute]
+@property(nonatomic, readwrite) FIRAnalyticsConfiguration *analyticsConfiguration;
+^
+/Users/home/Desktop/Dare/Dare/platforms/ios/Pods/FirebaseAnalytics/Frameworks/frameworks/FirebaseAnalytics.framework/Headers/FIRConfiguration.h:26:1: warning: default property attribute 'assign' not appropriate for non-GC object [-Wobjc-property-no-attribute]
+2 warnings generated.
