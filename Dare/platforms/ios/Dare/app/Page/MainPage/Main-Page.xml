@@ -1,15 +1,13 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="PageLoaded">
+<Page actionBarHidden="true" xmlns="http://schemas.nativescript.org/tns.xsd" loaded="PageLoaded">
+   <ScrollView>
   <StackLayout>
     <Label text="This is the MainPage"></Label>
-    <Label text="Your Email is {{Email}}"></Label>
-    <Label text="{{m_Dare}}"></Label>
+    <TextField text="{{SUser}}"></TextField>
    <DockLayout>
    <TextField text="{{InputDare}}" hint="I Dare You To"> </TextField>
    <TextField text="{{Username}}" hint="Username" ></TextField>
    <Button text="Send" tap="{{Send}}"></Button>
    </DockLayout>
-
-   <Label text="{{lol}}"> </Label>
    <Label text="Your Dares"> </Label>
    <Repeater items="{{ Dares }}" >
      <Repeater.itemTemplate>
@@ -23,4 +21,5 @@
 
     <Button text="Logout" tap="{{Logout}}"></Button>
   </StackLayout>
+   </ScrollView>
 </Page>

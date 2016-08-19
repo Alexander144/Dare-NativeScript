@@ -1,57 +1,71 @@
 import{ Observable } from "data/observable";
 import { ObservableArray } from "data/observable-array";
 import firebase = require("nativescript-plugin-firebase");
+import {EventData} from "data/observable";
+
+import Page = require("ui/frame");
 import Dare from "../Class/Dare/Dare";
-var M_Dare;
 
  var self;
 class MainModel extends Observable{
     Dares: ObservableArray<Dare>;
     User: string;
-    lol: string;
-    m_Dare: string;
-    m_Key: Array<string>;
-    m_From: Array<string>;
+    Username: string;
+    InputDare: string;
+    path: string;
 
     constructor(){
         super();
         this.Dares = new ObservableArray<Dare>();
-        this.m_Dare = "læl";
-        this.set("m_Dare","lol");
-        this.GetDares();
-        self = this;
+        this.User = null;
+       
     }
-  
+    
     GetDares(){
-        
-  var onChildEvent = function(result:any) {
-         if (result.type === "ChildAdded" && result.type != "undefined") {
-               console.log("Event type: " + result.type);
-                console.log("Key: " + result.key);
-                console.log("Value: " + JSON.stringify(result.value.Dare));
-                alert(result.key + JSON.stringify(result.value.Dare) + JSON.stringify(result.value.From));
-            self.newDare(result.key, result.value.Dare, result.value.From);
-            //self.Dares.push(new Dare("lol","2323","2323"));
-            self.set("m_Dare","lol");
-         }
-     }
-    // listen to changes in the /users path
-    firebase.addChildEventListener(onChildEvent, "/Dares/Alexander144");
-  
-     //self.Dares.push(new Dare("1","lol","leel"));
-        //this.Dares.push(new Dare("12","Eat", this.User));
+    
+        var onChildEvent = function(result:any) {
+        if(result.type==="ChildChanged"){
+            alert(result.key + JSON.stringify(result.value.Dare) + JSON.stringify(result.value.From));
+        }
+        if (result.type === "ChildAdded") {   
+                    self.newDare(result.key, result.value.Dare, result.value.From);
+            }
+        }
+        // listen to changes in the /users path
+            this.path = "/Dares/"+this.User;
+            firebase.addChildEventListener(onChildEvent,this.path);
+            this.path = "";
     }
+
     newDare(id:string, nDare:string, From:string){
-        this.Dares.push(new Dare(id,nDare,From));
+            this.Dares.push(new Dare(id,nDare,From));
     }
+
     Send(){
-        console.debug("Send");
-        firebase.push("Dares/"+this.get("Username"),{'From': "Username", 'Dare':this.get("InputDare")});
+        firebase.push("Dares/"+this.Username,{'From': this.User, 'Dare':this.InputDare});
         this.set("Username","");
-        this.set("Dare","");
+        this.set("InputDare","");
+        
     }
+
+    SetApplication(Username:string){
+        self = this;
+        this.User = Username;
+        this.set("SUser",this.User);
+        this.GetDares();
+    }
+
     Logout(){
+        this.path = "";
+        this.User = "";
+        this.set("Username","");
+        this.set("InputDare","");
+        while(this.Dares.length > 0){
+            this.Dares.pop();
+        }
         firebase.logout();
+
+         Page.topmost().goBack();
     }
   
 } 

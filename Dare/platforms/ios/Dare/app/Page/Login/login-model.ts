@@ -1,27 +1,26 @@
 import{ Observable } from "data/observable";
 import { ObservableArray } from "data/observable-array";
-
+import LabelModule = require("ui/label");
 import Page = require("ui/frame");
 import item from "../Class/item/item";
 import firebase = require("nativescript-plugin-firebase");
- var SignUpConfirm;
- var Username;
+
+var self;
 class LoginModel extends Observable{
 
-    
+   Username: string;
    items: ObservableArray<item>;
-
    Add: string;
-
+   message: Observable;
    LoginEmail: string;
    LoginPassword: string;   
 
     constructor(){
         super();
         this.items = new ObservableArray<item>();
-        SignUpConfirm = false;
-     
+        self = this;
         
+       
         //this.set("Add", firebase.);
       
        
@@ -32,16 +31,27 @@ class LoginModel extends Observable{
         this.LoginEmail = this.get("Email");
         this.LoginPassword = this.get("Password");
         
-      
-        console.debug(this.LoginEmail);
         firebase.login({ type: firebase.LoginType.PASSWORD, 
                         email: this.LoginEmail,
                         password: this.LoginPassword }).then((user) => {
             this.set("Email", null);
             this.set("Password", null);
-            //alert("UserID" + user.uid);
-            Page.topmost().navigate({
+            this.GetUsername(user.uid);
+            
+        },(error) => {
+            alert("Error:" + error);
+        });
+    }
+    GetUsername(uid:string){
+        var user;
+       var onChildEvent = function(result:any) {
+            if (result.type === "ChildAdded") {
+                if(result.value.ID == uid){
+        Page.topmost().navigate({
+            
             moduleName: "Page/MainPage/Main-Page",
+             context:{Username: result.key
+                },
             transition: {
                 name: "slideBottom",
                 duration: 380,
@@ -49,14 +59,18 @@ class LoginModel extends Observable{
              },
             animated: true
             });
-            
-        },(error) => {
-            alert("Error:" + error);
-        });
+                 
+                }
+        //console.log(result.value.ID);
+        //console.log(result.type);
+        //console.log(result.key);
+            }
+     }
+    // listen to changes in the /users path
+    firebase.addChildEventListener(onChildEvent, "/Users");
     }
     SignUp(){
        
-        Username = this.get("Username");
         this.LoginEmail = this.get("Email");
         this.LoginPassword = this.get("Password");
         firebase.createUser({ email: this.LoginEmail,
