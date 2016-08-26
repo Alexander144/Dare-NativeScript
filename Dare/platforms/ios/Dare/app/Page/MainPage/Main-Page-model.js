@@ -11,14 +11,24 @@ var MainModel = (function (_super) {
         _super.call(this);
         this.Dares = new observable_array_1.ObservableArray();
         this.User = null;
+        this.Score = 0;
+        firebase.keepInSync("/Dares", // which path in your Firebase needs to be kept in sync?
+        true // set to false to disable this feature again
+        ).then(function () {
+            console.log("firebase.keepInSync is ON for /Dares");
+        }, function (error) {
+            console.log("firebase.keepInSync error: " + error);
+        });
     }
     MainModel.prototype.GetDares = function () {
         var onChildEvent = function (result) {
-            if (result.type === "ChildChanged") {
-                alert(result.key + JSON.stringify(result.value.Dare) + JSON.stringify(result.value.From));
+            if (result.type === "ChildRemoved") {
+                self.deleteDare(result.key);
             }
             if (result.type === "ChildAdded") {
-                self.newDare(result.key, result.value.Dare, result.value.From);
+                if (self.CheckIfDareAdded(result.key) == true) {
+                    self.newDare(result.key, result.value.Dare, result.value.From);
+                }
             }
         };
         // listen to changes in the /users path
@@ -26,8 +36,26 @@ var MainModel = (function (_super) {
         firebase.addChildEventListener(onChildEvent, this.path);
         this.path = "";
     };
+    MainModel.prototype.CheckIfDareAdded = function (id) {
+        var AddDare = true;
+        for (var i = 0; i < this.Dares.length; i++) {
+            if (this.Dares.getItem(i).Id === id) {
+                AddDare = false;
+            }
+        }
+        return AddDare;
+    };
+    MainModel.prototype.deleteDare = function (id) {
+        this.SetScore();
+        for (var i = 0; i < this.Dares.length; i++) {
+            if (this.Dares.getItem(i).Id === id) {
+                this.Dares.splice(i, 1);
+                break;
+            }
+        }
+    };
     MainModel.prototype.newDare = function (id, nDare, From) {
-        this.Dares.push(new Dare_1.default(id, nDare, From));
+        this.Dares.push(new Dare_1.default(id, nDare, From, this.User));
     };
     MainModel.prototype.Send = function () {
         firebase.push("Dares/" + this.Username, { 'From': this.User, 'Dare': this.InputDare });
@@ -39,6 +67,36 @@ var MainModel = (function (_super) {
         this.User = Username;
         this.set("SUser", this.User);
         this.GetDares();
+        this.GetScore();
+    };
+    MainModel.prototype.GetScore = function () {
+        var onChildEvent = function (result) {
+            self.SetUIScore(result.value);
+        };
+        var path = "/Users/" + this.User + "/Score";
+        firebase.addValueEventListener(onChildEvent, path);
+    };
+    MainModel.prototype.SetUIScore = function (AScore) {
+        this.set("Score", AScore);
+    };
+    MainModel.prototype.SetScore = function () {
+        var adding = 10;
+        var Result = this.Score;
+        Result = Result + adding;
+        firebase.update('/Users/' + this.User, { 'Score': Result });
+    };
+    MainModel.prototype.GoToFriends = function () {
+        Page.topmost().navigate({
+            moduleName: "Page/Friends/Friends",
+            context: { Username: this.User
+            },
+            transition: {
+                name: "slideBottom",
+                duration: 380,
+                curve: "easeIn"
+            },
+            animated: true
+        });
     };
     MainModel.prototype.Logout = function () {
         this.path = "";

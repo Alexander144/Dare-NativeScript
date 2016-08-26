@@ -58,7 +58,7 @@ var LoginModel = (function (_super) {
             _this.set("Email", null);
             _this.set("Password", null);
             alert("UserID" + user.key);
-            firebase.setValue("Users/" + _this.get("Username"), { 'ID': user.key });
+            firebase.setValue("Users/" + _this.get("Username"), { 'ID': user.key, 'Score': 0 });
         }, function (error) {
             alert("Error: " + error);
         });
