@@ -1,6 +1,7 @@
 import{ Observable } from "data/observable";
 import { ObservableArray } from "data/observable-array";
 import firebase = require("nativescript-plugin-firebase");
+import listPickerModule = require("ui/list-picker");
 import {EventData} from "data/observable";
 
 import Page = require("ui/frame");
@@ -12,9 +13,7 @@ class MainModel extends Observable{
     User: string;
     Username: string;
     InputDare: string;
-    path: string;
     Score: number;
-
 
 
     constructor(){
@@ -22,6 +21,8 @@ class MainModel extends Observable{
         this.Dares = new ObservableArray<Dare>();
         this.User = null;
         this.Score = 0;
+
+        //Vet ikke om denne fungerer
           firebase.keepInSync(
              "/Dares", // which path in your Firebase needs to be kept in sync?
              true      // set to false to disable this feature again
@@ -32,10 +33,11 @@ class MainModel extends Observable{
             (error) => {
             console.log("firebase.keepInSync error: " + error);
         });
+        
 }
     
     GetDares(){
-    
+     let path: string;
         var onChildEvent = function(result:any) {
         if(result.type==="ChildRemoved"){
             self.deleteDare(result.key);
@@ -48,9 +50,9 @@ class MainModel extends Observable{
         }
     }
         // listen to changes in the /users path
-            this.path = "/Dares/"+this.User;
-            firebase.addChildEventListener(onChildEvent,this.path);
-            this.path = "";
+            path = "/Dares/"+this.User;
+            firebase.addChildEventListener(onChildEvent,path);
+            path = "";
     }
     CheckIfDareAdded(id:string){
         var AddDare = true;
@@ -75,10 +77,19 @@ class MainModel extends Observable{
             this.Dares.push(new Dare(id,nDare,From,this.User));
     }
 
-    Send(){
-        firebase.push("Dares/"+this.Username,{'From': this.User, 'Dare':this.InputDare});
-        this.set("Username","");
-        this.set("InputDare","");
+    Send(){ 
+           Page.topmost().navigate({
+            
+            moduleName: "Page/SendTo/SendTo",
+             context:{Username: this.User, Dare:this.InputDare
+                },
+            transition: {
+                name: "slideBottom",
+                duration: 380,
+                curve: "easeIn"
+             },
+            animated: true
+            });
         
     }
 
@@ -89,7 +100,6 @@ class MainModel extends Observable{
         this.GetDares();
         this.GetScore();
     }
-
     GetScore(){
         
     var onChildEvent = function(result:any) {
@@ -126,7 +136,6 @@ class MainModel extends Observable{
             });
     }
     Logout(){
-        this.path = "";
         this.User = "";
         this.set("Username","");
         this.set("InputDare","");

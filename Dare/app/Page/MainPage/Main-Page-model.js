@@ -12,6 +12,7 @@ var MainModel = (function (_super) {
         this.Dares = new observable_array_1.ObservableArray();
         this.User = null;
         this.Score = 0;
+        //Vet ikke om denne fungerer
         firebase.keepInSync("/Dares", // which path in your Firebase needs to be kept in sync?
         true // set to false to disable this feature again
         ).then(function () {
@@ -21,6 +22,7 @@ var MainModel = (function (_super) {
         });
     }
     MainModel.prototype.GetDares = function () {
+        var path;
         var onChildEvent = function (result) {
             if (result.type === "ChildRemoved") {
                 self.deleteDare(result.key);
@@ -32,9 +34,9 @@ var MainModel = (function (_super) {
             }
         };
         // listen to changes in the /users path
-        this.path = "/Dares/" + this.User;
-        firebase.addChildEventListener(onChildEvent, this.path);
-        this.path = "";
+        path = "/Dares/" + this.User;
+        firebase.addChildEventListener(onChildEvent, path);
+        path = "";
     };
     MainModel.prototype.CheckIfDareAdded = function (id) {
         var AddDare = true;
@@ -58,9 +60,17 @@ var MainModel = (function (_super) {
         this.Dares.push(new Dare_1.default(id, nDare, From, this.User));
     };
     MainModel.prototype.Send = function () {
-        firebase.push("Dares/" + this.Username, { 'From': this.User, 'Dare': this.InputDare });
-        this.set("Username", "");
-        this.set("InputDare", "");
+        Page.topmost().navigate({
+            moduleName: "Page/SendTo/SendTo",
+            context: { Username: this.User, Dare: this.InputDare
+            },
+            transition: {
+                name: "slideBottom",
+                duration: 380,
+                curve: "easeIn"
+            },
+            animated: true
+        });
     };
     MainModel.prototype.SetApplication = function (Username) {
         self = this;
@@ -99,7 +109,6 @@ var MainModel = (function (_super) {
         });
     };
     MainModel.prototype.Logout = function () {
-        this.path = "";
         this.User = "";
         this.set("Username", "");
         this.set("InputDare", "");

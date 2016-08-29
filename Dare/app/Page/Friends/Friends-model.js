@@ -55,7 +55,7 @@ var MainModel = (function (_super) {
         }
     };
     MainModel.prototype.SendToUser = function (ThisAddUser) {
-        firebase.setValue("Users/" + ThisAddUser + "/Wait/" + this.User, false);
+        firebase.setValue("Users/" + ThisAddUser + "/Friends/Request/" + this.User, false);
     };
     MainModel.prototype.GetDares = function () {
         var onChildEvent = function (result) {
@@ -90,6 +90,8 @@ var MainModel = (function (_super) {
         self = this;
         this.User = Username;
         this.set("SUser", this.User);
+        this.GetRequest();
+        this.GetFriends();
         //this.GetDares();
         //this.GetScore();
     };
@@ -114,12 +116,46 @@ var MainModel = (function (_super) {
         var onChildEvent = function (result) {
             if (result.type === "ChildAdded") {
                 if (self.SetFriends(result.value) == true) {
-                    self.AddFriendsToList(result.value);
+                    self.AddFriendsToList(result.key);
                 }
+            }
+            if (result.type === "ChildRemoved") {
+                self.DeleteFriend(result.key);
             }
         };
         var path = "/Users/" + this.User + "/Friends/Accept";
         firebase.addChildEventListener(onChildEvent, path);
+    };
+    MainModel.prototype.GetRequest = function () {
+        var onChildEvent = function (result) {
+            if (result.type === "ChildAdded") {
+                self.SetRequest(result.key);
+                alert(result.key);
+            }
+            if (result.type === "ChildRemoved") {
+                self.DeleteRequest(result.key);
+            }
+        };
+        // listen to changes in the /users path
+        this.path = "/Users/" + this.User + "/Friends/Request";
+        firebase.addChildEventListener(onChildEvent, this.path);
+    };
+    MainModel.prototype.SetRequest = function (friend) {
+        this.FriendsAsk.push(new Friend_1.default(this.User, friend, false));
+    };
+    MainModel.prototype.DeleteRequest = function (friend) {
+        for (var i = 0; i < this.FriendsAsk.length; i++) {
+            if (this.FriendsAsk.getItem(i).FriendsUsername.toLowerCase() === friend.toLowerCase()) {
+                this.FriendsAsk.splice(i, 1);
+            }
+        }
+    };
+    MainModel.prototype.DeleteFriend = function (friend) {
+        for (var i = 0; i < this.Friends.length; i++) {
+            if (this.Friends.getItem(i).FriendsUsername.toLowerCase() === friend.toLowerCase()) {
+                this.Friends.splice(i, 1);
+            }
+        }
     };
     MainModel.prototype.SetFriends = function (AFriend) {
         var AddFriend = true;

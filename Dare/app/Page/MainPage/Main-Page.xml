@@ -1,30 +1,29 @@
 <Page actionBarHidden="true" xmlns="http://schemas.nativescript.org/tns.xsd" loaded="PageLoaded">
-   <ScrollView>
-  <StackLayout>
-   <DockLayout>
-    <Label text="This is the MainPage"></Label>
-    <Button text="Add Friends" tap="{{GoToFriends}}"></Button>
-  </DockLayout>
-    <TextField text="{{Score}}"></TextField>
-    <TextField text="{{SUser}}"></TextField>
-   <DockLayout>
-   <TextField text="{{InputDare}}" hint="I Dare You To"> </TextField>
-   <TextField text="{{Username}}" hint="Username" ></TextField>
-   <Button text="Send" tap="{{Send}}"></Button>
-   </DockLayout>
-   <Label text="Your Dares"> </Label>
+  <ScrollView>
+    <StackLayout>
+       <DockLayout>
+         <Label text="This is the MainPage"></Label>
+         <Button text="Add Friends" tap="{{GoToFriends}}"></Button>
+      </DockLayout>
+      <TextField text="{{Score}}"></TextField>
+      <TextField text="{{SUser}}"></TextField>
+      <DockLayout>
+        <TextField text="{{InputDare}}" hint="I Dare You To"> </TextField>
+        <Button text="Send" tap="{{Send}}"></Button>
+      </DockLayout>
+      <Label text="Your Dares"> </Label>
    
-   <Repeater items="{{ Dares }}" >
-     <Repeater.itemTemplate>
+      <Repeater items="{{ Dares }}" >
+        <Repeater.itemTemplate>
             <GridLayout columns="1*, 3*, 3*">
                 <Label col="0" text="{{ OutputDare }}"></Label>
                 <Label col="1" text="{{ From }}"></Label>
                 <Button col="2" text="Accept" tap="{{Done}}"> </Button>
             </GridLayout>
         </Repeater.itemTemplate>
-  </Repeater>
+      </Repeater>
 
-    <Button text="Logout" tap="{{Logout}}"></Button>
-  </StackLayout>
+      <Button text="Logout" tap="{{Logout}}"></Button>
+    </StackLayout>
    </ScrollView>
 </Page>

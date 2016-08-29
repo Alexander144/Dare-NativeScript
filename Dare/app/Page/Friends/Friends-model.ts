@@ -26,7 +26,6 @@ class MainModel extends Observable{
         
         this.Friends = new ObservableArray<Friend>();
         this.FriendsAsk = new ObservableArray<Friend>();
-        
         /*this.Dares = new ObservableArray<Dare>();
         this.User = null;
         this.Score = 0;
@@ -73,7 +72,7 @@ class MainModel extends Observable{
         }
     }
     SendToUser(ThisAddUser:String){
-        firebase.setValue("Users/"+ThisAddUser+"/Wait/"+this.User , false);
+        firebase.setValue("Users/"+ThisAddUser+"/Friends/Request/"+this.User , false);
 
     }
     GetDares(){
@@ -115,6 +114,8 @@ class MainModel extends Observable{
         self = this;
         this.User = Username;
         this.set("SUser",this.User);
+        this.GetRequest();
+        this.GetFriends();
         //this.GetDares();
         //this.GetScore();
     }
@@ -145,12 +146,46 @@ class MainModel extends Observable{
          var onChildEvent = function(result:any) {
              if(result.type === "ChildAdded"){
                  if(self.SetFriends(result.value) == true){
-                    self.AddFriendsToList(result.value);
+                    self.AddFriendsToList(result.key);
                  }
              }
+              if(result.type === "ChildRemoved"){
+                  self.DeleteFriend(result.key);
+              }
     }
         var path = "/Users/"+this.User + "/Friends/Accept";
         firebase.addChildEventListener(onChildEvent,path);
+    }
+    GetRequest(){
+          var onChildEvent = function(result:any) {
+            if (result.type === "ChildAdded") {   
+                     self.SetRequest(result.key);
+                     alert(result.key);
+                }
+                   if (result.type === "ChildRemoved") {
+                       self.DeleteRequest(result.key);
+                    }
+            }
+        // listen to changes in the /users path
+            this.path = "/Users/"+this.User+"/Friends/Request";
+            firebase.addChildEventListener(onChildEvent,this.path);
+    }
+    SetRequest(friend: string){
+        this.FriendsAsk.push(new Friend(this.User,friend,false));
+    }
+    DeleteRequest(friend: string){
+         for (var i=0;i<this.FriendsAsk.length;i++) {
+            if (this.FriendsAsk.getItem(i).FriendsUsername.toLowerCase() === friend.toLowerCase()) {
+               this.FriendsAsk.splice(i,1);
+             }   
+        }
+    }
+    DeleteFriend(friend: string){
+         for (var i=0;i<this.Friends.length;i++) {
+            if (this.Friends.getItem(i).FriendsUsername.toLowerCase() === friend.toLowerCase()) {
+               this.Friends.splice(i,1);
+             }   
+        }
     }
     SetFriends(AFriend: string){
     var AddFriend = true;
