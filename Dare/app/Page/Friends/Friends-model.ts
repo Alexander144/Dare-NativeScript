@@ -145,7 +145,7 @@ class MainModel extends Observable{
     GetFriends(){
          var onChildEvent = function(result:any) {
              if(result.type === "ChildAdded"){
-                 if(self.SetFriends(result.value) == true){
+                 if(self.SetFriends(result.key) == true){
                     self.AddFriendsToList(result.key);
                  }
              }

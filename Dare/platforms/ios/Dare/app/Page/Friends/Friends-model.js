@@ -115,7 +115,7 @@ var MainModel = (function (_super) {
     MainModel.prototype.GetFriends = function () {
         var onChildEvent = function (result) {
             if (result.type === "ChildAdded") {
-                if (self.SetFriends(result.value) == true) {
+                if (self.SetFriends(result.key) == true) {
                     self.AddFriendsToList(result.key);
                 }
             }
