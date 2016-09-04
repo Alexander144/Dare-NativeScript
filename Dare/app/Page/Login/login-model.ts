@@ -77,7 +77,7 @@ class LoginModel extends Observable{
                         password: this.LoginPassword }).then((user) => {
             this.set("Email", null);
             this.set("Password", null);
-            alert("UserID" + user.key);
+            alert("Sucess");
             firebase.setValue("Users/"+this.get("Username"),{ 'ID' : user.key,'Score' : 0});
         },(error) => {
             alert("Error: " + error);

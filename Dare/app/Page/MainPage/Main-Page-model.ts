@@ -21,7 +21,7 @@ class MainModel extends Observable{
         this.Dares = new ObservableArray<Dare>();
         this.User = null;
         this.Score = 0;
-
+       
         //Vet ikke om denne fungerer
           firebase.keepInSync(
              "/Dares", // which path in your Firebase needs to be kept in sync?

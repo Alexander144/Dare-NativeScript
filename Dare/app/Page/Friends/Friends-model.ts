@@ -14,18 +14,21 @@ class MainModel extends Observable{
 
     Friends: ObservableArray<Friend>;
     FriendsAsk: ObservableArray<Friend>;
+    FriendsSearch: ObservableArray<Friend>;
     AddUser: string;
-    User: string;
     InputDare: string;
     path: string;
     Score: number;
 
+    ObsUser: any;
 
     constructor(){
         super();
         
         this.Friends = new ObservableArray<Friend>();
         this.FriendsAsk = new ObservableArray<Friend>();
+        this.FriendsSearch = new ObservableArray<Friend>();
+     
         /*this.Dares = new ObservableArray<Dare>();
         this.User = null;
         this.Score = 0;
@@ -40,6 +43,50 @@ class MainModel extends Observable{
             console.log("firebase.keepInSync error: " + error);
         });*/
 }
+    SearchUser(){
+        while(this.FriendsSearch.length > 0){
+            this.FriendsSearch.pop();
+        }
+        if(this.AddUser != null){
+            var onChildEvent = function(result:any) {
+            if (result.type === "ChildAdded") {  
+                    if(self.CheckUpUser(result.key)==true){
+                        self.AddSearchUser(result.key);
+                    } 
+                }
+            }
+        // listen to changes in the /users path
+            this.path = "/Users";
+            firebase.addChildEventListener(onChildEvent,this.path);
+        }
+        else{
+            alert("No element to search");
+        }
+    }
+    AddSearchUser(FriendsName: string){
+        this.FriendsSearch.push(new Friend(this.Username,FriendsName,false));
+    }
+    CheckUpUser(FriendsName:string){
+        let ThisFriend:Array<boolean>;
+         ThisFriend = new Array<boolean>();
+            for(var i = 0; i<this.AddUser.length; i++){
+               if(this.AddUser[i] == FriendsName[i]){
+                   ThisFriend.push(true);
+               }
+               else{
+                   ThisFriend.push(false);
+               }
+            }
+            for(var l = 0; l<ThisFriend.length; l++){
+                if(ThisFriend[l] == false){
+                    return false;
+                }
+            }
+            if(FriendsName == this.Username){
+                return false;
+            }
+            return true;
+    }
     AddThisUser(){
        var ThisAddUser = this.AddUser;
        var onUser = true;
@@ -64,7 +111,7 @@ class MainModel extends Observable{
 
     UserConfirmed(SearchUser:string, DatabaseUser:string){
 
-        if(SearchUser.toLocaleLowerCase() == DatabaseUser.toLocaleLowerCase()&&SearchUser.toLocaleLowerCase()!= this.User.toLowerCase()){
+        if(SearchUser.toLocaleLowerCase() == DatabaseUser.toLocaleLowerCase()&&SearchUser.toLocaleLowerCase()!= this.Username.toLowerCase()){
             return true;
         }
         else{
@@ -72,7 +119,7 @@ class MainModel extends Observable{
         }
     }
     SendToUser(ThisAddUser:String){
-        firebase.setValue("Users/"+ThisAddUser+"/Friends/Request/"+this.User , false);
+        firebase.setValue("Users/"+ThisAddUser+"/Friends/Request/"+this.Username , false);
 
     }
     GetDares(){
@@ -86,7 +133,7 @@ class MainModel extends Observable{
             }
         }
         // listen to changes in the /users path
-            this.path = "/Dares/"+this.User;
+            this.path = "/Dares/"+this.Username;
             firebase.addChildEventListener(onChildEvent,this.path);
             this.path = "";
     }
@@ -104,28 +151,27 @@ class MainModel extends Observable{
    
 
     Send(){
-        firebase.push("Dares/"+this.Username,{'From': this.User, 'Dare':this.InputDare});
+        firebase.push("Dares/"+this.Username,{'From': this.Username, 'Dare':this.InputDare});
         this.set("Username","");
         this.set("InputDare","");
-        
     }
 
     SetApplication(Username:string){
         self = this;
-        this.User = Username;
-        this.set("SUser",this.User);
+        this.Username = Username;
+        this.set("SUser",this.Username);
         this.GetRequest();
         this.GetFriends();
         //this.GetDares();
         //this.GetScore();
     }
-
+ 
     GetScore(){
         
     var onChildEvent = function(result:any) {
             self.SetUIScore(result.value);
     }
-        var path = "/Users/"+this.User + "/Score";
+        var path = "/Users/"+this.Username + "/Score";
         firebase.addValueEventListener(onChildEvent,path);
         
     }
@@ -136,9 +182,8 @@ class MainModel extends Observable{
         let adding = 10;
         var Result = this.Score;
         Result = Result + adding;
-        alert(this.Score);
           firebase.update(
-            '/Users/' + this.User,
+            '/Users/' + this.Username,
             {'Score': Result}
             );
     }
@@ -153,25 +198,24 @@ class MainModel extends Observable{
                   self.DeleteFriend(result.key);
               }
     }
-        var path = "/Users/"+this.User + "/Friends/Accept";
+        var path = "/Users/"+this.Username + "/Friends/Accept";
         firebase.addChildEventListener(onChildEvent,path);
     }
     GetRequest(){
           var onChildEvent = function(result:any) {
             if (result.type === "ChildAdded") {   
                      self.SetRequest(result.key);
-                     alert(result.key);
                 }
                    if (result.type === "ChildRemoved") {
                        self.DeleteRequest(result.key);
                     }
             }
         // listen to changes in the /users path
-            this.path = "/Users/"+this.User+"/Friends/Request";
+            this.path = "/Users/"+this.Username +"/Friends/Request";
             firebase.addChildEventListener(onChildEvent,this.path);
     }
     SetRequest(friend: string){
-        this.FriendsAsk.push(new Friend(this.User,friend,false));
+        this.FriendsAsk.push(new Friend(this.Username,friend,false));
     }
     DeleteRequest(friend: string){
          for (var i=0;i<this.FriendsAsk.length;i++) {
@@ -197,18 +241,22 @@ class MainModel extends Observable{
         return AddFriend;
     }
     AddFriendsToList(AFriend:string){
-        this.Friends.push(new Friend(this.User, AFriend, true));
+        this.Friends.push(new Friend(this.Username, AFriend, true));
     }
     GoBack(){
+        
          while(this.Friends.length > 0){
             this.Friends.pop();
         }
          while(this.FriendsAsk.length > 0){
             this.FriendsAsk.pop();
         }
+         while(this.FriendsSearch.length > 0){
+            this.FriendsSearch.pop();
+        }
 
     this.AddUser = null;
-    this.User = null;
+    this.Username = null;
     this.path = null;
          Page.topmost().goBack();
     }

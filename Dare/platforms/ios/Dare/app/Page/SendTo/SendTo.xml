@@ -11,7 +11,7 @@
    <Repeater items="{{ Friends }}" >
      <Repeater.itemTemplate>
            
-                <Button col="1" text="{{ FriendsUsername }}" tap="{{Select}}"> </Button>
+                <Button color="{{Color}}" col="1" text="{{ FriendsUsername }}" tap="{{Select}}"> </Button>
            
         </Repeater.itemTemplate>
   </Repeater>

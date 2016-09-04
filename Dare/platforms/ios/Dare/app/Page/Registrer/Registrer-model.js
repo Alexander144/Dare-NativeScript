@@ -16,7 +16,7 @@ var RegistrerModel = (function (_super) {
             password: this.LoginPassword }).then(function (user) {
             _this.set("Email", null);
             _this.set("Password", null);
-            alert("UserID" + user.key);
+            alert("Sucess");
         }, function (error) {
             alert("Error" + error);
         });

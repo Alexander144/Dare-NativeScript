@@ -11,6 +11,7 @@ var MainModel = (function (_super) {
         _super.call(this);
         this.Friends = new observable_array_1.ObservableArray();
         this.FriendsAsk = new observable_array_1.ObservableArray();
+        this.FriendsSearch = new observable_array_1.ObservableArray();
         /*this.Dares = new ObservableArray<Dare>();
         this.User = null;
         this.Score = 0;
@@ -25,6 +26,50 @@ var MainModel = (function (_super) {
             console.log("firebase.keepInSync error: " + error);
         });*/
     }
+    MainModel.prototype.SearchUser = function () {
+        while (this.FriendsSearch.length > 0) {
+            this.FriendsSearch.pop();
+        }
+        if (this.AddUser != null) {
+            var onChildEvent = function (result) {
+                if (result.type === "ChildAdded") {
+                    if (self.CheckUpUser(result.key) == true) {
+                        self.AddSearchUser(result.key);
+                    }
+                }
+            };
+            // listen to changes in the /users path
+            this.path = "/Users";
+            firebase.addChildEventListener(onChildEvent, this.path);
+        }
+        else {
+            alert("No element to search");
+        }
+    };
+    MainModel.prototype.AddSearchUser = function (FriendsName) {
+        this.FriendsSearch.push(new Friend_1.default(this.Username, FriendsName, false));
+    };
+    MainModel.prototype.CheckUpUser = function (FriendsName) {
+        var ThisFriend;
+        ThisFriend = new Array();
+        for (var i = 0; i < this.AddUser.length; i++) {
+            if (this.AddUser[i] == FriendsName[i]) {
+                ThisFriend.push(true);
+            }
+            else {
+                ThisFriend.push(false);
+            }
+        }
+        for (var l = 0; l < ThisFriend.length; l++) {
+            if (ThisFriend[l] == false) {
+                return false;
+            }
+        }
+        if (FriendsName == this.Username) {
+            return false;
+        }
+        return true;
+    };
     MainModel.prototype.AddThisUser = function () {
         var ThisAddUser = this.AddUser;
         var onUser = true;
@@ -47,7 +92,7 @@ var MainModel = (function (_super) {
         }
     };
     MainModel.prototype.UserConfirmed = function (SearchUser, DatabaseUser) {
-        if (SearchUser.toLocaleLowerCase() == DatabaseUser.toLocaleLowerCase() && SearchUser.toLocaleLowerCase() != this.User.toLowerCase()) {
+        if (SearchUser.toLocaleLowerCase() == DatabaseUser.toLocaleLowerCase() && SearchUser.toLocaleLowerCase() != this.Username.toLowerCase()) {
             return true;
         }
         else {
@@ -55,7 +100,7 @@ var MainModel = (function (_super) {
         }
     };
     MainModel.prototype.SendToUser = function (ThisAddUser) {
-        firebase.setValue("Users/" + ThisAddUser + "/Friends/Request/" + this.User, false);
+        firebase.setValue("Users/" + ThisAddUser + "/Friends/Request/" + this.Username, false);
     };
     MainModel.prototype.GetDares = function () {
         var onChildEvent = function (result) {
@@ -67,7 +112,7 @@ var MainModel = (function (_super) {
             }
         };
         // listen to changes in the /users path
-        this.path = "/Dares/" + this.User;
+        this.path = "/Dares/" + this.Username;
         firebase.addChildEventListener(onChildEvent, this.path);
         this.path = "";
     };
@@ -82,14 +127,14 @@ var MainModel = (function (_super) {
         this.Dares.sort
     }*/
     MainModel.prototype.Send = function () {
-        firebase.push("Dares/" + this.Username, { 'From': this.User, 'Dare': this.InputDare });
+        firebase.push("Dares/" + this.Username, { 'From': this.Username, 'Dare': this.InputDare });
         this.set("Username", "");
         this.set("InputDare", "");
     };
     MainModel.prototype.SetApplication = function (Username) {
         self = this;
-        this.User = Username;
-        this.set("SUser", this.User);
+        this.Username = Username;
+        this.set("SUser", this.Username);
         this.GetRequest();
         this.GetFriends();
         //this.GetDares();
@@ -99,7 +144,7 @@ var MainModel = (function (_super) {
         var onChildEvent = function (result) {
             self.SetUIScore(result.value);
         };
-        var path = "/Users/" + this.User + "/Score";
+        var path = "/Users/" + this.Username + "/Score";
         firebase.addValueEventListener(onChildEvent, path);
     };
     MainModel.prototype.SetUIScore = function (AScore) {
@@ -109,8 +154,7 @@ var MainModel = (function (_super) {
         var adding = 10;
         var Result = this.Score;
         Result = Result + adding;
-        alert(this.Score);
-        firebase.update('/Users/' + this.User, { 'Score': Result });
+        firebase.update('/Users/' + this.Username, { 'Score': Result });
     };
     MainModel.prototype.GetFriends = function () {
         var onChildEvent = function (result) {
@@ -123,25 +167,24 @@ var MainModel = (function (_super) {
                 self.DeleteFriend(result.key);
             }
         };
-        var path = "/Users/" + this.User + "/Friends/Accept";
+        var path = "/Users/" + this.Username + "/Friends/Accept";
         firebase.addChildEventListener(onChildEvent, path);
     };
     MainModel.prototype.GetRequest = function () {
         var onChildEvent = function (result) {
             if (result.type === "ChildAdded") {
                 self.SetRequest(result.key);
-                alert(result.key);
             }
             if (result.type === "ChildRemoved") {
                 self.DeleteRequest(result.key);
             }
         };
         // listen to changes in the /users path
-        this.path = "/Users/" + this.User + "/Friends/Request";
+        this.path = "/Users/" + this.Username + "/Friends/Request";
         firebase.addChildEventListener(onChildEvent, this.path);
     };
     MainModel.prototype.SetRequest = function (friend) {
-        this.FriendsAsk.push(new Friend_1.default(this.User, friend, false));
+        this.FriendsAsk.push(new Friend_1.default(this.Username, friend, false));
     };
     MainModel.prototype.DeleteRequest = function (friend) {
         for (var i = 0; i < this.FriendsAsk.length; i++) {
@@ -167,7 +210,7 @@ var MainModel = (function (_super) {
         return AddFriend;
     };
     MainModel.prototype.AddFriendsToList = function (AFriend) {
-        this.Friends.push(new Friend_1.default(this.User, AFriend, true));
+        this.Friends.push(new Friend_1.default(this.Username, AFriend, true));
     };
     MainModel.prototype.GoBack = function () {
         while (this.Friends.length > 0) {
@@ -176,8 +219,11 @@ var MainModel = (function (_super) {
         while (this.FriendsAsk.length > 0) {
             this.FriendsAsk.pop();
         }
+        while (this.FriendsSearch.length > 0) {
+            this.FriendsSearch.pop();
+        }
         this.AddUser = null;
-        this.User = null;
+        this.Username = null;
         this.path = null;
         Page.topmost().goBack();
     };

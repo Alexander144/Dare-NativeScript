@@ -1,11 +1,11 @@
 <Page actionBarHidden="true" xmlns="http://schemas.nativescript.org/tns.xsd" loaded="PageLoaded">
-  <ScrollView>
+    <ScrollView orientation="vertical">
     <StackLayout>
        <DockLayout>
          <Label text="This is the MainPage"></Label>
          <Button text="Add Friends" tap="{{GoToFriends}}"></Button>
       </DockLayout>
-      <TextField text="{{Score}}"></TextField>
+      <Label text="{{Score}}"></Label>
       <TextField text="{{SUser}}"></TextField>
       <DockLayout>
         <TextField text="{{InputDare}}" hint="I Dare You To"> </TextField>
@@ -24,6 +24,6 @@
       </Repeater>
 
       <Button text="Logout" tap="{{Logout}}"></Button>
-    </StackLayout>
-   </ScrollView>
+      </StackLayout>
+    </ScrollView>
 </Page>

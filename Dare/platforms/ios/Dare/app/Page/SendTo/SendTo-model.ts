@@ -14,6 +14,7 @@ class MainModel extends Observable{
     Dare: string;
     index: number;
     Friends: ObservableArray<Friend>;
+  
 
     constructor(){
         super();
@@ -77,7 +78,6 @@ class MainModel extends Observable{
     }
     AddFriendsToList(AFriend:string){
         this.Friends.push(new Friend(this.User,AFriend,true));
-        alert(AFriend);
     }
 
   

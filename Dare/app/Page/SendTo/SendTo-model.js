@@ -63,7 +63,6 @@ var MainModel = (function (_super) {
     };
     MainModel.prototype.AddFriendsToList = function (AFriend) {
         this.Friends.push(new Friend_1.default(this.User, AFriend, true));
-        alert(AFriend);
     };
     MainModel.prototype.GoBack = function () {
         while (this.Friends.length > 0) {

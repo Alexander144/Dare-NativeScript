@@ -29,7 +29,7 @@ class RegistrerModel extends Observable{
                         password: this.LoginPassword }).then((user) => {
             this.set("Email", null);
             this.set("Password", null);
-            alert("UserID" + user.key);
+            alert("Sucess");
         },(error) => {
             alert("Error" + error);
         });
