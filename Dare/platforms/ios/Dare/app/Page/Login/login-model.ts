@@ -2,14 +2,12 @@ import{ Observable } from "data/observable";
 import { ObservableArray } from "data/observable-array";
 import LabelModule = require("ui/label");
 import Page = require("ui/frame");
-import item from "../Class/item/item";
 import firebase = require("nativescript-plugin-firebase");
 
 var self;
 class LoginModel extends Observable{
 
    Username: string;
-   items: ObservableArray<item>;
    Add: string;
    message: Observable;
    LoginEmail: string;
@@ -17,7 +15,6 @@ class LoginModel extends Observable{
 
     constructor(){
         super();
-        this.items = new ObservableArray<item>();
         self = this;
         
        
@@ -85,7 +82,6 @@ class LoginModel extends Observable{
     }
     Send(){
         firebase.push("","hello");
-        this.items.push(new item("Hello"));
     }
 } 
 

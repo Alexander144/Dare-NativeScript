@@ -1,15 +1,12 @@
 "use strict";
 var observable_1 = require("data/observable");
-var observable_array_1 = require("data/observable-array");
 var Page = require("ui/frame");
-var item_1 = require("../Class/item/item");
 var firebase = require("nativescript-plugin-firebase");
 var self;
 var LoginModel = (function (_super) {
     __extends(LoginModel, _super);
     function LoginModel() {
         _super.call(this);
-        this.items = new observable_array_1.ObservableArray();
         self = this;
         //this.set("Add", firebase.);
     }
@@ -65,7 +62,6 @@ var LoginModel = (function (_super) {
     };
     LoginModel.prototype.Send = function () {
         firebase.push("", "hello");
-        this.items.push(new item_1.default("Hello"));
     };
     return LoginModel;
 }(observable_1.Observable));

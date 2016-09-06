@@ -23,8 +23,12 @@ class Friend extends Observable{
         this.Date = Date;
     }
     Done(){
-         firebase.setValue("Users/"+this.Username+"/Friends/Accept/"+ this.FriendsUsername, true);
-         firebase.setValue("Users/"+this.FriendsUsername+"/Friends/Accept/"+ this.Username, true);
+        var OUsername = {};
+        OUsername[this.Username] = true;
+        var FUsername = {};
+        FUsername[this.FriendsUsername] = true;
+         firebase.setValue("Users/"+this.Username+"/Friends/Accept/", FUsername);
+         firebase.setValue("Users/"+this.FriendsUsername+"/Friends/Accept/",  OUsername);
          firebase.remove("Users/"+this.Username+"/Friends/Request/"+this.FriendsUsername);
     }
     Delete(){
@@ -42,8 +46,10 @@ class Friend extends Observable{
        }
     }
     SendRequest(){
-         firebase.setValue("Users/"+this.FriendsUsername+"/Friends/Request/"+this.Username , false);
-         alert("Send friend request");
+        var OUsername = {};
+        OUsername[this.Username] = false;
+         firebase.setValue("Users/"+this.FriendsUsername+"/Friends/Request/",OUsername);
+         alert("Send friend request to " + this.FriendsUsername);
     }
     Send(InputDare){
          firebase.push("Dares/"+this.FriendsUsername,{'From': this.Username, 'Dare':InputDare});

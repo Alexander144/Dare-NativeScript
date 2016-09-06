@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '99FD396C6D819C1066907BBDD2BD1388'
+               BlueprintIdentifier = '22852BC3BE025D4ACFC8449875E0A2B4'
                BlueprintName = 'Pods-Dare'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Pods-Dare.framework'>

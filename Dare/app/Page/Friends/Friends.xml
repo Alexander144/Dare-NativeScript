@@ -1,7 +1,7 @@
 <Page actionBarHidden="true" xmlns="http://schemas.nativescript.org/tns.xsd" loaded="PageLoaded">
    <ScrollView>
   <StackLayout>
-  <TextField text="{{SUser}}"></TextField>
+  <Label text="{{SUser}}"></Label>
   <DockLayout>
   <TextField text="{{AddUser}}" hint="Username"></TextField>
   <Button text="Add" tap="{{SearchUser}}"></Button>

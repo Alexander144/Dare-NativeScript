@@ -1,6 +1,6 @@
 {
   "name": "nativescript-plugin-firebase",
-  "version": "3.5.0",
+  "version": "3.5.4",
   "description": "Fire. Base. Firebase!",
   "main": "firebase.js",
   "nativescript": {
@@ -8,6 +8,9 @@
       "android": "1.7.0",
       "ios": "1.7.0"
     }
+  },
+  "scripts": {
+    "postinstall": "node scripts/postinstall.js"
   },
   "repository": {
     "type": "git",
@@ -38,10 +41,12 @@
     "url": "https://github.com/eddyverbruggen/nativescript-plugin-firebase/issues"
   },
   "homepage": "https://github.com/eddyverbruggen/nativescript-plugin-firebase",
-  "gitHead": "e9c0621816eccb2103382bbc9861caea437fa4df",
-  "_id": "nativescript-plugin-firebase@3.5.0",
-  "scripts": {},
-  "_shasum": "bbfb40be8b3b66bbd80ea94c37b7ac1f32d3ccaa",
+  "dependencies": {
+    "prompt": "^1.0.0"
+  },
+  "gitHead": "0fa467252f68308e57c18e73a29fb53bbc39a22a",
+  "_id": "nativescript-plugin-firebase@3.5.4",
+  "_shasum": "0d40facb2ece8755f145bceb746db5ff954c5f4f",
   "_from": "nativescript-plugin-firebase@latest",
   "_npmVersion": "2.14.7",
   "_nodeVersion": "4.2.2",
@@ -50,8 +55,8 @@
     "email": "eddyverbruggen@gmail.com"
   },
   "dist": {
-    "shasum": "bbfb40be8b3b66bbd80ea94c37b7ac1f32d3ccaa",
-    "tarball": "https://registry.npmjs.org/nativescript-plugin-firebase/-/nativescript-plugin-firebase-3.5.0.tgz"
+    "shasum": "0d40facb2ece8755f145bceb746db5ff954c5f4f",
+    "tarball": "https://registry.npmjs.org/nativescript-plugin-firebase/-/nativescript-plugin-firebase-3.5.4.tgz"
   },
   "maintainers": [
     {
@@ -60,10 +65,10 @@
     }
   ],
   "_npmOperationalInternal": {
-    "host": "packages-12-west.internal.npmjs.com",
-    "tmp": "tmp/nativescript-plugin-firebase-3.5.0.tgz_1470768151358_0.21515897358767688"
+    "host": "packages-16-east.internal.npmjs.com",
+    "tmp": "tmp/nativescript-plugin-firebase-3.5.4.tgz_1472497716149_0.05568996537476778"
   },
   "directories": {},
-  "_resolved": "https://registry.npmjs.org/nativescript-plugin-firebase/-/nativescript-plugin-firebase-3.5.0.tgz",
+  "_resolved": "https://registry.npmjs.org/nativescript-plugin-firebase/-/nativescript-plugin-firebase-3.5.4.tgz",
   "readme": "ERROR: No README data found!"
 }

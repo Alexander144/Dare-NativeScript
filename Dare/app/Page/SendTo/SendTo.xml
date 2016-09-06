@@ -5,7 +5,7 @@
     <Label text="This is the SendtoFriendPage"></Label>
   </DockLayout>
 
-    <TextField text="{{SUser}}"></TextField>
+    <Label text="{{SUser}}"></Label>
     
   <Label text="Friends"> </Label>
    <Repeater items="{{ Friends }}" >

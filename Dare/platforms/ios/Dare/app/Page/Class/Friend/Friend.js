@@ -15,8 +15,12 @@ var Friend = (function (_super) {
         this.Date = Date;
     };
     Friend.prototype.Done = function () {
-        firebase.setValue("Users/" + this.Username + "/Friends/Accept/" + this.FriendsUsername, true);
-        firebase.setValue("Users/" + this.FriendsUsername + "/Friends/Accept/" + this.Username, true);
+        var OUsername = {};
+        OUsername[this.Username] = true;
+        var FUsername = {};
+        FUsername[this.FriendsUsername] = true;
+        firebase.setValue("Users/" + this.Username + "/Friends/Accept/", FUsername);
+        firebase.setValue("Users/" + this.FriendsUsername + "/Friends/Accept/", OUsername);
         firebase.remove("Users/" + this.Username + "/Friends/Request/" + this.FriendsUsername);
     };
     Friend.prototype.Delete = function () {
@@ -34,8 +38,10 @@ var Friend = (function (_super) {
         }
     };
     Friend.prototype.SendRequest = function () {
-        firebase.setValue("Users/" + this.FriendsUsername + "/Friends/Request/" + this.Username, false);
-        alert("Send friend request");
+        var OUsername = {};
+        OUsername[this.Username] = false;
+        firebase.setValue("Users/" + this.FriendsUsername + "/Friends/Request/", OUsername);
+        alert("Send friend request to " + this.FriendsUsername);
     };
     Friend.prototype.Send = function (InputDare) {
         firebase.push("Dares/" + this.FriendsUsername, { 'From': this.Username, 'Dare': InputDare });

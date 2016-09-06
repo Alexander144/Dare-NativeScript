@@ -1,3 +1,6 @@
+# 3.4.0
+* Updates for Firebase/AdMob, Firebase/Analytics, Firebase/AppIndexing, Firebase/Auth, Firebase/Crash, Firebase/DynamicLinks, Firebase/Invites, Firebase/Messaging, Firebase/RemoteConfig.
+
 # 3.3.0
 * Bugfixes for Firebase/Analytics, Firebase/Auth, Firebase/Database, Firebase/DynamicLinks, Firebase/Invites, Firebase/Storage.
 

@@ -30,7 +30,7 @@ var MainModel = (function (_super) {
         while (this.FriendsSearch.length > 0) {
             this.FriendsSearch.pop();
         }
-        if (this.AddUser != null) {
+        if (this.AddUser != null && this.AddUser != "") {
             var onChildEvent = function (result) {
                 if (result.type === "ChildAdded") {
                     if (self.CheckUpUser(result.key) == true) {

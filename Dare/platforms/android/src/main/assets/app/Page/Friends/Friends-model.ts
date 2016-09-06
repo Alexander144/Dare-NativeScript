@@ -47,7 +47,7 @@ class MainModel extends Observable{
         while(this.FriendsSearch.length > 0){
             this.FriendsSearch.pop();
         }
-        if(this.AddUser != null){
+        if(this.AddUser != null&& this.AddUser != ""){
             var onChildEvent = function(result:any) {
             if (result.type === "ChildAdded") {  
                     if(self.CheckUpUser(result.key)==true){

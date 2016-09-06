@@ -6,7 +6,7 @@
          <Button text="Add Friends" tap="{{GoToFriends}}"></Button>
       </DockLayout>
       <Label text="{{Score}}"></Label>
-      <TextField text="{{SUser}}"></TextField>
+      <Label text="{{SUser}}"></Label>
       <DockLayout>
         <TextField text="{{InputDare}}" hint="I Dare You To"> </TextField>
         <Button text="Send" tap="{{Send}}"></Button>
