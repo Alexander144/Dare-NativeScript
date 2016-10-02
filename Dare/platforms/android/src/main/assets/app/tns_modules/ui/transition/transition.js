@@ -3,6 +3,24 @@ var types_1 = require("utils/types");
 var platform_1 = require("platform");
 var lazy_1 = require("utils/lazy");
 var trace = require("trace");
+var idleGCHandler;
+var scheduledGC = false;
+function scheduleGCOnIdle() {
+    if (!idleGCHandler) {
+        idleGCHandler = new android.os.MessageQueue.IdleHandler({
+            queueIdle: function () {
+                gc();
+                scheduledGC = false;
+                return false;
+            }
+        });
+    }
+    if (!scheduledGC) {
+        android.os.Looper.myQueue().addIdleHandler(idleGCHandler);
+        scheduledGC = true;
+    }
+    return idleGCHandler;
+}
 var slideTransition;
 function ensureSlideTransition() {
     if (!slideTransition) {
@@ -46,6 +64,9 @@ function _clearBackwardTransitions(fragment) {
         if (trace.enabled) {
             trace.write("Cleared enterPopExitTransition " + expandedFragment.enterPopExitTransition + " for " + fragment, trace.categories.Transition);
         }
+        if (expandedFragment.enterPopExitTransitionListener) {
+            expandedFragment.enterPopExitTransitionListener.remove();
+        }
         expandedFragment.enterPopExitTransition = undefined;
     }
     if (_sdkVersion() >= 21) {
@@ -54,12 +75,18 @@ function _clearBackwardTransitions(fragment) {
             if (trace.enabled) {
                 trace.write("Cleared Enter " + enterTransition.getClass().getSimpleName() + " transition for " + fragment, trace.categories.Transition);
             }
+            if (enterTransition.transitionListener) {
+                enterTransition.transitionListener.remove();
+            }
             fragment.setEnterTransition(null);
         }
         var returnTransition = fragment.getReturnTransition();
         if (returnTransition) {
             if (trace.enabled) {
                 trace.write("Cleared Pop Exit " + returnTransition.getClass().getSimpleName() + " transition for " + fragment, trace.categories.Transition);
+            }
+            if (returnTransition.transitionListener) {
+                returnTransition.transitionListener.remove();
             }
             fragment.setReturnTransition(null);
         }
@@ -72,6 +99,9 @@ function _clearForwardTransitions(fragment) {
         if (trace.enabled) {
             trace.write("Cleared exitPopEnterTransition " + expandedFragment.exitPopEnterTransition + " for " + fragment, trace.categories.Transition);
         }
+        if (expandedFragment.exitPopEnterTransitionListener) {
+            expandedFragment.exitPopEnterTransitionListener.remove();
+        }
         expandedFragment.exitPopEnterTransition = undefined;
     }
     if (_sdkVersion() >= 21) {
@@ -80,12 +110,18 @@ function _clearForwardTransitions(fragment) {
             if (trace.enabled) {
                 trace.write("Cleared Exit " + exitTransition.getClass().getSimpleName() + " transition for " + fragment, trace.categories.Transition);
             }
+            if (exitTransition.transitionListener) {
+                exitTransition.transitionListener.remove();
+            }
             fragment.setExitTransition(null);
         }
         var reenterTransition = fragment.getReenterTransition();
         if (reenterTransition) {
             if (trace.enabled) {
                 trace.write("Cleared Pop Enter " + reenterTransition.getClass().getSimpleName() + " transition for " + fragment, trace.categories.Transition);
+            }
+            if (reenterTransition.transitionListener) {
+                reenterTransition.transitionListener.remove();
             }
             fragment.setReenterTransition(null);
         }
@@ -354,6 +390,7 @@ function _completePageRemoval(fragment, isBack) {
         }
     }
     entry.isNavigation = undefined;
+    scheduleGCOnIdle();
 }
 function _removePageNativeViewFromAndroidParent(page) {
     if (page._nativeView && page._nativeView.getParent) {
@@ -372,50 +409,82 @@ function _toShortString(nativeTransition) {
     return nativeTransition.getClass().getSimpleName() + "@" + nativeTransition.hashCode().toString(16);
 }
 function _addNativeTransitionListener(fragment, nativeTransition) {
-    var expandedFragment = fragment;
     var transitionListener = new android.transition.Transition.TransitionListener({
         onTransitionCancel: function (transition) {
+            var expandedFragment = this.fragment;
+            if (!expandedFragment) {
+                return;
+            }
             if (trace.enabled) {
-                trace.write("CANCEL " + _toShortString(nativeTransition) + " transition for " + fragment, trace.categories.Transition);
+                trace.write("CANCEL " + _toShortString(transition) + " transition for " + expandedFragment, trace.categories.Transition);
             }
             if (expandedFragment.completePageRemovalWhenTransitionEnds) {
-                _completePageRemoval(fragment, expandedFragment.completePageRemovalWhenTransitionEnds.isBack);
+                _completePageRemoval(expandedFragment, expandedFragment.completePageRemovalWhenTransitionEnds.isBack);
             }
             if (expandedFragment.completePageAdditionWhenTransitionEnds) {
-                _completePageAddition(fragment, expandedFragment.completePageAdditionWhenTransitionEnds.isBack);
+                _completePageAddition(expandedFragment, expandedFragment.completePageAdditionWhenTransitionEnds.isBack);
             }
+            this.checkedRemove();
         },
         onTransitionEnd: function (transition) {
+            var expandedFragment = this.fragment;
+            if (!expandedFragment) {
+                return;
+            }
             if (trace.enabled) {
-                trace.write("END " + _toShortString(nativeTransition) + " transition for " + fragment, trace.categories.Transition);
+                trace.write("END " + _toShortString(transition) + " transition for " + expandedFragment, trace.categories.Transition);
             }
             if (expandedFragment.completePageRemovalWhenTransitionEnds) {
-                _completePageRemoval(fragment, expandedFragment.completePageRemovalWhenTransitionEnds.isBack);
+                _completePageRemoval(expandedFragment, expandedFragment.completePageRemovalWhenTransitionEnds.isBack);
             }
             if (expandedFragment.completePageAdditionWhenTransitionEnds) {
-                _completePageAddition(fragment, expandedFragment.completePageAdditionWhenTransitionEnds.isBack);
+                _completePageAddition(expandedFragment, expandedFragment.completePageAdditionWhenTransitionEnds.isBack);
             }
+            this.checkedRemove();
         },
         onTransitionPause: function (transition) {
+            var expandedFragment = this.fragment;
             if (trace.enabled) {
-                trace.write("PAUSE " + _toShortString(nativeTransition) + " transition for " + fragment, trace.categories.Transition);
+                trace.write("PAUSE " + _toShortString(transition) + " transition for " + expandedFragment, trace.categories.Transition);
             }
         },
         onTransitionResume: function (transition) {
+            var expandedFragment = this.fragment;
             if (trace.enabled) {
-                trace.write("RESUME " + _toShortString(nativeTransition) + " transition for " + fragment, trace.categories.Transition);
+                trace.write("RESUME " + _toShortString(transition) + " transition for " + expandedFragment, trace.categories.Transition);
             }
         },
         onTransitionStart: function (transition) {
+            var expandedFragment = this.fragment;
             if (trace.enabled) {
-                trace.write("START " + _toShortString(nativeTransition) + " transition for " + fragment, trace.categories.Transition);
+                trace.write("START " + _toShortString(transition) + " transition for " + expandedFragment, trace.categories.Transition);
             }
         }
     });
+    transitionListener.fragment = fragment;
+    transitionListener.count = 2;
+    transitionListener.transition = nativeTransition;
+    transitionListener.listener = transitionListener;
+    transitionListener.checkedRemove = function () {
+        if (--this.count) {
+            return;
+        }
+        this.remove();
+    };
+    transitionListener.remove = function () {
+        if (!this.listener) {
+            return;
+        }
+        this.transition.removeListener(this.listener);
+        this.fragment = null;
+        this.listener = null;
+        this.transition.transitionListener = null;
+        this.transition = null;
+    };
     nativeTransition.addListener(transitionListener);
+    nativeTransition.transitionListener = transitionListener;
 }
 function _onFragmentCreateAnimator(fragment, nextAnim) {
-    var expandedFragment = fragment;
     var transitionType;
     switch (nextAnim) {
         case enterFakeResourceId:
@@ -431,7 +500,7 @@ function _onFragmentCreateAnimator(fragment, nextAnim) {
             transitionType = AndroidTransitionType.popExit;
             break;
     }
-    if ((nextAnim === popExitFakeResourceId || !nextAnim) && expandedFragment.exitHack) {
+    if ((nextAnim === popExitFakeResourceId || !nextAnim) && fragment.exitHack) {
         trace.write("HACK EXIT FOR " + fragment, trace.categories.Transition);
         transitionType = AndroidTransitionType.exit;
     }
@@ -439,11 +508,11 @@ function _onFragmentCreateAnimator(fragment, nextAnim) {
     switch (transitionType) {
         case AndroidTransitionType.enter:
         case AndroidTransitionType.popExit:
-            transition = expandedFragment.enterPopExitTransition;
+            transition = fragment.enterPopExitTransition;
             break;
         case AndroidTransitionType.exit:
         case AndroidTransitionType.popEnter:
-            transition = expandedFragment.exitPopEnterTransition;
+            transition = fragment.exitPopEnterTransition;
             break;
     }
     var animator;
@@ -453,38 +522,84 @@ function _onFragmentCreateAnimator(fragment, nextAnim) {
         var transitionListener = new android.animation.Animator.AnimatorListener({
             onAnimationStart: function (animator) {
                 if (trace.enabled) {
-                    trace.write("START " + transitionType + " " + transition + " for " + fragment, trace.categories.Transition);
+                    trace.write("START " + transitionType + " " + this.transition + " for " + this.fragment, trace.categories.Transition);
                 }
             },
             onAnimationRepeat: function (animator) {
                 if (trace.enabled) {
-                    trace.write("REPEAT " + transitionType + " " + transition + " for " + fragment, trace.categories.Transition);
+                    trace.write("REPEAT " + transitionType + " " + this.transition + " for " + this.fragment, trace.categories.Transition);
                 }
             },
             onAnimationEnd: function (animator) {
                 if (trace.enabled) {
-                    trace.write("END " + transitionType + " " + transition + " for " + fragment, trace.categories.Transition);
+                    trace.write("END " + transitionType + " " + this.transition + " for " + this.fragment, trace.categories.Transition);
                 }
-                if (expandedFragment.completePageRemovalWhenTransitionEnds) {
-                    _completePageRemoval(fragment, expandedFragment.completePageRemovalWhenTransitionEnds.isBack);
+                if (this.fragment.completePageRemovalWhenTransitionEnds) {
+                    _completePageRemoval(this.fragment, this.fragment.completePageRemovalWhenTransitionEnds.isBack);
                 }
-                if (expandedFragment.completePageAdditionWhenTransitionEnds) {
-                    _completePageAddition(fragment, expandedFragment.completePageAdditionWhenTransitionEnds.isBack);
+                if (this.fragment.completePageAdditionWhenTransitionEnds) {
+                    _completePageAddition(this.fragment, this.fragment.completePageAdditionWhenTransitionEnds.isBack);
                 }
+                this.checkedRemove();
             },
             onAnimationCancel: function (animator) {
                 if (trace.enabled) {
-                    trace.write("CANCEL " + transitionType + " " + transition + " for " + fragment, trace.categories.Transition);
+                    trace.write("CANCEL " + transitionType + " " + this.transition + " for " + this.fragment, trace.categories.Transition);
                 }
-                if (expandedFragment.completePageRemovalWhenTransitionEnds) {
-                    _completePageRemoval(fragment, expandedFragment.completePageRemovalWhenTransitionEnds.isBack);
+                if (this.fragment.completePageRemovalWhenTransitionEnds) {
+                    _completePageRemoval(this.fragment, this.fragment.completePageRemovalWhenTransitionEnds.isBack);
                 }
-                if (expandedFragment.completePageAdditionWhenTransitionEnds) {
-                    _completePageAddition(fragment, expandedFragment.completePageAdditionWhenTransitionEnds.isBack);
+                if (this.fragment.completePageAdditionWhenTransitionEnds) {
+                    _completePageAddition(this.fragment, this.fragment.completePageAdditionWhenTransitionEnds.isBack);
                 }
+                this.checkedRemove();
             }
         });
+        transitionListener.fragment = fragment;
+        transitionListener.transitionType = transitionType;
+        transitionListener.count = 2;
+        transitionListener.listener = transitionListener;
+        transitionListener.animator = animator;
+        transitionListener.checkedRemove = function () {
+            if (--this.count) {
+                return;
+            }
+            this.remove();
+        };
+        transitionListener.remove = function () {
+            if (!this.listener) {
+                return;
+            }
+            this.animator.removeListener(this.listener);
+            switch (this.transitionType) {
+                case AndroidTransitionType.enter:
+                case AndroidTransitionType.popExit:
+                    this.fragment.enterPopExitTransitionListener = null;
+                    break;
+                case AndroidTransitionType.exit:
+                case AndroidTransitionType.popEnter:
+                    this.fragment.exitPopEnterTransitionListener = null;
+                    break;
+            }
+            this.transitionType = null;
+            this.fragment = null;
+            this.listener = null;
+            this.animator.transitionListener = null;
+            this.animator = null;
+            this.transitionType = null;
+        };
+        animator.transitionListener = transitionListener;
         animator.addListener(transitionListener);
+        switch (transitionType) {
+            case AndroidTransitionType.enter:
+            case AndroidTransitionType.popExit:
+                fragment.enterPopExitTransitionListener = transitionListener;
+                break;
+            case AndroidTransitionType.exit:
+            case AndroidTransitionType.popEnter:
+                fragment.exitPopEnterTransitionListener = transitionListener;
+                break;
+        }
     }
     if (transitionType && !animator) {
         animator = _createDummyZeroDurationAnimator();

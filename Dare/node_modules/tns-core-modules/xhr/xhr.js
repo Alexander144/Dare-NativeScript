@@ -96,7 +96,7 @@ var XMLHttpRequest = (function () {
         var header = this.getResponseHeader('Content-Type');
         var contentType = header && header.toLowerCase();
         if (contentType) {
-            if (contentType.indexOf('application/json') >= 0) {
+            if (contentType.indexOf('application/json') >= 0 || contentType.indexOf('+json') >= 0) {
                 this.responseType = XMLHttpRequestResponseType.json;
             }
             else if (contentType.indexOf('text/plain') >= 0) {

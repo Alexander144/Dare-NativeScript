@@ -30,6 +30,19 @@ function showDialog(builder) {
             }
         }
     }
+    var buttonColor = dialogsCommon.getButtonColor();
+    if (buttonColor) {
+        var buttons = [];
+        for (var i = 0; i < 3; i++) {
+            var id = dlg.getContext().getResources().getIdentifier("android:id/button" + i, null, null);
+            buttons[i] = dlg.findViewById(id);
+        }
+        buttons.forEach(function (button) {
+            if (button) {
+                button.setTextColor(buttonColor.android);
+            }
+        });
+    }
 }
 function addButtonsToAlertDialog(alert, options, callback) {
     if (!options) {

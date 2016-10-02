@@ -1,3 +1,4 @@
+var platform = require("platform");
 var REQUEST_IMAGE_CAPTURE = 3453;
 exports.takePicture = function (options) {
     return new Promise(function (resolve, reject) {
@@ -41,11 +42,11 @@ exports.takePicture = function (options) {
                         var imageSource = require("image-source");
                         var options_1 = new android.graphics.BitmapFactory.Options();
                         options_1.inJustDecodeBounds = true;
-                        android.graphics.BitmapFactory.decodeFile(picturePath_1, options_1);
+                        var bitmap = android.graphics.BitmapFactory.decodeFile(picturePath_1, options_1);
                         var sampleSize = calculateInSampleSize(options_1.outWidth, options_1.outHeight, reqWidth_1, reqHeight_1);
                         var finalBitmapOptions = new android.graphics.BitmapFactory.Options();
                         finalBitmapOptions.inSampleSize = sampleSize;
-                        var bitmap = android.graphics.BitmapFactory.decodeFile(picturePath_1, finalBitmapOptions);
+                        bitmap = android.graphics.BitmapFactory.decodeFile(picturePath_1, finalBitmapOptions);
                         var scaledSizeImage = null;
                         if (reqHeight_1 > 0 && reqWidth_1 > 0) {
                             if (shouldKeepAspectRatio_1) {
@@ -61,8 +62,8 @@ exports.takePicture = function (options) {
                             scaledSizeImage = bitmap;
                         }
                         var ei = new android.media.ExifInterface(picturePath_1);
-                        var orientation_1 = ei.getAttributeInt(android.media.ExifInterface.TAG_ORIENTATION, android.media.ExifInterface.ORIENTATION_NORMAL);
-                        switch (orientation_1) {
+                        var orientation = ei.getAttributeInt(android.media.ExifInterface.TAG_ORIENTATION, android.media.ExifInterface.ORIENTATION_NORMAL);
+                        switch (orientation) {
                             case android.media.ExifInterface.ORIENTATION_ROTATE_90:
                                 scaledSizeImage = rotateBitmap(scaledSizeImage, 90);
                                 break;
@@ -92,6 +93,10 @@ exports.isAvailable = function () {
 };
 var calculateInSampleSize = function (imageWidth, imageHeight, reqWidth, reqHeight) {
     var sampleSize = 1;
+    var displayWidth = platform.screen.mainScreen.widthDIPs;
+    var displayHeigth = platform.screen.mainScreen.heightDIPs;
+    reqWidth = (reqWidth > 0 && reqWidth < displayWidth) ? reqWidth : displayWidth;
+    reqHeight = (reqHeight > 0 && reqHeight < displayHeigth) ? reqHeight : displayHeigth;
     if (imageWidth > reqWidth && imageHeight > reqHeight) {
         var halfWidth = imageWidth / 2;
         var halfHeight = imageHeight / 2;

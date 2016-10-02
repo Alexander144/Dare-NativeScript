@@ -4,13 +4,16 @@
 
 def isWinOs = System.properties['os.name'].toLowerCase().contains('windows')
 
-def astParserDir = "$projectDir/ast-parser"
+def astParserDir = "$projectDir/parser"
 def interfaceNamesFilePath = "$projectDir/interfaces-names.txt"
 def bindingsFilePath = "$projectDir/bindings.txt"
 def cachedJarsFilePath = "$projectDir/cached.txt"
 
 def shouldRun = true
 def absoluteOutDir = project.outDir
+if (!absoluteOutDir.exists()) {
+	absoluteOutDir.mkdirs()
+}
 def absoluteJsCodeDir = project.jsCodeDir
 def utf8 = java.nio.charset.StandardCharsets.UTF_8
 def current = ""
@@ -88,4 +91,3 @@ task generateBindings() {
 
 runAstParser.dependsOn(generateInterfaceNamesList)
 generateBindings.dependsOn(runAstParser)
-

@@ -23,8 +23,8 @@ var DockLayout = (function (_super) {
         var height = utils.layout.getMeasureSpecSize(heightMeasureSpec);
         var heightMode = utils.layout.getMeasureSpecMode(heightMeasureSpec);
         var density = utils.layout.getDisplayDensity();
-        var remainingWidth = widthMode === utils.layout.UNSPECIFIED ? Number.MAX_VALUE : width - ((this.paddingLeft + this.paddingRight) * density);
-        var remainingHeight = heightMode === utils.layout.UNSPECIFIED ? Number.MAX_VALUE : height - ((this.paddingTop + this.paddingBottom) * density);
+        var remainingWidth = widthMode === utils.layout.UNSPECIFIED ? Number.MAX_VALUE : width - ((this.borderLeftWidth + this.paddingLeft + this.paddingRight + this.borderRightWidth) * density);
+        var remainingHeight = heightMode === utils.layout.UNSPECIFIED ? Number.MAX_VALUE : height - ((this.borderTopWidth + this.paddingTop + this.paddingBottom + this.borderBottomWidth) * density);
         var tempHeight = 0;
         var tempWidth = 0;
         var childWidthMeasureSpec;
@@ -58,8 +58,8 @@ var DockLayout = (function (_super) {
                     break;
             }
         });
-        measureWidth += (this.paddingLeft + this.paddingRight) * density;
-        measureHeight += (this.paddingTop + this.paddingBottom) * density;
+        measureWidth += (this.borderLeftWidth + this.paddingLeft + this.paddingRight + this.borderRightWidth) * density;
+        measureHeight += (this.borderTopWidth + this.paddingTop + this.paddingBottom + this.borderBottomWidth) * density;
         measureWidth = Math.max(measureWidth, this.minWidth * density);
         measureHeight = Math.max(measureHeight, this.minHeight * density);
         var widthAndState = view_1.View.resolveSizeAndState(measureWidth, width, widthMode, 0);
@@ -70,12 +70,12 @@ var DockLayout = (function (_super) {
         var _this = this;
         _super.prototype.onLayout.call(this, left, top, right, bottom);
         var density = utils.layout.getDisplayDensity();
-        var childLeft = this.paddingLeft * density;
-        var childTop = this.paddingTop * density;
+        var childLeft = (this.borderLeftWidth + this.paddingLeft) * density;
+        var childTop = (this.borderTopWidth + this.paddingTop) * density;
         var x = childLeft;
         var y = childTop;
-        var remainingWidth = Math.max(0, right - left - ((this.paddingLeft + this.paddingRight) * density));
-        var remainingHeight = Math.max(0, bottom - top - ((this.paddingTop + this.paddingBottom) * density));
+        var remainingWidth = Math.max(0, right - left - ((this.borderLeftWidth + this.paddingLeft + this.paddingRight + this.borderRightWidth) * density));
+        var remainingHeight = Math.max(0, bottom - top - ((this.borderTopWidth + this.paddingTop + this.paddingBottom + this.borderBottomWidth) * density));
         this.eachLayoutChild(function (child, last) {
             var lp = child.style._getValue(style_1.nativeLayoutParamsProperty);
             var childWidth = child.getMeasuredWidth() + (lp.leftMargin + lp.rightMargin) * density;

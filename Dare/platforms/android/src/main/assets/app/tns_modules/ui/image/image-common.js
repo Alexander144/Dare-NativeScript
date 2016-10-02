@@ -71,6 +71,16 @@ var Image = (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(Image.prototype, "tintColor", {
+        get: function () {
+            return this.style.tintColor;
+        },
+        set: function (value) {
+            this.style.tintColor = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Image.prototype._setNativeImage = function (nativeImage) {
     };
     Image.prototype._createImageSourceFromSrc = function () {

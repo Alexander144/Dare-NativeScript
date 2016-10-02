@@ -30,8 +30,8 @@ var WrapLayout = (function (_super) {
         var widthMode = utils.layout.getMeasureSpecMode(widthMeasureSpec);
         var heightMode = utils.layout.getMeasureSpecMode(heightMeasureSpec);
         var density = utils.layout.getDisplayDensity();
-        var horizontalPadding = (this.paddingLeft + this.paddingRight) * density;
-        var verticalPadding = (this.paddingTop + this.paddingBottom) * density;
+        var horizontalPadding = (this.borderLeftWidth + this.paddingLeft + this.paddingRight + this.borderRightWidth) * density;
+        var verticalPadding = (this.borderTopWidth + this.paddingTop + this.paddingBottom + this.borderBottomWidth) * density;
         var availableWidth = widthMode === utils.layout.UNSPECIFIED ? Number.MAX_VALUE : utils.layout.getMeasureSpecSize(widthMeasureSpec) - horizontalPadding;
         var availableHeight = heightMode === utils.layout.UNSPECIFIED ? Number.MAX_VALUE : utils.layout.getMeasureSpecSize(heightMeasureSpec) - verticalPadding;
         var childWidthMeasureSpec = WrapLayout.getChildMeasureSpec(widthMode, availableWidth, this.itemWidth * density);
@@ -109,14 +109,18 @@ var WrapLayout = (function (_super) {
         _super.prototype.onLayout.call(this, left, top, right, bottom);
         var isVertical = this.orientation === enums_1.Orientation.vertical;
         var density = utils.layout.getDisplayDensity();
-        var childLeft = this.paddingLeft * density;
-        var childTop = this.paddingTop * density;
+        var topPadding = (this.borderTopWidth + this.paddingTop) * density;
+        var leftPadding = (this.borderLeftWidth + this.paddingLeft) * density;
+        var bottomPadding = (this.paddingBottom + this.borderBottomWidth) * density;
+        var rightPadding = (this.paddingRight + this.borderRightWidth) * density;
+        var childLeft = leftPadding;
+        var childTop = topPadding;
         var childrenLength;
         if (isVertical) {
-            childrenLength = bottom - top - (this.paddingBottom * density);
+            childrenLength = bottom - top - bottomPadding;
         }
         else {
-            childrenLength = right - left - (this.paddingRight * density);
+            childrenLength = right - left - rightPadding;
         }
         var rowOrColumn = 0;
         this.eachLayoutChild(function (child, last) {
@@ -127,9 +131,9 @@ var WrapLayout = (function (_super) {
             if (isVertical) {
                 childWidth = length;
                 childHeight = _this.itemHeight > 0 ? _this.itemHeight * density : childHeight;
-                var isFirst = childTop === _this.paddingTop * density;
+                var isFirst = childTop === topPadding;
                 if (childTop + childHeight > childrenLength) {
-                    childTop = _this.paddingTop * density;
+                    childTop = topPadding;
                     if (!isFirst) {
                         childLeft += length;
                     }
@@ -140,9 +144,9 @@ var WrapLayout = (function (_super) {
             else {
                 childWidth = _this.itemWidth > 0 ? _this.itemWidth * density : childWidth;
                 childHeight = length;
-                var isFirst = childLeft === _this.paddingLeft * density;
+                var isFirst = childLeft === leftPadding;
                 if (childLeft + childWidth > childrenLength) {
-                    childLeft = _this.paddingLeft * density;
+                    childLeft = leftPadding;
                     if (!isFirst) {
                         childTop += length;
                     }

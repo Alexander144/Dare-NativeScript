@@ -31,8 +31,8 @@ var AbsoluteLayout = (function (_super) {
             measureWidth = Math.max(measureWidth, AbsoluteLayout.getLeft(child) * density + childSize.measuredWidth);
             measureHeight = Math.max(measureHeight, AbsoluteLayout.getTop(child) * density + childSize.measuredHeight);
         });
-        measureWidth += (this.paddingLeft + this.paddingRight) * density;
-        measureHeight += (this.paddingTop + this.paddingBottom) * density;
+        measureWidth += (this.borderLeftWidth + this.paddingLeft + this.paddingRight + this.borderRightWidth) * density;
+        measureHeight += (this.borderTopWidth + this.paddingTop + this.paddingBottom + this.borderBottomWidth) * density;
         measureWidth = Math.max(measureWidth, this.minWidth * density);
         measureHeight = Math.max(measureHeight, this.minHeight * density);
         var widthAndState = view_1.View.resolveSizeAndState(measureWidth, width, widthMode, 0);
@@ -47,8 +47,8 @@ var AbsoluteLayout = (function (_super) {
             var lp = child.style._getValue(style_1.nativeLayoutParamsProperty);
             var childWidth = child.getMeasuredWidth();
             var childHeight = child.getMeasuredHeight();
-            var childLeft = (_this.paddingLeft + AbsoluteLayout.getLeft(child)) * density;
-            var childTop = (_this.paddingTop + AbsoluteLayout.getTop(child)) * density;
+            var childLeft = (_this.borderLeftWidth + _this.paddingLeft + AbsoluteLayout.getLeft(child)) * density;
+            var childTop = (_this.borderTopWidth + _this.paddingTop + AbsoluteLayout.getTop(child)) * density;
             var childRight = childLeft + childWidth + (lp.leftMargin + lp.rightMargin) * density;
             var childBottom = childTop + childHeight + (lp.topMargin + lp.bottomMargin) * density;
             view_1.View.layoutChild(_this, child, childLeft, childTop, childRight, childBottom);

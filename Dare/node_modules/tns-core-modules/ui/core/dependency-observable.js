@@ -51,8 +51,6 @@ var PropertyMetadata = (function () {
         if (options === void 0) { options = PropertyMetadataSettings.None; }
         this.defaultValue = defaultValue;
         this.options = options;
-        this.onValidateValue = onValidateValue;
-        this.equalityComparer = equalityComparer;
         this.defaultValue = defaultValue;
         this.options = options;
         this.onValueChanged = onChanged;
@@ -70,7 +68,6 @@ var Property = (function () {
         this.name = name;
         this.ownerType = ownerType;
         this.metadata = metadata;
-        this.valueConverter = valueConverter;
         this.key = generatePropertyKey(name, ownerType, true);
         if (propertyFromKey[this.key]) {
             throw new Error("Property " + name + " already registered for type " + ownerType + ".");
@@ -100,7 +97,6 @@ var PropertyEntry = (function () {
     function PropertyEntry(property) {
         this.property = property;
         this.valueSource = ValueSource.Default;
-        this.property = property;
     }
     PropertyEntry.prototype.resetValue = function () {
         this.valueSource = ValueSource.Default;
@@ -109,7 +105,6 @@ var PropertyEntry = (function () {
     return PropertyEntry;
 }());
 exports.PropertyEntry = PropertyEntry;
-var defaultValueForPropertyPerType = new Map();
 var DependencyObservable = (function (_super) {
     __extends(DependencyObservable, _super);
     function DependencyObservable() {
@@ -155,27 +150,34 @@ var DependencyObservable = (function (_super) {
     };
     DependencyObservable.prototype._getDefaultValue = function (property) {
         if (property.defaultValueGetter) {
-            var view = this._view || this;
-            var key = types.getClass(view) + "." + property.id;
-            var defaultValue = defaultValueForPropertyPerType.get(key);
-            if (!defaultValueForPropertyPerType.has(key) && view._nativeView) {
-                var defaultValueResult = property.defaultValueGetter(this);
-                defaultValue = defaultValueResult.result;
-                if (defaultValueResult.cacheable) {
-                    defaultValueForPropertyPerType.set(key, defaultValue);
-                }
+            var defaultValueResult = property.defaultValueGetter(this);
+            var defaultValue = defaultValueResult.result;
+            if (defaultValueResult.cacheable) {
+                var entry = new PropertyEntry(property);
+                entry.effectiveValue = defaultValue;
+                this._propertyEntries[property.id] = entry;
             }
             return defaultValue;
         }
         return property.defaultValue;
     };
-    DependencyObservable.prototype._resetValue = function (property, source) {
-        if (source === void 0) { source = ValueSource.Local; }
+    DependencyObservable.prototype._resetValues = function (valueSource) {
+        for (var i = 0, keys = Object.keys(this._propertyEntries); i < keys.length; i++) {
+            var key = keys[i];
+            var entry = this._propertyEntries[key];
+            this._resetValueInternal(entry.property, entry, valueSource);
+        }
+    };
+    DependencyObservable.prototype._resetValue = function (property, valueSource) {
+        if (valueSource === void 0) { valueSource = ValueSource.Local; }
         var entry = this._propertyEntries[property.id];
         if (!entry) {
             return;
         }
-        switch (source) {
+        this._resetValueInternal(property, entry, valueSource);
+    };
+    DependencyObservable.prototype._resetValueInternal = function (property, entry, valueSource) {
+        switch (valueSource) {
             case ValueSource.Inherited:
                 entry.inheritedValue = undefined;
                 break;
@@ -190,18 +192,13 @@ var DependencyObservable = (function (_super) {
                 break;
         }
         var currentValueSource = entry.valueSource;
-        if (currentValueSource !== source) {
+        if (currentValueSource !== valueSource) {
             return;
         }
         var currentValue = entry.effectiveValue;
-        var newValue = this.getEffectiveValue(currentValueSource, entry, property);
+        var newValue = this.getEffectiveValueAndUpdateEntry(currentValueSource, entry, property);
         if (!property.equalityComparer(currentValue, newValue)) {
-            if (entry.valueSource === ValueSource.Default) {
-                delete this._propertyEntries[property.id];
-            }
-            else {
-                entry.effectiveValue = newValue;
-            }
+            entry.effectiveValue = newValue;
             this._onPropertyChanged(property, currentValue, newValue);
         }
     };
@@ -245,7 +242,9 @@ var DependencyObservable = (function (_super) {
         for (var i = 0, keys = Object.keys(this._propertyEntries); i < keys.length; i++) {
             var key = keys[i];
             var entry = this._propertyEntries[key];
-            callback(entry.property, entry.effectiveValue);
+            if (!callback(entry.property, entry.effectiveValue)) {
+                break;
+            }
         }
     };
     DependencyObservable.prototype.toString = function () {
@@ -270,15 +269,10 @@ var DependencyObservable = (function (_super) {
         var currentValue;
         if (!entry) {
             entry = new PropertyEntry(property);
+            entry.effectiveValue = this._getDefaultValue(property);
             this._propertyEntries[property.id] = entry;
-            currentValue = this._getDefaultValue(property);
-            if (property.equalityComparer(currentValue, realValue)) {
-                entry.effectiveValue = realValue;
-            }
         }
-        else {
-            currentValue = entry.effectiveValue;
-        }
+        currentValue = entry.effectiveValue;
         switch (source) {
             case ValueSource.Inherited:
                 entry.inheritedValue = realValue;
@@ -305,7 +299,7 @@ var DependencyObservable = (function (_super) {
             this._onPropertyChanged(property, currentValue, realValue);
         }
     };
-    DependencyObservable.prototype.getEffectiveValue = function (currentValueSource, entry, property) {
+    DependencyObservable.prototype.getEffectiveValueAndUpdateEntry = function (currentValueSource, entry, property) {
         var newValue;
         switch (currentValueSource) {
             case ValueSource.Inherited:

@@ -125,8 +125,7 @@ var KeyframeAnimation = (function () {
         this._nativeAnimations = new Array();
         this._target = view;
         if (this.delay !== 0) {
-            var that_1 = this;
-            setTimeout(function () { that_1.animate(view, 0, that_1.iterations); }, that_1.delay, that_1);
+            setTimeout(function () { return _this.animate(view, 0, _this.iterations); }, this.delay);
         }
         else {
             this.animate(view, 0, this.iterations);
@@ -158,8 +157,7 @@ var KeyframeAnimation = (function () {
             if ("opacity" in animation) {
                 view.style._setValue(style.opacityProperty, animation["opacity"], modifier);
             }
-            var that_2 = this;
-            setTimeout(function () { that_2.animate(view, 1, iterations); }, 1, that_2);
+            setTimeout(function () { return _this.animate(view, 1, iterations); }, 1);
         }
         else if (index < 0 || index >= this.animations.length) {
             iterations -= 1;

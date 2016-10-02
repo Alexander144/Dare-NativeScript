@@ -25,7 +25,7 @@ buildscript {
     }
 
 	dependencies {
-		classpath "com.android.tools.build:gradle:1.5.0"
+		classpath "com.android.tools.build:gradle:2.1.2"
 		classpath "com.google.gms:google-services:3.0.0"
 	}
 }
@@ -42,13 +42,14 @@ def nodeModulesDir = "../../node_modules/"
 def libDir = "$projectDir/../../lib/Android/"
 def flavorNames = new ArrayList<String>()
 def configDir = file(configurationsDir)
+def dexTask
 
 def packageJsonContents = [:]
 def excludedDevDependencies = ['**/.bin/**']
 
 def dontRunSbg = project.hasProperty("dontRunSbg");
 def asbgProject = project(":asbg")
-asbgProject.ext.outDir = new File("$projectDir", "src/main/java")
+asbgProject.ext.outDir = new File("$projectDir", "build/nativescript-bindings")
 asbgProject.ext.jsCodeDir = new File("$projectDir", "src/main/assets/app")
 
 def compiteCompileSdkVersion () {
@@ -158,6 +159,13 @@ android {
 		def variantName = variant.name.capitalize()
 		def compileSourcesTaskName = "compile${variantName}Sources"
 		def compileSourcesTask = project.tasks.findByName(compileSourcesTaskName)
+		//
+		if ((project.ext.selectedBuildType.equals("release") && variantName.endsWith("Release"))
+				|| (project.ext.selectedBuildType.equals("debug") && variantName.endsWith("Debug"))) {
+			dexTask = project.tasks.findByName("transformClassesWithDexFor${variantName}")
+			dexTask.finalizedBy(myMergeDex)
+		}
+		//
 		
 		def generateBuildConfigTask = variant.generateBuildConfig;
 		generateBuildConfigTask.finalizedBy(collectAllJars)
@@ -185,6 +193,7 @@ dependencies {
 	
     compile "com.android.support:support-v4:$suppotVer"
     compile "com.android.support:appcompat-v7:$suppotVer"
+	/*debug*/compile "com.android.support:design:$suppotVer"
 
     // take all jars within the libs dir
 	compile fileTree(dir: "$projectDir/libs", include: ["**/*.jar"])
@@ -197,7 +206,7 @@ dependencies {
 	// compile files("$rootDir/libs/aar") {
         // builtBy 'copyAarDependencies'
     // }
-	compile project(':binding-generator')
+	
 	compile project(':runtime')
 }
 
@@ -261,7 +270,7 @@ def updateProductFlavorsContent(flavor, dimensionName, oldContent) {
 
 					def closingQuotes = oldContent.indexOf('"', openingQuoutes + 1);
 					if(closingQuotes == -1) {
-						closingQuotes = closingQuotes.indexOf("'", openingQuoutes + 1);
+						closingQuotes = oldContent.indexOf("'", openingQuoutes + 1);
 					}	
 
 					index = closingQuotes + 1;
@@ -620,6 +629,45 @@ task buildMetadata (type: JavaExec) {
 		exec {
 			workingDir "$projectDir/metadata/output"
 			commandLine addCmdParams.toArray()
+		}
+	}
+}
+
+task myMergeDex {
+	doLast {
+		def prefix = "${buildDir}".replace('\\', '/') + "/intermediates/transforms/dex/"
+		def paths = dexTask.getOutputs().getFiles().getAsPath().split(";")
+		for (def f: dexTask.getOutputs().getFiles().getAsFileTree().getFiles()) {
+			def canonPath = f.getAbsolutePath().replace('\\', '/')
+			if (canonPath.startsWith(prefix) && f.getName().equals("classes.dex")) {
+				def dexOutputDir = f.getParentFile()
+				def dexFilesCount = dexOutputDir.list().length
+				def shouldMergeInMainDex = dexFilesCount == 1
+				def lastDexIndex = shouldMergeInMainDex ? "" : (dexFilesCount + 1)
+				
+				def bindingDexFiles = asbgProject.ext.outDir.listFiles();
+				def dexArrLen = bindingDexFiles.length + (shouldMergeInMainDex ? 1 : 0)
+				def dexArr = new com.android.dex.Dex[dexArrLen]
+				for (int i=0; i<bindingDexFiles.length; i++) {
+					dexArr[i] = new com.android.dex.Dex(bindingDexFiles[i])
+				}
+				if (shouldMergeInMainDex) {
+					dexArr[dexArrLen-1] = new com.android.dex.Dex(f)
+				}
+
+				def dexMerger = new com.android.dx.merge.DexMerger(dexArr, com.android.dx.merge.CollisionPolicy.FAIL)
+				def merged = dexMerger.merge()
+				def newDex = shouldMergeInMainDex ? f : new File(dexOutputDir, "/classes${lastDexIndex}.dex")
+
+				try {
+					merged.writeTo(newDex)
+				} catch (e) {
+					println "The following error occurred. Try setting 'multiDexEnabled' to 'true'"
+					e.printStackTrace()
+				}
+
+				break
+			}
 		}
 	}
 }

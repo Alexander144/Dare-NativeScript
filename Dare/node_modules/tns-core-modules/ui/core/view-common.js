@@ -72,9 +72,9 @@ function getAncestor(view, criterion) {
     else {
         matcher = function (view) { return view instanceof criterion; };
     }
-    for (var parent_1 = view.parent; parent_1 != null; parent_1 = parent_1.parent) {
-        if (matcher(parent_1)) {
-            return parent_1;
+    for (var parent = view.parent; parent != null; parent = parent.parent) {
+        if (matcher(parent)) {
+            return parent;
         }
     }
     return null;
@@ -233,12 +233,52 @@ var View = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(View.prototype, "borderRadius", {
+    Object.defineProperty(View.prototype, "borderColor", {
         get: function () {
-            return this.style.borderRadius;
+            return this.style.borderColor;
         },
         set: function (value) {
-            this.style.borderRadius = value;
+            this.style.borderColor = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(View.prototype, "borderTopColor", {
+        get: function () {
+            return this.style.borderTopColor;
+        },
+        set: function (value) {
+            this.style.borderTopColor = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(View.prototype, "borderRightColor", {
+        get: function () {
+            return this.style.borderRightColor;
+        },
+        set: function (value) {
+            this.style.borderRightColor = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(View.prototype, "borderBottomColor", {
+        get: function () {
+            return this.style.borderBottomColor;
+        },
+        set: function (value) {
+            this.style.borderBottomColor = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(View.prototype, "borderLeftColor", {
+        get: function () {
+            return this.style.borderLeftColor;
+        },
+        set: function (value) {
+            this.style.borderLeftColor = value;
         },
         enumerable: true,
         configurable: true
@@ -253,12 +293,92 @@ var View = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(View.prototype, "borderColor", {
+    Object.defineProperty(View.prototype, "borderTopWidth", {
         get: function () {
-            return this.style.borderColor;
+            return this.style.borderTopWidth;
         },
         set: function (value) {
-            this.style.borderColor = value;
+            this.style.borderTopWidth = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(View.prototype, "borderRightWidth", {
+        get: function () {
+            return this.style.borderRightWidth;
+        },
+        set: function (value) {
+            this.style.borderRightWidth = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(View.prototype, "borderBottomWidth", {
+        get: function () {
+            return this.style.borderBottomWidth;
+        },
+        set: function (value) {
+            this.style.borderBottomWidth = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(View.prototype, "borderLeftWidth", {
+        get: function () {
+            return this.style.borderLeftWidth;
+        },
+        set: function (value) {
+            this.style.borderLeftWidth = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(View.prototype, "borderRadius", {
+        get: function () {
+            return this.style.borderRadius;
+        },
+        set: function (value) {
+            this.style.borderRadius = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(View.prototype, "borderTopLeftRadius", {
+        get: function () {
+            return this.style.borderTopLeftRadius;
+        },
+        set: function (value) {
+            this.style.borderTopLeftRadius = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(View.prototype, "borderTopRightRadius", {
+        get: function () {
+            return this.style.borderTopRightRadius;
+        },
+        set: function (value) {
+            this.style.borderTopRightRadius = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(View.prototype, "borderBottomRightRadius", {
+        get: function () {
+            return this.style.borderBottomRightRadius;
+        },
+        set: function (value) {
+            this.style.borderBottomRightRadius = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(View.prototype, "borderBottomLeftRadius", {
+        get: function () {
+            return this.style.borderBottomLeftRadius;
+        },
+        set: function (value) {
+            this.style.borderBottomLeftRadius = value;
         },
         enumerable: true,
         configurable: true
@@ -992,10 +1112,14 @@ var View = (function (_super) {
         if (view.isLoaded) {
             view.onUnloaded();
         }
-        view._setValue(proxy_1.ProxyObject.bindingContextProperty, undefined, dependency_observable_1.ValueSource.Inherited);
-        view._eachSetProperty(function (property) {
+        view.unsetInheritedProperties();
+    };
+    View.prototype.unsetInheritedProperties = function () {
+        var _this = this;
+        this._setValue(proxy_1.ProxyObject.bindingContextProperty, undefined, dependency_observable_1.ValueSource.Inherited);
+        this._eachSetProperty(function (property) {
             if (!(property instanceof styling.Property) && property.inheritable) {
-                view._resetValue(property, dependency_observable_1.ValueSource.Inherited);
+                _this._resetValue(property, dependency_observable_1.ValueSource.Inherited);
             }
             return true;
         });

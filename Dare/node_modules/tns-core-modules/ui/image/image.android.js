@@ -1,7 +1,5 @@
 var imageCommon = require("./image-common");
 var style = require("ui/styling/style");
-var background = require("ui/styling/background");
-var utils = require("utils/utils");
 global.moduleMerge(imageCommon, exports);
 var enums;
 function ensureEnums() {
@@ -64,39 +62,16 @@ exports.Image = Image;
 var ImageStyler = (function () {
     function ImageStyler() {
     }
-    ImageStyler.setBorderRadiusProperty = function (v, newValue, defaultValue) {
-        if (!v._nativeView) {
-            return;
-        }
-        var val = Math.round(newValue * utils.layout.getDisplayDensity());
-        v._nativeView.setCornerRadius(val);
-        background.ad.onBackgroundOrBorderPropertyChanged(v);
+    ImageStyler.setTintColorProperty = function (view, newValue) {
+        var imageView = view._nativeView;
+        imageView.setColorFilter(newValue);
     };
-    ImageStyler.resetBorderRadiusProperty = function (v, nativeValue) {
-        if (!v._nativeView) {
-            return;
-        }
-        v._nativeView.setCornerRadius(0);
-        background.ad.onBackgroundOrBorderPropertyChanged(v);
-    };
-    ImageStyler.setBorderWidthProperty = function (v, newValue, defaultValue) {
-        if (!v._nativeView) {
-            return;
-        }
-        var val = Math.round(newValue * utils.layout.getDisplayDensity());
-        v._nativeView.setBorderWidth(val);
-        background.ad.onBackgroundOrBorderPropertyChanged(v);
-    };
-    ImageStyler.resetBorderWidthProperty = function (v, nativeValue) {
-        if (!v._nativeView) {
-            return;
-        }
-        v._nativeView.setBorderWidth(0);
-        background.ad.onBackgroundOrBorderPropertyChanged(v);
+    ImageStyler.resetTintColorProperty = function (view, nativeValue) {
+        var imageView = view._nativeView;
+        imageView.clearColorFilter();
     };
     ImageStyler.registerHandlers = function () {
-        style.registerHandler(style.borderRadiusProperty, new style.StylePropertyChangedHandler(ImageStyler.setBorderRadiusProperty, ImageStyler.resetBorderRadiusProperty), "Image");
-        style.registerHandler(style.borderWidthProperty, new style.StylePropertyChangedHandler(ImageStyler.setBorderWidthProperty, ImageStyler.resetBorderWidthProperty), "Image");
+        style.registerHandler(style.tintColorProperty, new style.StylePropertyChangedHandler(ImageStyler.setTintColorProperty, ImageStyler.resetTintColorProperty), "Image");
     };
     return ImageStyler;
 }());

@@ -93,13 +93,20 @@ var Bindable = (function (_super) {
         }
     };
     Bindable.prototype._onBindingContextChanged = function (oldValue, newValue) {
+        var bindingContextBinding = this.bindings.get("bindingContext");
+        if (bindingContextBinding) {
+            if (!bindingContextBinding.updating) {
+                bindingContextBinding.bind(newValue);
+            }
+        }
+        var bindingContextSource = this.bindingContext;
         this.bindings.forEach(function (binding, index, bindings) {
-            if (!binding.updating && binding.sourceIsBindingContext) {
+            if (!binding.updating && binding.sourceIsBindingContext && binding.options.targetProperty !== "bindingContext") {
                 if (trace.enabled) {
-                    trace.write("Binding " + binding.target.get() + "." + binding.options.targetProperty + " to new context " + newValue, trace.categories.Binding);
+                    trace.write("Binding " + binding.target.get() + "." + binding.options.targetProperty + " to new context " + bindingContextSource, trace.categories.Binding);
                 }
-                if (!types.isNullOrUndefined(newValue)) {
-                    binding.bind(newValue);
+                if (!types.isNullOrUndefined(bindingContextSource)) {
+                    binding.bind(bindingContextSource);
                 }
                 else {
                     binding.clearBinding();
@@ -225,7 +232,7 @@ var Binding = (function () {
     Binding.prototype.addPropertyChangeListeners = function (source, sourceProperty, parentProperies) {
         var objectsAndProperties = this.resolveObjectsAndProperties(source.get(), sourceProperty);
         var prop = parentProperies || "";
-        for (var i = 0, length_1 = objectsAndProperties.length; i < length_1; i++) {
+        for (var i = 0, length = objectsAndProperties.length; i < length; i++) {
             prop += "$" + objectsAndProperties[i].property;
             var currentObject = objectsAndProperties[i].instance;
             if (!this.propertyChangeListeners.has(prop) && currentObject instanceof observable_1.Observable) {

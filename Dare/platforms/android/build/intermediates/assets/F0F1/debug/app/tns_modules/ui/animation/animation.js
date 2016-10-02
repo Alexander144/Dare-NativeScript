@@ -59,11 +59,11 @@ var Animation = (function (_super) {
         this._animators = new Array();
         this._propertyUpdateCallbacks = new Array();
         this._propertyResetCallbacks = new Array();
-        for (var i = 0, length_1 = this._propertyAnimations.length; i < length_1; i++) {
+        for (var i = 0, length = this._propertyAnimations.length; i < length; i++) {
             this._createAnimators(this._propertyAnimations[i]);
         }
         this._nativeAnimatorsArray = Array.create(android.animation.Animator, this._animators.length);
-        for (var i = 0, length_2 = this._animators.length; i < length_2; i++) {
+        for (var i = 0, length = this._animators.length; i < length; i++) {
             this._nativeAnimatorsArray[i] = this._animators[i];
         }
         this._animatorSet = new android.animation.AnimatorSet();
@@ -277,7 +277,7 @@ var Animation = (function (_super) {
         return (iterations === Number.POSITIVE_INFINITY) ? android.view.animation.Animation.INFINITE : iterations - 1;
     };
     Animation.prototype._enableHardwareAcceleration = function () {
-        for (var i = 0, length_3 = this._propertyAnimations.length; i < length_3; i++) {
+        for (var i = 0, length = this._propertyAnimations.length; i < length; i++) {
             var cache = this._propertyAnimations[i].target._nativeView;
             if (cache) {
                 var layerType = cache.getLayerType();
@@ -289,7 +289,7 @@ var Animation = (function (_super) {
         }
     };
     Animation.prototype._disableHardwareAcceleration = function () {
-        for (var i = 0, length_4 = this._propertyAnimations.length; i < length_4; i++) {
+        for (var i = 0, length = this._propertyAnimations.length; i < length; i++) {
             var cache = this._propertyAnimations[i].target._nativeView;
             if (cache && cache.layerType !== undefined) {
                 cache.setLayerType(cache.layerType, null);

@@ -17,7 +17,7 @@ function onAutomationTextPropertyChanged(data) {
 viewCommon.View.automationTextProperty.metadata.onSetNativeValue = onAutomationTextPropertyChanged;
 function onIdPropertyChanged(data) {
     var view = data.object;
-    view._nativeView.setTag(data.newValue);
+    view._nativeView.setTag(data.newValue + "");
 }
 viewCommon.View.idProperty.metadata.onSetNativeValue = onIdPropertyChanged;
 function onOriginXPropertyChanged(data) {
@@ -561,7 +561,7 @@ var ViewStyler = (function () {
     ViewStyler.setNativePaddingLeft = function (view, value) {
         var nativeView = view._nativeView;
         var density = utils.layout.getDisplayDensity();
-        var left = (value + view.borderWidth) * density;
+        var left = (value + view.borderLeftWidth) * density;
         var top = nativeView.getPaddingTop();
         var right = nativeView.getPaddingRight();
         var bottom = nativeView.getPaddingBottom();
@@ -571,7 +571,7 @@ var ViewStyler = (function () {
         var nativeView = view._nativeView;
         var density = utils.layout.getDisplayDensity();
         var left = nativeView.getPaddingLeft();
-        var top = (value + view.borderWidth) * density;
+        var top = (value + view.borderTopWidth) * density;
         var right = nativeView.getPaddingRight();
         var bottom = nativeView.getPaddingBottom();
         nativeView.setPadding(left, top, right, bottom);
@@ -581,7 +581,7 @@ var ViewStyler = (function () {
         var density = utils.layout.getDisplayDensity();
         var left = nativeView.getPaddingLeft();
         var top = nativeView.getPaddingTop();
-        var right = (value + view.borderWidth) * density;
+        var right = (value + view.borderRightWidth) * density;
         var bottom = nativeView.getPaddingBottom();
         nativeView.setPadding(left, top, right, bottom);
     };
@@ -591,7 +591,7 @@ var ViewStyler = (function () {
         var left = nativeView.getPaddingLeft();
         var top = nativeView.getPaddingTop();
         var right = nativeView.getPaddingRight();
-        var bottom = (value + view.borderWidth) * density;
+        var bottom = (value + view.borderBottomWidth) * density;
         nativeView.setPadding(left, top, right, bottom);
     };
     ViewStyler.setRotateProperty = function (view, newValue) {
@@ -645,8 +645,7 @@ var ViewStyler = (function () {
         style.registerHandler(style.opacityProperty, new style.StylePropertyChangedHandler(ViewStyler.setOpacityProperty, ViewStyler.resetOpacityProperty));
         style.registerHandler(style.minWidthProperty, new style.StylePropertyChangedHandler(ViewStyler.setMinWidthProperty, ViewStyler.resetMinWidthProperty));
         style.registerHandler(style.minHeightProperty, new style.StylePropertyChangedHandler(ViewStyler.setMinHeightProperty, ViewStyler.resetMinHeightProperty));
-        var backgroundAndBorderHandler = new style.StylePropertyChangedHandler(ViewStyler.setBackgroundAndBorder, ViewStyler.resetBackgroundAndBorder);
-        style.registerHandler(style.backgroundInternalProperty, backgroundAndBorderHandler);
+        style.registerHandler(style.backgroundInternalProperty, new style.StylePropertyChangedHandler(ViewStyler.setBackgroundAndBorder, ViewStyler.resetBackgroundAndBorder));
         style.registerHandler(style.nativeLayoutParamsProperty, new style.StylePropertyChangedHandler(ViewStyler.setNativeLayoutParamsProperty, ViewStyler.resetNativeLayoutParamsProperty));
         style.registerHandler(style.paddingLeftProperty, new style.StylePropertyChangedHandler(ViewStyler.setNativePaddingLeft, ViewStyler.setNativePaddingLeft, ViewStyler.getNativePaddingLeft), "TextBase");
         style.registerHandler(style.paddingTopProperty, new style.StylePropertyChangedHandler(ViewStyler.setNativePaddingTop, ViewStyler.setNativePaddingTop, ViewStyler.getNativePaddingTop), "TextBase");

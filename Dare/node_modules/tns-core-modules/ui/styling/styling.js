@@ -7,6 +7,7 @@ var properties;
 (function (properties) {
     properties.fontSizeProperty = styleModule.fontSizeProperty;
     properties.colorProperty = styleModule.colorProperty;
+    properties.placeholderColorProperty = styleModule.placeholderColorProperty;
     properties.backgroundColorProperty = styleModule.backgroundColorProperty;
     properties.textAlignmentProperty = styleModule.textAlignmentProperty;
     properties.getPropertyByName = stylePropertyModule.getPropertyByName;

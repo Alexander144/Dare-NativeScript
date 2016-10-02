@@ -88,8 +88,8 @@ var GridLayout = (function (_super) {
         var height = utils.layout.getMeasureSpecSize(heightMeasureSpec);
         var heightMode = utils.layout.getMeasureSpecMode(heightMeasureSpec);
         var density = utils.layout.getDisplayDensity();
-        var verticalPadding = (this.paddingTop + this.paddingBottom) * density;
-        var horizontalPadding = (this.paddingLeft + this.paddingRight) * density;
+        var verticalPadding = (this.borderTopWidth + this.paddingTop + this.paddingBottom + this.borderBottomWidth) * density;
+        var horizontalPadding = (this.borderLeftWidth + this.paddingLeft + this.paddingRight + this.borderRightWidth) * density;
         var infinityWidth = widthMode === utils.layout.UNSPECIFIED;
         var infinityHeight = heightMode === utils.layout.UNSPECIFIED;
         this.helper.width = Math.max(0, width - horizontalPadding);
@@ -117,8 +117,8 @@ var GridLayout = (function (_super) {
     GridLayout.prototype.onLayout = function (left, top, right, bottom) {
         _super.prototype.onLayout.call(this, left, top, right, bottom);
         var density = utils.layout.getDisplayDensity();
-        var paddingLeft = this.paddingLeft * density;
-        var paddingTop = this.paddingTop * density;
+        var paddingLeft = (this.borderLeftWidth + this.paddingLeft) * density;
+        var paddingTop = (this.borderTopWidth + this.paddingTop) * density;
         this.columnOffsets.length = 0;
         this.rowOffsets.length = 0;
         this.columnOffsets.push(paddingLeft);

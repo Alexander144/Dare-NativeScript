@@ -123,11 +123,15 @@ var ActionBar = (function (_super) {
     });
     ActionBar.prototype._createUI = function () {
         this._toolbar = new android.support.v7.widget.Toolbar(this._context);
-        var owner = this;
+        var ownerRef = new WeakRef(this);
         this._toolbar.setOnMenuItemClickListener(new android.support.v7.widget.Toolbar.OnMenuItemClickListener({
             onMenuItemClick: function (item) {
+                var ownerValue = ownerRef.get();
+                if (!ownerValue) {
+                    return false;
+                }
                 var itemId = item.getItemId();
-                return owner._onAndroidItemSelected(itemId);
+                return ownerValue._onAndroidItemSelected(itemId);
             }
         }));
     };

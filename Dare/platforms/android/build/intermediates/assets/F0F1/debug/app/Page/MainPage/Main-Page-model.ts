@@ -143,7 +143,7 @@ class MainModel extends Observable{
             this.Dares.pop();
         }
         firebase.logout();
-
+        
          Page.topmost().goBack();
     }
   

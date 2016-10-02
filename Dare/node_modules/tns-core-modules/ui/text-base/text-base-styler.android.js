@@ -5,6 +5,15 @@ var platform_1 = require("platform");
 var TextBaseStyler = (function () {
     function TextBaseStyler() {
     }
+    TextBaseStyler.setPlaceholderColorProperty = function (view, newValue) {
+        view._nativeView.setHintTextColor(newValue);
+    };
+    TextBaseStyler.resetPlaceholderColorProperty = function (view, nativeValue) {
+        view._nativeView.setHintTextColor(nativeValue);
+    };
+    TextBaseStyler.getNativePlaceholderColorValue = function (view) {
+        return view._nativeView.getHintTextColors().getDefaultColor();
+    };
     TextBaseStyler.setColorProperty = function (view, newValue) {
         view._nativeView.setTextColor(newValue);
     };
@@ -96,6 +105,7 @@ var TextBaseStyler = (function () {
     };
     TextBaseStyler.registerHandlers = function () {
         style.registerHandler(style.colorProperty, new style.StylePropertyChangedHandler(TextBaseStyler.setColorProperty, TextBaseStyler.resetColorProperty, TextBaseStyler.getNativeColorValue), "TextBase");
+        style.registerHandler(style.placeholderColorProperty, new style.StylePropertyChangedHandler(TextBaseStyler.setPlaceholderColorProperty, TextBaseStyler.resetPlaceholderColorProperty, TextBaseStyler.getNativePlaceholderColorValue), "TextBase");
         style.registerHandler(style.fontInternalProperty, new style.StylePropertyChangedHandler(TextBaseStyler.setFontInternalProperty, TextBaseStyler.resetFontInternalProperty, TextBaseStyler.getNativeFontInternalValue), "TextBase");
         style.registerHandler(style.textAlignmentProperty, new style.StylePropertyChangedHandler(TextBaseStyler.setTextAlignmentProperty, TextBaseStyler.resetTextAlignmentProperty, TextBaseStyler.getNativeTextAlignmentValue), "TextBase");
         style.registerHandler(style.textDecorationProperty, new style.StylePropertyChangedHandler(TextBaseStyler.setTextDecorationProperty, TextBaseStyler.resetTextDecorationProperty), "TextBase");

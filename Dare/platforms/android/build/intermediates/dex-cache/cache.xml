@@ -2,242 +2,319 @@
 <items version="2" >
 
     <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-common\9.4.0\jars\classes.jar"
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\firebase-release\jars\classes.jar"
         jumboMode="false"
-        revision="23.0.3"
-        sha1="18b5697c65c4fe5b7381613b8b8ae9ac52e26fa7">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-common-9.4.0_4a7cad86e90873741476104569d2768116f5d6e5.jar" />
-    </item>
-    <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-storage\9.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.3"
-        sha1="98e97da89d4df8e2f6eba63498d3d46a587372f2">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-storage-9.4.0_9ec4a76ffc005fff2028915892cbc68c7641fae5.jar" />
-    </item>
-    <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\widgets-release\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.3"
-        sha1="89f0a1f737477abeda61c0072529d5158b1ebe81">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\intermediates-exploded-aar-widgets-release_7f6f665475562e8ebf26477f50f3b2a5f9c75ffd.jar" />
-    </item>
-    <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\9.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.3"
-        sha1="8a36d229011e75f0caef408e1adf0d3fd4d94e02">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.android.gms-play-services-tasks-9.4.0_40a0eb33720c388f6e78a3f8f5d79610dc3c1dc8.jar" />
-    </item>
-    <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\Dare\binding-generator\unspecified\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.3"
-        sha1="cd7dd3d8b3faa7a457003b040d45b12c7e268dc6">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\Dare-binding-generator-unspecified_a13eb93aad6dffd084b2affb47752698018be761.jar" />
-    </item>
-    <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.3"
-        sha1="d9ecde39b460470e655de6e47c05573d2d5a8bfb">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.android.support-cardview-v7-23.4.0_f468cb0287e35793f8791d58d0a029474dc8d601.jar" />
-    </item>
-    <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-auth-module\9.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.3"
-        sha1="6bc41d9d6fd12d2ef23c785a259011001f4a1a5b">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-auth-module-9.4.0_539d5bcd52db07d53f7305c89cc56ea3d5791334.jar" />
-    </item>
-    <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.3"
-        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.android.support-support-v4-23.4.0_e1be040b7857995d147dc05085864da2156a565a.jar" />
-    </item>
-    <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\libs\internal_impl-23.4.0.jar"
-        jumboMode="false"
-        revision="23.0.3"
-        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\internal_impl-23.4.0_8f809bce2d198af738ba79c122b6ef3501e4c4a8.jar" />
-    </item>
-    <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-auth-common\9.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.3"
-        sha1="34762013d39dbe6c656050589c44e8b61b9a2c5d">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-auth-common-9.4.0_d85577b998b9258545a7b010619d893601e3d28a.jar" />
-    </item>
-    <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.3"
-        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.android.support-animated-vector-drawable-23.4.0_45e9784797f4a152b75bbd54f00ae7b9e90762d8.jar" />
-    </item>
-    <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\customtabs\23.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.3"
-        sha1="2d1eaa9e0b98f8fc4c2b989d9b30d4f1480648ac">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.android.support-customtabs-23.4.0_287cd20a9adc967e5d75ba291a43f33599267170.jar" />
-    </item>
-    <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-auth\9.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.3"
-        sha1="4b630471536351be7c3c3100735c75b7ad2cbd84">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-auth-9.4.0_1a99a123a4548d8acc7d239dd46878c8c572e237.jar" />
-    </item>
-    <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\9.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.3"
-        sha1="3dee4ce5844d39d843d503fb8fe04e51e5bfffac">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.android.gms-play-services-base-9.4.0_4008e1e1017b22da736911868e5d6dfecee8df61.jar" />
-    </item>
-    <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.3"
-        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.android.support-appcompat-v7-23.4.0_6895f7c9e148f3d4530b6a4d6de6814a820eb76e.jar" />
-    </item>
-    <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-storage-common\9.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.3"
-        sha1="c8f5d56f8f8a287c95e02c542baade138a378048">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-storage-common-9.4.0_bd995274eb072a06ac2ead69e033b4c2c8a73292.jar" />
-    </item>
-    <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth-base\9.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.3"
-        sha1="58c9f5ee817fdb8b658fd7455fadfb74119f7ee9">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.android.gms-play-services-auth-base-9.4.0_c72d0d5be5c5e6568df21bc56a3b3025674f5176.jar" />
-    </item>
-    <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\firebase-release\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.3"
+        revision="24.0.2"
         sha1="ac414a1fd113ad2b4ed7d6e38e698358142895a5">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\intermediates-exploded-aar-firebase-release_de8b950334efc1b3a5f5f202d3809ef37a9d4faa.jar" />
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\intermediates-exploded-aar-firebase-release_9d94c59aa684663f298169a5baf9542fd4404307.jar" />
     </item>
     <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.15.0\jars\classes.jar"
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.2.1\jars\classes.jar"
         jumboMode="false"
-        revision="23.0.3"
-        sha1="820605b42a2d3d9cb9e6c4cc7453fb4f802aedff">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.facebook.android-facebook-android-sdk-4.15.0_91656ef7de72b5ee47154bad44eb69d9a84b5616.jar" />
+        revision="24.0.2"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.android.support-appcompat-v7-24.2.1_d6f110541fd8fcfed9e6cfe35121e28aea7041d7.jar" />
     </item>
     <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\9.4.0\jars\classes.jar"
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\libs\internal_impl-24.2.1.jar"
         jumboMode="false"
-        revision="23.0.3"
+        revision="24.0.2"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\internal_impl-24.2.1_260966b99b2c0204477ec42bfcb944a6c84eefe9.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\internal_impl-24.2.1_08c499b6f6ae458366d99b84ab084552dd0278ea.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\9.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
         sha1="4b6d9b70f93bbeb872d0948bc064ae3f3f2bcbac">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-messaging-9.4.0_405845bb5704fe2267726b1bbbb950b835d51036.jar" />
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-messaging-9.4.0_bb866be410ecbbb6a8ecb624eb06d9fb5371795c.jar" />
     </item>
     <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\9.4.0\jars\classes.jar"
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\classes.jar"
         jumboMode="false"
-        revision="23.0.3"
-        sha1="618485fef3ebe12127f7622abbc9b5b39057b5c2">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.android.gms-play-services-basement-9.4.0_87c26d62a7adf2a7483091e0b445997f38d90f96.jar" />
+        revision="24.0.2"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.android.support-support-media-compat-24.2.1_9ab67666704e30b40f91b20b08b360f1b9dccf06.jar" />
     </item>
     <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-crash\9.4.0\jars\classes.jar"
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\classes.jar"
         jumboMode="false"
-        revision="23.0.3"
-        sha1="b9d48baf96c7e187991a9befa833bebd181960a9">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-crash-9.4.0_51439217b93e2d3f32cb3c741d7dd19e12d7b691.jar" />
+        revision="24.0.2"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.android.support-support-core-ui-24.2.1_55bd0b18a78a83c359957d36da97a1d361e6f5b0.jar" />
     </item>
     <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.4.0\jars\classes.jar"
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\design\24.2.1\jars\classes.jar"
         jumboMode="false"
-        revision="23.0.3"
-        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.android.support-support-vector-drawable-23.4.0_9632a9d9e0f0f57f72fec90b0d6ae120604cbff3.jar" />
+        revision="24.0.2"
+        sha1="e03f47f3d1017a093bb3239d4ec47c3447f40744">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.android.support-design-24.2.1_219968f862af9711cf87d5cfbcd0726abb5f123d.jar" />
     </item>
     <item
-        jar="C:\androiddevdir\android-sdk-windows\extras\android\m2repository\com\android\support\support-annotations\23.4.0\support-annotations-23.4.0.jar"
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-iid\9.4.0\jars\classes.jar"
         jumboMode="false"
-        revision="23.0.3"
-        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\support-annotations-23.4.0_e8cdd0cee5312c5154d275b48b3f807215c9a013.jar" />
-    </item>
-    <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics\9.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.3"
-        sha1="88848548ab56d4fbf3d2d1b0c85bf1ff9b4c1f4b">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-analytics-9.4.0_c41be9e3a23a9573da6dbc2ba3246abf99cd7ed0.jar" />
-    </item>
-    <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-database\9.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.3"
-        sha1="84bf369090a8f7e293817efbd6ccf31ada1be32b">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-database-9.4.0_02d5b433527629e95ee80228360b7dd3c52d766d.jar" />
-    </item>
-    <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics-impl\9.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.3"
-        sha1="a440fb3fec30ff925e9f601cc458fb6671834cb2">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-analytics-impl-9.4.0_9b7675207331d6c9ffceefde7d8d698b8d345c4c.jar" />
-    </item>
-    <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\Dare\runtime\unspecified\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.3"
-        sha1="f8c8ebc987f6538a65f5cfd308d5984746999d79">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\Dare-runtime-unspecified_ea04d1f4bf25d4ede748b103ee705b8e45ea0669.jar" />
-    </item>
-    <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-iid\9.4.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.3"
+        revision="24.0.2"
         sha1="3b7173b3df4c7029699919414400041f64519e34">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-iid-9.4.0_379c00d23655fe5695791ae639e961351adeac12.jar" />
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-iid-9.4.0_f5ef0d8782b48a7f0865935f6e642609b391348e.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="7521486d9bfd2cd9e756e0cf75ed7d97f2ce2d3b">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.android.support-recyclerview-v7-24.2.1_74fce5e43500ba9026822c7dda00cf3fbd60b594.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\support-v4\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.android.support-support-v4-24.2.1_c704b7aecbc1822df6232dd6647e184fe11a800a.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-auth-common\9.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="34762013d39dbe6c656050589c44e8b61b9a2c5d">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-auth-common-9.4.0_ad47043975d09c2784e6ac50df68511a18d1a9e1.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-common\9.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="18b5697c65c4fe5b7381613b8b8ae9ac52e26fa7">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-common-9.4.0_3fbbd29f25e312e1a0accae923ea5c0489f267fd.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-database-connection\9.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="0e4d53465cc141bec58f18a894e4c4e80633fa32">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-database-connection-9.4.0_352bdaa8bd248b63f12d802e3871a6bd0d4270b8.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-storage-common\9.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="c8f5d56f8f8a287c95e02c542baade138a378048">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-storage-common-9.4.0_c8c2860899ee8581e86d697307939f44050fc3a1.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics-impl\9.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="a440fb3fec30ff925e9f601cc458fb6671834cb2">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-analytics-impl-9.4.0_df37c3a54c95708424e94da87f70a18a2ba51424.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\support-fragment\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.android.support-support-fragment-24.2.1_b4b8194b315495f51d6d1827a78a6b59e550d654.jar" />
+    </item>
+    <item
+        jar="C:\androiddevdir\android-sdk-windows\extras\android\m2repository\com\android\support\support-annotations\24.2.1\support-annotations-24.2.1.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\support-annotations-24.2.1_db9a7ea247583d9b3c3f238db9414980fa88037c.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\internal_impl-24.2.1_eb0a11e72e3abb2842b3f98e2052cc2c2143af82.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\Dare\runtime\unspecified\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="5aee99b258020d9491cec5a0fb12fe56a7834972">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\Dare-runtime-unspecified_3682dacc8834f87db3be2b5a86cb2ccfb583a4d9.jar" />
     </item>
     <item
         jar="C:\Users\Alexander\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-tasks\1.4.0\d85884acf6810a3bbbecb587f239005cbc846dc4\bolts-tasks-1.4.0.jar"
         jumboMode="false"
-        revision="23.0.3"
+        revision="24.0.2"
         sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\bolts-tasks-1.4.0_2544070a054e881716625eb9b755a6529785f67a.jar" />
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\bolts-tasks-1.4.0_2544070a054e881716625eb9b755a6529785f67a.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\support-core-ui\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="867dad63c33388ff8c7644b236579355036d075f">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\internal_impl-24.2.1_d501d0814b8b07422a5b87209656d299710fcb20.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\widgets-release\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="f545fc97e99a9591c9298380b2db925a1509761b">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\intermediates-exploded-aar-widgets-release_a7bd309a82c1ebe6af7d742c7601fb8ac0819db6.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-auth-module\9.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="6bc41d9d6fd12d2ef23c785a259011001f4a1a5b">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-auth-module-9.4.0_6d0ac69de79ef0460671ffdb03a5de1441f18b5b.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\9.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="8a36d229011e75f0caef408e1adf0d3fd4d94e02">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.android.gms-play-services-tasks-9.4.0_899c6e83974f20d19b633ec7420718ee62aee690.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\9.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="3dee4ce5844d39d843d503fb8fe04e51e5bfffac">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.android.gms-play-services-base-9.4.0_150b79f618c5a1f30ade71ec6e1758ca5f0d40c7.jar" />
     </item>
     <item
         jar="C:\Users\Alexander\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-applinks\1.4.0\8ad21bf21784dacce5f2043afb97218cc377e835\bolts-applinks-1.4.0.jar"
         jumboMode="false"
-        revision="23.0.3"
+        revision="24.0.2"
         sha1="8ad21bf21784dacce5f2043afb97218cc377e835">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\bolts-applinks-1.4.0_cd5aba240de154300e1f4b2143f8d34de1126cfd.jar" />
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\bolts-applinks-1.4.0_cd5aba240de154300e1f4b2143f8d34de1126cfd.jar" />
     </item>
     <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-database-connection\9.4.0\jars\classes.jar"
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-crash\9.4.0\jars\classes.jar"
         jumboMode="false"
-        revision="23.0.3"
-        sha1="0e4d53465cc141bec58f18a894e4c4e80633fa32">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-database-connection-9.4.0_f675cceb7c3a2a224c8041a886d93051bb5c0aac.jar" />
+        revision="24.0.2"
+        sha1="b9d48baf96c7e187991a9befa833bebd181960a9">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-crash-9.4.0_b3d7ef2a761cc547e53325b3d9d45e0c38e8991b.jar" />
     </item>
     <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-config\9.4.0\jars\classes.jar"
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\support-core-utils\24.2.1\jars\classes.jar"
         jumboMode="false"
-        revision="23.0.3"
+        revision="24.0.2"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.android.support-support-core-utils-24.2.1_de71da0d411771901d44e7393dec63dcded8056b.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.android.support-support-vector-drawable-24.2.1_35d3e6b6cdc440afc110abc4dceecb64b3324e25.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-database\9.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="84bf369090a8f7e293817efbd6ccf31ada1be32b">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-database-9.4.0_c64eacd29b762a5f5fbe6a05966d7c4906ce52ee.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-auth\9.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="4b630471536351be7c3c3100735c75b7ad2cbd84">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-auth-9.4.0_edbd6e70de72a3b0bfba5eb767b43c8518e56d05.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics\9.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="88848548ab56d4fbf3d2d1b0c85bf1ff9b4c1f4b">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-analytics-9.4.0_7733f3a610f97cb9bbc9c056d0b4839b8ca86678.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\Dare\runtime\unspecified\jars\libs\binding-generator.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="707286fe3a57cfb22d401d14e76962c580a13e4a">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\binding-generator_42589b82b997d5e5e36524024251d4bd2083b831.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\support-media-compat\24.2.1\jars\libs\internal_impl-24.2.1.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\internal_impl-24.2.1_9d61903b5010342820fcd09efef2781a6c2a9607.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\9.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="618485fef3ebe12127f7622abbc9b5b39057b5c2">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.android.gms-play-services-basement-9.4.0_7f3ba67c5612267e05b0d69e14335256f51c0c9b.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-config\9.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
         sha1="dab6944860c986980dcc6002a5ca2f127b587317">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-config-9.4.0_970a2d86c4b39457048a328e2f74ccde7380f230.jar" />
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-config-9.4.0_17da72309d8a2ede2a3712b0d44fd862d3ae4d17.jar" />
     </item>
     <item
-        jar="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth\9.4.0\jars\classes.jar"
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-storage\9.4.0\jars\classes.jar"
         jumboMode="false"
-        revision="23.0.3"
+        revision="24.0.2"
+        sha1="98e97da89d4df8e2f6eba63498d3d46a587372f2">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.firebase-firebase-storage-9.4.0_0723dab52ee3d2f6e8ad4757a95e72c86683a904.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.16.0\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="df6791bb4f5402ed138d3dd1385f8e2bc3ac8728">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.facebook.android-facebook-android-sdk-4.16.0_bfb7360a91aea16901513135a417e3b11e59995c.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth-base\9.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="58c9f5ee817fdb8b658fd7455fadfb74119f7ee9">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.android.gms-play-services-auth-base-9.4.0_90f315a5398b27140637914595cd691290fd2c27.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="d9ecde39b460470e655de6e47c05573d2d5a8bfb">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.android.support-cardview-v7-23.4.0_15c8e83a8f90b1bc8b62085a8a722e07d817903f.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.google.android.gms\play-services-auth\9.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
         sha1="4348dd26d83b56c2058b768222c3271bce911724">
-        <dex dex="D:\ProsjekterInProgress\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.android.gms-play-services-auth-9.4.0_0655c77bfed597de42bf1d6a9261c85e20b0e9fb.jar" />
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.google.android.gms-play-services-auth-9.4.0_4159906632a6462b82157ae316771926bd718508.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.android.support-animated-vector-drawable-24.2.1_8b4326a6c02db3d734ac25590105c83cb0be0057.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\support-compat\24.2.1\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.android.support-support-compat-24.2.1_66832246b70a350765a3517b7f1f9ef87f0956b5.jar" />
+    </item>
+    <item
+        jar="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\exploded-aar\com.android.support\customtabs\23.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="24.0.2"
+        sha1="2d1eaa9e0b98f8fc4c2b989d9b30d4f1480648ac">
+        <dex dex="D:\Prosjekt\Dare\Dare\platforms\android\build\intermediates\pre-dexed\F0F1\debug\com.android.support-customtabs-23.4.0_b2bf82190c9acb7c0233663e46d7c79d948d5de7.jar" />
     </item>
 
 </items>

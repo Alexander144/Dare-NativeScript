@@ -36,20 +36,11 @@ var _wrappedValues = [
     new WrappedValue(null)
 ];
 var Observable = (function () {
-    function Observable(json) {
+    function Observable(source) {
         this._observers = {};
         this.disableNotifications = {};
-        if (json) {
-            this._map = new Map();
-            for (var prop in json) {
-                if (json.hasOwnProperty(prop)) {
-                    if (!Array.isArray(json[prop]) && typeof json[prop] === 'object') {
-                        json[prop] = new Observable(json[prop]);
-                    }
-                    this._defineNewProperty(prop);
-                    this.set(prop, json[prop]);
-                }
-            }
+        if (source) {
+            addPropertiesFromObject(this, source);
         }
     }
     Observable.prototype._defineNewProperty = function (propertyName) {
@@ -213,4 +204,31 @@ var Observable = (function () {
     return Observable;
 }());
 exports.Observable = Observable;
+function addPropertiesFromObject(observable, source, recursive) {
+    var isRecursive = recursive || false;
+    observable._map = new Map();
+    for (var prop in source) {
+        if (source.hasOwnProperty(prop)) {
+            if (isRecursive) {
+                if (!Array.isArray(source[prop]) && source[prop] && typeof source[prop] === 'object' && types.getClass(source[prop]) !== 'ObservableArray') {
+                    source[prop] = fromObjectRecursive(source[prop]);
+                }
+            }
+            observable._defineNewProperty(prop);
+            observable.set(prop, source[prop]);
+        }
+    }
+}
+function fromObject(source) {
+    var observable = new Observable();
+    addPropertiesFromObject(observable, source, false);
+    return observable;
+}
+exports.fromObject = fromObject;
+function fromObjectRecursive(source) {
+    var observable = new Observable();
+    addPropertiesFromObject(observable, source, true);
+    return observable;
+}
+exports.fromObjectRecursive = fromObjectRecursive;
 //# sourceMappingURL=observable.js.map
