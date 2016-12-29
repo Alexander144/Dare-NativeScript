@@ -1,11 +1,17 @@
-<Page actionBarHidden="true" xmlns="http://schemas.nativescript.org/tns.xsd" loaded="PageLoaded">
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="PageLoaded">
+
+    <ActionBar title="Dare">
+      <NavigationButton text="Go Back" visibility="false"></NavigationButton>
+       <ActionItem tap="onEdit" ios.systemIcon="4" android.systemIcon="ic_menu_edit" android.position="left" ios.position="left"/>
+      <ActionItem text="{{Score}}" android.position="right" ios.position="right"/>
+    </ActionBar>
+
     <ScrollView orientation="vertical">
     <StackLayout>
        <DockLayout>
          <Label text="This is the MainPage"></Label>
          <Button text="Add Friends" tap="{{GoToFriends}}"></Button>
       </DockLayout>
-      <Label text="{{Score}}"></Label>
       <Label text="{{SUser}}"></Label>
       <DockLayout>
         <TextField text="{{InputDare}}" hint="I Dare You To"> </TextField>

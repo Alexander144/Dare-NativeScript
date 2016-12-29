@@ -1,13 +1,15 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="PageLoaded">
+<Page class="pageProperties" xmlns="http://schemas.nativescript.org/tns.xsd" loaded="PageLoaded">
   <StackLayout>
+    <Label class="title" text="Dare"> </Label>
    <Label text="{{message}}"> </Label>
-  <TextField text="{{Username}}" hint="Username"></TextField>
-   <TextField text="{{Email}}" hint="Email Address" keyboardType="email"></TextField>
-   <TextField text="{{Password}}" hint="Password" secure="true"></TextField>
+  <TextField class="TextFields" text="{{Username}}" hint="Username"></TextField>
+   <TextField class="TextFields" text="{{Email}}" hint="Email Address" keyboardType="email"></TextField>
+   <TextField class="TextFields" text="{{Password}}" hint="Password" secure="true"></TextField>
    
-   <Button text="Log in" tap="{{login}}"> </Button>
-   <Button text="Sign Up" tap="{{SignUp}}"> </Button>
-   <Button text="Send push" tap="{{Send}}"> </Button>
+   <Button id="loginButton" class="TextFields" text="Log in" tap="{{login}}"> </Button>
+   <Button id="registrerUserButton" text="Registrer a new user" tap="{{SignUp}}"> </Button>
+
+
   <Label text="{{M_Dare}}"> </Label>
    <Repeater items="{{items}}"> 
       <Repeater.itemTemplate> 
