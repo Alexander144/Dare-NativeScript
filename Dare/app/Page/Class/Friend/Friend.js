@@ -8,28 +8,12 @@ var Friend = (function (_super) {
         this.Username = Username;
         this.FriendsUsername = FriendsUsername;
         this.AreFriends = AreFriends;
-        this.Selected = false;
+        this.SelectedFriend = false;
         this.Color = "red";
     }
-    Friend.prototype.SetDate = function (Date) {
-        this.Date = Date;
-    };
-    Friend.prototype.Done = function () {
-        var OUsername = {};
-        OUsername[this.Username] = true;
-        var FUsername = {};
-        FUsername[this.FriendsUsername] = true;
-        firebase.setValue("Users/" + this.Username + "/Friends/Accept/", FUsername);
-        firebase.setValue("Users/" + this.FriendsUsername + "/Friends/Accept/", OUsername);
-        firebase.remove("Users/" + this.Username + "/Friends/Request/" + this.FriendsUsername);
-    };
-    Friend.prototype.Delete = function () {
-        firebase.remove("Users/" + this.Username + "/Friends/Accept/" + this.FriendsUsername);
-        firebase.remove("Users/" + this.FriendsUsername + "/Friends/Accept/" + this.Username);
-    };
     Friend.prototype.Select = function () {
-        this.Selected = !this.Selected;
-        if (this.Selected == true) {
+        this.SelectedFriend = !this.SelectedFriend;
+        if (this.SelectedFriend == true) {
             this.set("Color", "green");
         }
         else {
@@ -43,9 +27,25 @@ var Friend = (function (_super) {
         firebase.setValue("Users/" + this.FriendsUsername + "/Friends/Request/", OUsername);
         alert("Send friend request to " + this.FriendsUsername);
     };
+    Friend.prototype.SetDate = function (Date) {
+        this.Date = Date;
+    };
+    Friend.prototype.AcceptFriendRequest = function () {
+        var OUsername = {};
+        OUsername[this.Username] = true;
+        var FUsername = {};
+        FUsername[this.FriendsUsername] = true;
+        firebase.setValue("Users/" + this.Username + "/Friends/Accept/", FUsername);
+        firebase.setValue("Users/" + this.FriendsUsername + "/Friends/Accept/", OUsername);
+        firebase.remove("Users/" + this.Username + "/Friends/Request/" + this.FriendsUsername);
+    };
+    Friend.prototype.Delete = function () {
+        firebase.remove("Users/" + this.Username + "/Friends/Accept/" + this.FriendsUsername);
+        firebase.remove("Users/" + this.FriendsUsername + "/Friends/Accept/" + this.Username);
+    };
     Friend.prototype.Send = function (InputDare) {
         firebase.push("Dares/" + this.FriendsUsername, { 'From': this.Username, 'Dare': InputDare });
-        this.Selected = false;
+        this.SelectedFriend = false;
         this.set("Color", "red");
     };
     return Friend;

@@ -35,7 +35,7 @@ class MainModel extends Observable{
 
     Send(){
          for (var i=0;i<this.Friends.length;i++) {
-            if (this.Friends.getItem(i).Selected === true) {
+            if (this.Friends.getItem(i).SelectedFriend === true) {
                 this.Friends.getItem(i).Send(this.Dare);
              }   
         }

@@ -10,7 +10,7 @@ var Dare = (function () {
     Dare.prototype.SetDate = function (Date) {
         this.Date = Date;
     };
-    Dare.prototype.Done = function () {
+    Dare.prototype.DoneDare = function () {
         firebase.remove("/Dares/" + this.Username + "/" + this.Id);
     };
     return Dare;

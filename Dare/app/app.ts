@@ -11,4 +11,4 @@ import firebase = require("nativescript-plugin-firebase");
             console.log("firebase.init error: " + error);
           }
         );
-application.start({ moduleName: "Page/Login/login" });
+application.start({ moduleName: "Page/LoginPage/login" });
