@@ -6,11 +6,13 @@ var ViktorModel = (function (_super) {
     function ViktorModel() {
         _super.call(this);
         self = this;
+        this.Color = "Blue";
         this.Name = "Jolo";
         //this.set("Add", firebase.);
     }
     ViktorModel.prototype.ChangeColor = function () {
         this.set("Name", "Hello");
+        this.set("Color", "Red");
         alert("Hello");
     };
     return ViktorModel;

@@ -1,8 +1,8 @@
 <Page class="pageProperties" xmlns="http://schemas.nativescript.org/tns.xsd" loaded="PageLoaded">
   <StackLayout>
-  	
-    <Label text="{{Name}}"> </Label>
-    <Button tap="{{ChangeColor}}"></Button>
+
+    <Label color="{{Color}}" text="{{Name}}"> </Label>
+    <Button text="Click me" tap="{{ChangeColor}}"></Button>
   
   </StackLayout>
 </Page>
