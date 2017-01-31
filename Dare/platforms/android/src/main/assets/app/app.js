@@ -6,5 +6,5 @@ firebase.init({}).then(function (instance) {
 }, function (error) {
     console.log("firebase.init error: " + error);
 });
-application.start({ moduleName: "Page/Login/login" });
+application.start({ moduleName: "Page/ViktorPage/ViktorPage" });
 //# sourceMappingURL=app.js.map

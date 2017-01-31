@@ -15,7 +15,7 @@ class Dare{
     SetDate(Date:Date){
         this.Date = Date;
     }
-     Done(){
+     DoneDare(){
         firebase.remove("/Dares/" + this.Username + "/" + this.Id);
     }
 } 

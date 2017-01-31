@@ -25,11 +25,11 @@ var MainModel = (function (_super) {
         var path;
         var onChildEvent = function (result) {
             if (result.type === "ChildRemoved") {
-                self.deleteDare(result.key);
+                self.DeleteDare(result.key);
             }
             if (result.type === "ChildAdded") {
                 if (self.CheckIfDareAdded(result.key) == true) {
-                    self.newDare(result.key, result.value.Dare, result.value.From);
+                    self.NewDare(result.key, result.value.Dare, result.value.From);
                 }
             }
         };
@@ -37,6 +37,13 @@ var MainModel = (function (_super) {
         path = "/Dares/" + this.User;
         firebase.addChildEventListener(onChildEvent, path);
         path = "";
+    };
+    MainModel.prototype.GetScore = function () {
+        var onChildEvent = function (result) {
+            self.SetUIScore(result.value);
+        };
+        var path = "/Users/" + this.User + "/Score";
+        firebase.addValueEventListener(onChildEvent, path);
     };
     MainModel.prototype.CheckIfDareAdded = function (id) {
         var AddDare = true;
@@ -47,7 +54,7 @@ var MainModel = (function (_super) {
         }
         return AddDare;
     };
-    MainModel.prototype.deleteDare = function (id) {
+    MainModel.prototype.DeleteDare = function (id) {
         this.SetScore();
         for (var i = 0; i < this.Dares.length; i++) {
             if (this.Dares.getItem(i).Id === id) {
@@ -56,10 +63,10 @@ var MainModel = (function (_super) {
             }
         }
     };
-    MainModel.prototype.newDare = function (id, nDare, From) {
+    MainModel.prototype.NewDare = function (id, nDare, From) {
         this.Dares.push(new Dare_1.default(id, nDare, From, this.User));
     };
-    MainModel.prototype.Send = function () {
+    MainModel.prototype.SendDare = function () {
         Page.topmost().navigate({
             moduleName: "Page/SendTo/SendTo",
             context: { Username: this.User, Dare: this.InputDare
@@ -75,16 +82,9 @@ var MainModel = (function (_super) {
     MainModel.prototype.SetApplication = function (Username) {
         self = this;
         this.User = Username;
-        this.set("SUser", this.User);
+        this.set("GUIUser", this.User);
         this.GetDares();
         this.GetScore();
-    };
-    MainModel.prototype.GetScore = function () {
-        var onChildEvent = function (result) {
-            self.SetUIScore(result.value);
-        };
-        var path = "/Users/" + this.User + "/Score";
-        firebase.addValueEventListener(onChildEvent, path);
     };
     MainModel.prototype.SetUIScore = function (AScore) {
         this.set("Score", AScore);
@@ -95,9 +95,9 @@ var MainModel = (function (_super) {
         Result = Result + adding;
         firebase.update('/Users/' + this.User, { 'Score': Result });
     };
-    MainModel.prototype.GoToFriends = function () {
+    MainModel.prototype.GoToFriendsPage = function () {
         Page.topmost().navigate({
-            moduleName: "Page/Friends/Friends",
+            moduleName: "Page/FriendsPage/Friends",
             context: { Username: this.User
             },
             transition: {

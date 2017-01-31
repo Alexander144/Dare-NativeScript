@@ -1,0 +1,11 @@
+#loginButton{
+    background-color:black;
+    color: white;
+}
+#registrerUserButton{
+    color:gray;
+    background-color: #7af442;
+    width: 50%;
+    font-size: 17%;
+    margin: 1%;
+}

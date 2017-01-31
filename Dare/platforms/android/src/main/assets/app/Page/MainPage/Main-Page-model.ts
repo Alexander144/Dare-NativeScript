@@ -36,95 +36,119 @@ class MainModel extends Observable{
         
 }
     
-    GetDares(){
-     let path: string;
-        var onChildEvent = function(result:any) {
-        if(result.type==="ChildRemoved"){
-            self.deleteDare(result.key);
-        }
-        if (result.type === "ChildAdded") {
+    GetDares()
+    {
+        let path: string;
+        var onChildEvent = function(result:any) 
+        {
+            if(result.type==="ChildRemoved")
+            {
+                self.DeleteDare(result.key);
+            }
+            if (result.type === "ChildAdded") 
+            {
 
-                if(self.CheckIfDareAdded(result.key) == true){
-                    self.newDare(result.key, result.value.Dare, result.value.From);
+                if(self.CheckIfDareAdded(result.key) == true)
+                {
+                self.NewDare(result.key, result.value.Dare, result.value.From);
                 }
+            }
         }
-    }
-        // listen to changes in the /users path
+            // listen to changes in the /users path
             path = "/Dares/"+this.User;
             firebase.addChildEventListener(onChildEvent,path);
             path = "";
     }
-    CheckIfDareAdded(id:string){
+    GetScore()
+    {    
+        var onChildEvent = function(result:any) 
+        {
+            self.SetUIScore(result.value);
+        }
+        var path = "/Users/"+this.User + "/Score";
+        firebase.addValueEventListener(onChildEvent,path);
+    }
+
+    CheckIfDareAdded(id:string)
+    {
         var AddDare = true;
-    for (var i=0;i<this.Dares.length;i++) {
-            if (this.Dares.getItem(i).Id === id) {
+        for (var i=0;i<this.Dares.length;i++) 
+        {
+            if (this.Dares.getItem(i).Id === id) 
+            {
                 AddDare = false;
-             }   
+            }   
         }
         return AddDare;
     }
     
-    deleteDare(id:string){
+    DeleteDare(id:string)
+    {
         this.SetScore();
-    for (var i=0;i<this.Dares.length;i++) {
-        if (this.Dares.getItem(i).Id === id) {
-        this.Dares.splice(i,1);
-        break;
-    }
-  }
-    }
-    newDare(id:string, nDare:string, From:string){
-            this.Dares.push(new Dare(id,nDare,From,this.User));
+        for (var i=0;i<this.Dares.length;i++) 
+        {
+            if (this.Dares.getItem(i).Id === id) 
+            {
+                this.Dares.splice(i,1);
+                break;
+            }
+        }
     }
 
-    Send(){ 
-           Page.topmost().navigate({
-            
+    NewDare(id:string, nDare:string, From:string)
+    {
+        this.Dares.push(new Dare(id,nDare,From,this.User));
+    }
+
+    SendDare()
+    { 
+        Page.topmost().navigate(
+        {
             moduleName: "Page/SendTo/SendTo",
-             context:{Username: this.User, Dare:this.InputDare
-                },
+            context:{Username: this.User, Dare:this.InputDare
+            },
             transition: {
                 name: "slideBottom",
                 duration: 380,
                 curve: "easeIn"
-             },
+            },
             animated: true
-            });
-        
+        }
+        );
     }
 
-    SetApplication(Username:string){
+    SetApplication(Username:string)
+    {
         self = this;
         this.User = Username;
-        this.set("SUser",this.User);
+        this.set("GUIUser",this.User);
         this.GetDares();
         this.GetScore();
     }
-    GetScore(){
-        
-    var onChildEvent = function(result:any) {
-            self.SetUIScore(result.value);
-    }
-        var path = "/Users/"+this.User + "/Score";
-        firebase.addValueEventListener(onChildEvent,path);
-        
-    }
-    SetUIScore(AScore:number){
+
+  
+    SetUIScore(AScore:number)
+    {
         this.set("Score", AScore);
     }
-    SetScore(){
+
+    SetScore()
+    {
         let adding = 10;
         var Result = this.Score;
+       
         Result = Result + adding;
-          firebase.update(
+        firebase.update(
             '/Users/' + this.User,
             {'Score': Result}
-            );
+        );
     }
-    GoToFriends(){
-        Page.topmost().navigate({
-            
-            moduleName: "Page/Friends/Friends",
+
+    GoToFriendsPage()
+    {
+        Page.topmost().navigate(
+        {
+            moduleName: "Page/FriendsPage/Friends",
              context:{Username: this.User
                 },
             transition: {
@@ -133,18 +157,23 @@ class MainModel extends Observable{
                 curve: "easeIn"
              },
             animated: true
-            });
+            }
+            );
     }
-    Logout(){
+
+    Logout()
+    {
         this.User = "";
         this.set("Username","");
         this.set("InputDare","");
-        while(this.Dares.length > 0){
+        while(this.Dares.length > 0)
+        {
             this.Dares.pop();
         }
+
         firebase.logout();
         
-         Page.topmost().goBack();
+        Page.topmost().goBack();
     }
   
 } 

@@ -3,6 +3,8 @@
 <img src="docs/images/firebase-logo.png" width="116px" height="32px" alt="Firebase"/><br/>
 Google's realtime app platform (Database, Authentication, Configuration, Notifications) [firebase.google.com](https://firebase.google.com/)
 
+> Requires NativeScript 2.3.0 or up. So `npm install -g nativescript` like a boss if you need to!
+
 ## Features
 For readability the supported features have been moved to their own README's:
 
@@ -13,9 +15,7 @@ For readability the supported features have been moved to their own README's:
 * [Cloud Messaging](docs/MESSAGING.md)
 * [Storage](docs/STORAGE.md)
 * [Crash Reporting](docs/CRASHREPORTING.md)
-
-## NativeScript version
-Please update to at least tns 2.1.0 to make plugin installation a little easier (otherwise you'll need to manually add an `applicationId` to `app/App_Resources/Android/app.gradle`). 
+* [Analytics](docs/ANALYTICS.md)
 
 ## Prerequisites
 Head on over to [https://console.firebase.google.com/](https://console.firebase.google.com/) and sign up for a free account.
@@ -25,7 +25,7 @@ Open your Firebase project at the Google console and click 'Add app' to add an i
 
 * iOS: `GoogleService-Info.plist` which you'll add to your NativeScript project at `app/App_Resources/iOS/GoogleService-Info.plist`
 
-* Android: `google-services.json` which you'll add to your NativeScript project at `platforms/android/google-services.json`
+* Android: `google-services.json` which you'll add to your NativeScript project at `app/App_Resources/Android/google-services.json`
 
 ## Installation
 If you rather watch a video explaining the steps then check out this step-by-step guide - you'll also learn how to
@@ -40,36 +40,27 @@ tns plugin add nativescript-plugin-firebase
 ```
 _This will guide you through installing additional components. Check the doc links above to see what's what. You can always change your choices later._
 
+### Config
+If you choose to save your config during the installation, the supported options may be saved in the `firebase.nativescript.json` at the root of your app.
+This is to ensure your app may roundtrip source control and installation on CI won't run the questionary during install.
 
-Do yourself a favor by adding TypeScript support to your nativeScript app:
+You can reconfigure the plugin by going to the `node_modules/nativescript-plugin-firebase` and running `npm run config`.
 
-```
-tns install typescript
-```
-
-Then open `references.d.ts` in the root of your project and add this line to get autocompletion and type-checking for this plugin:
-
-```
-/// <reference path="./node_modules/nativescript-plugin-firebase/firebase.d.ts" />
-```
+You can also change the configuration by deleting the `firebase.nativescript.json` and reinstalling the plugin.
 
 ### Android
-Install packages 'Google Play Services' and 'Google Repository' in your [Android SDK Manager](http://stackoverflow.com/a/37310513)
+Install the latest packages 'Google Play Services' and 'Google Repository' in your [Android SDK Manager](http://stackoverflow.com/a/37310513)
 
-#### Open `platforms/android/build.gradle`
-We're trying to automate these steps, but for now:
+#### Google Play Services Version
+The plugin will default to version 10.0+ of the Android `play-services-base` SDK.
+If you need to change the version (to for instance the latest version), you can add a project ext property `googlePlayServicesVersion` like so:
 
-- Near the top there's a dependencies section, add `classpath "com.google.gms:google-services:3.0.0"` so it becomes something like:
 ```
-  dependencies {
-    classpath "com.android.tools.build:gradle:1.5.0"
-    classpath "com.google.gms:google-services:3.0.0"
-  }
-```
+//   /app/App_Resources/Android/app.gradle
 
-- Add the very bottom of the same file add
-```
-  apply plugin: "com.google.gms.google-services"
+project.ext {
+    googlePlayServicesVersion = "+"
+}
 ```
 
 ## Usage
@@ -136,9 +127,17 @@ firebase.init({
 
 #### Pod dependency error
 If you see an error like `Unable to satisfy the following requirements: Firebase (~> 3.3.0) required by Podfile`,
-then check [issue 98](#98) which perfectly explains how to update your local Pod spec repo.
+then check [issue 98](#98) which perfectly explains how to update your local Pod spec repo, or first try
+to `tns platform remove ios && tns platform add ios`.
+
+Running `pod repo update` on the command line will make sure you have the latest Podspec,
+so when the plugin updates and a newer Firebase version can't be found, try that first.
 
 ## Known issues on Android
+
+#### Genymotion
+You can use the awesome [Genymotion emulator](https://www.genymotion.com/)
+but you'll need to [install Google Play Services on it](https://inthecheesefactory.com/blog/how-to-install-google-services-on-genymotion/en) or you'll run into errors during authentication.
 
 #### DexIndexOverflowException
 ```
@@ -188,17 +187,32 @@ placing `google-services.json` to `platforms/android/google-services.json` (see 
 the changes to `build.gradle` which are mentioned above as well.
 
 #### Could not find com.google...
-And there's this one: "Could not find com.google.firebase:firebase-auth:9.4.0". That means
-making sure you have the latest Google Repository bits installed.
+And there's this one: "Could not find com.google.firebase:firebase-auth:10.0.+". That means
+making sure you have the latest `Google Repository` bits installed.
 Just run `android` from a command prompt and install any pending updates.
 
-#### Found play-services:9.0.0, but version 9.0.2 is needed..
+Also, an error like "Could not find com.google.firebase:firebase-core:10.0.0" can be caused by having
+more than one version of the Android SDK installed. Make sure ANDROID_HOME is set to the Android SDK directory
+that is being updated otherwise it will seem as though your updates have no effect.
+
+#### Found play-services:9.0.0, but version 10.X.Y is needed..
 Update your Android bits like the issue above and reinstall the android platform in your project.
 
-## Future work
-- Add support for `removeEventListener`
-- Possibly add more login mechanisms
-- Add other Firebase 3.x SDK features (there's already a few feature requests in the GitHub issue tracker
+#### `include.gradle`: Failed to apply plugin .. For input string: "+"
+You probably have another plugin depending on Google Play Services (Google Maps, perhaps).
+We need to pin to a specific play services version to play nice with others, so open `app/App_Resources/Android/app.gradle` and add:
+
+```
+android {  
+  // other stuff here
+
+  project.ext {
+    googlePlayServicesVersion = "10.0.+"
+  }
+}
+```
+
+Where `"10.0.+"` is best set to the same value as the version on [this line](https://github.com/EddyVerbruggen/nativescript-plugin-firebase/blob/master/platforms/android/include.gradle#L23).
 
 ## Credits
 The starting point for this plugin was [this great Gist](https://gist.github.com/jbristowe/c89a7bcae7fc9a035ee7) by [John Bristowe](https://github.com/jbristowe).
