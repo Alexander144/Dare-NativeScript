@@ -1,11 +1,9 @@
-npm-debug.log
-.DS_Store
 
-*.js.map
-app/**/*.js
-hooks/
-lib/
-node_modules/
-platforms/
-tmp/
-typings/
+Dare/*.js.map
+Dare/app/**/*.js
+Dare/hooks/
+Dare/lib/
+Dare/node_modules/
+Dare/platforms/
+Dare/tmp/
+Dare/typings/
