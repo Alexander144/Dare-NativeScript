@@ -3,8 +3,6 @@
 <img src="docs/images/firebase-logo.png" width="116px" height="32px" alt="Firebase"/><br/>
 Google's realtime app platform (Database, Authentication, Configuration, Notifications) [firebase.google.com](https://firebase.google.com/)
 
-> Requires NativeScript 2.3.0 or up. So `npm install -g nativescript` like a boss if you need to!
-
 ## Features
 For readability the supported features have been moved to their own README's:
 
@@ -38,7 +36,13 @@ From the command prompt go to your app's root folder and execute:
 ```
 tns plugin add nativescript-plugin-firebase
 ```
-_This will guide you through installing additional components. Check the doc links above to see what's what. You can always change your choices later._
+
+Now start an install script which will guide you through installing additional components. Check the doc links above to see what's what. You can always change your choices later.
+
+```
+cd node_modules/nativescript-plugin-firebase
+npm run setup
+```
 
 ### Config
 If you choose to save your config during the installation, the supported options may be saved in the `firebase.nativescript.json` at the root of your app.

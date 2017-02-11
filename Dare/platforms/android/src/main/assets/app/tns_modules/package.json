@@ -1,11 +1,11 @@
 {
   "name": "tns-core-modules",
   "description": "Telerik NativeScript Core Modules",
-  "version": "2.4.0-2016-09-30-4270",
+  "version": "2.5.0",
   "homepage": "https://www.nativescript.org",
   "repository": {
     "type": "git",
-    "url": "https://github.com/NativeScript/NativeScript/commit/0f2c898cb3ef2d9d9e1676fb17de4f70dcd9d481"
+    "url": "https://github.com/NativeScript/NativeScript/commit/30aca890749e9e3fb9bd0f5ddc9de5b6995859bc"
   },
   "files": [
     "**/*.d.ts",
@@ -24,7 +24,7 @@
   "license": "Apache-2.0",
   "typings": "tns-core-modules.d.ts",
   "dependencies": {
-    "tns-core-modules-widgets": "next"
+    "tns-core-modules-widgets": "2.5.0"
   },
   "devDependencies": {
     "tns-platform-declarations": "*"
@@ -35,36 +35,22 @@
       "android": "2.1.1"
     }
   },
-  "publishConfig": {
-    "tag": "next"
-  },
-  "_id": "tns-core-modules@2.4.0-2016-09-30-4270",
+  "_id": "tns-core-modules@2.5.0",
+  "_shasum": "25ebfa410a67fd34c86da8526633b071a0d756f7",
+  "_resolved": "https://registry.npmjs.org/tns-core-modules/-/tns-core-modules-2.5.0.tgz",
+  "_from": "tns-core-modules@>=2.4.0-2016-09-30-4270 <3.0.0",
   "scripts": {},
-  "_shasum": "d90a9d1cd0af2f1ec0cbad64778519f29379392d",
-  "_from": "tns-core-modules@next",
-  "_npmVersion": "3.8.3",
-  "_nodeVersion": "5.10.1",
+  "_npmVersion": "3.10.10",
+  "_nodeVersion": "6.9.4",
   "_npmUser": {
-    "name": "erjangavalji",
-    "email": "erjan.gavalji@gmail.com"
+    "name": "tns-bot",
+    "email": "nativescript@telerik.com"
   },
   "dist": {
-    "shasum": "d90a9d1cd0af2f1ec0cbad64778519f29379392d",
-    "tarball": "https://registry.npmjs.org/tns-core-modules/-/tns-core-modules-2.4.0-2016-09-30-4270.tgz"
+    "shasum": "25ebfa410a67fd34c86da8526633b071a0d756f7",
+    "tarball": "https://registry.npmjs.org/tns-core-modules/-/tns-core-modules-2.5.0.tgz"
   },
   "maintainers": [
-    {
-      "name": "enchev",
-      "email": "vladimir.enchev@gmail.com"
-    },
-    {
-      "name": "erjangavalji",
-      "email": "erjan.gavalji@gmail.com"
-    },
-    {
-      "name": "fatme",
-      "email": "hfatme@gmail.com"
-    },
     {
       "name": "hdeshev",
       "email": "hristo@deshev.com"
@@ -72,10 +58,6 @@
     {
       "name": "hhristov",
       "email": "hristo.hristov@outlook.com"
-    },
-    {
-      "name": "ligaz",
-      "email": "stefan.dobrev@gmail.com"
     },
     {
       "name": "nsndeck",
@@ -86,27 +68,17 @@
       "email": "panayot.cankov@telerik.com"
     },
     {
-      "name": "sdobrev",
-      "email": "stefan.dobrev@gmail.com"
-    },
-    {
-      "name": "tzraikov",
-      "email": "tsvetan.raikov@telerik.com"
+      "name": "tns-bot",
+      "email": "nativescript@telerik.com"
     },
     {
       "name": "vakrilov",
       "email": "alexander.vakrilov@gmail.com"
-    },
-    {
-      "name": "valio.stoychev",
-      "email": "valio.stoychev@gmail.com"
     }
   ],
   "_npmOperationalInternal": {
-    "host": "packages-12-west.internal.npmjs.com",
-    "tmp": "tmp/tns-core-modules-2.4.0-2016-09-30-4270.tgz_1475225840014_0.8258189279586077"
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/tns-core-modules-2.5.0.tgz_1485940021974_0.7627215369138867"
   },
-  "directories": {},
-  "_resolved": "https://registry.npmjs.org/tns-core-modules/-/tns-core-modules-2.4.0-2016-09-30-4270.tgz",
-  "readme": "ERROR: No README data found!"
+  "directories": {}
 }

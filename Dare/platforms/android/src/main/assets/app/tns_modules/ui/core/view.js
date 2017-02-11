@@ -6,13 +6,14 @@ var style = require("ui/styling/style");
 var enums = require("ui/enums");
 var background = require("ui/styling/background");
 var platform_1 = require("platform");
+var flexbox;
 global.moduleMerge(viewCommon, exports);
 var ANDROID = "_android";
 var NATIVE_VIEW = "_nativeView";
 var VIEW_GROUP = "_viewGroup";
 function onAutomationTextPropertyChanged(data) {
     var view = data.object;
-    view._nativeView.setContentDescription(data.newValue);
+    view._nativeView.setContentDescription(data.newValue + "");
 }
 viewCommon.View.automationTextProperty.metadata.onSetNativeValue = onAutomationTextPropertyChanged;
 function onIdPropertyChanged(data) {
@@ -125,6 +126,9 @@ var View = (function (_super) {
             view._onAttached(this._context);
         }
         _super.prototype._addViewCore.call(this, view, atIndex);
+        if (this._context) {
+            view._syncNativeProperties();
+        }
     };
     View.prototype._removeViewCore = function (view) {
         _super.prototype._removeViewCore.call(this, view);
@@ -155,6 +159,7 @@ var View = (function (_super) {
                 if (!child._isAddedToNativeVisualTree) {
                     child._isAddedToNativeVisualTree = that._addViewToNativeVisualTree(child);
                 }
+                child._syncNativeProperties();
                 return true;
             };
             this._eachChildView(eachChild);
@@ -202,7 +207,6 @@ var View = (function (_super) {
         padding = this.style.paddingTop;
         padding = this.style.paddingRight;
         padding = this.style.paddingBottom;
-        this._syncNativeProperties();
         trace.notifyEvent(this, "_onContextChanged");
     };
     Object.defineProperty(View.prototype, "_nativeView", {
@@ -500,6 +504,12 @@ var ViewStyler = (function () {
             lp.rightMargin = Math.round(params.rightMargin * utils.layout.getDisplayDensity());
             lp.bottomMargin = Math.round(params.bottomMargin * utils.layout.getDisplayDensity());
             lp.gravity = gravity;
+            if (lp instanceof org.nativescript.widgets.FlexboxLayout.LayoutParams) {
+                if (!flexbox) {
+                    flexbox = require("ui/layouts/flexbox-layout");
+                }
+                flexbox._setAndroidLayoutParams(lp, view);
+            }
         }
         else {
             var layoutParams = lp;
