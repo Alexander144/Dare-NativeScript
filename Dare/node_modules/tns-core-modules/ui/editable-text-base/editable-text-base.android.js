@@ -2,6 +2,7 @@ var common = require("./editable-text-base-common");
 var enums = require("ui/enums");
 var utils = require("utils/utils");
 var types = require("utils/types");
+var dismissKeyboardTimeoutId;
 var EditableTextBase = (function (_super) {
     __extends(EditableTextBase, _super);
     function EditableTextBase() {
@@ -58,12 +59,21 @@ var EditableTextBase = (function (_super) {
                 if (!owner) {
                     return;
                 }
-                if (!hasFocus) {
+                if (hasFocus) {
+                    if (dismissKeyboardTimeoutId) {
+                        clearTimeout(dismissKeyboardTimeoutId);
+                        dismissKeyboardTimeoutId = undefined;
+                    }
+                }
+                else {
                     if (owner._dirtyTextAccumulator) {
                         owner._onPropertyChangedFromNative(EditableTextBase.textProperty, owner._dirtyTextAccumulator);
                         owner._dirtyTextAccumulator = undefined;
                     }
-                    owner.dismissSoftInput();
+                    dismissKeyboardTimeoutId = setTimeout(function () {
+                        owner.dismissSoftInput();
+                        dismissKeyboardTimeoutId = null;
+                    }, 1);
                 }
             }
         });
@@ -76,9 +86,13 @@ var EditableTextBase = (function (_super) {
                         actionId === android.view.inputmethod.EditorInfo.IME_ACTION_GO ||
                         actionId === android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH ||
                         actionId === android.view.inputmethod.EditorInfo.IME_ACTION_SEND ||
-                        actionId === android.view.inputmethod.EditorInfo.IME_ACTION_NEXT ||
                         (event && event.getKeyCode() === android.view.KeyEvent.KEYCODE_ENTER)) {
-                        owner.dismissSoftInput();
+                        if (textView.getMaxLines() === 1) {
+                            owner.dismissSoftInput();
+                        }
+                        owner._onReturnPress();
+                    }
+                    if (actionId === android.view.inputmethod.EditorInfo.IME_ACTION_NEXT) {
                         owner._onReturnPress();
                     }
                 }

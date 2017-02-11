@@ -1,4 +1,11 @@
-Dare/platforms/android/build/intermediates/assets/F0F1/debug/app/tns_modules/nativescript-plugin-firebase/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/once/node_modules/wrappy/LICENSE
-Dare/platforms/android/build/intermediates/assets/F0F1/debug/app/tns_modules/nativescript-plugin-firebase/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/once/node_modules/wrappy/README.md
-Dare/platforms/android/build/intermediates/assets/F0F1/debug/app/tns_modules/nativescript-plugin-firebase/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/once/node_modules/wrappy/package.json
-Dare/platforms/android/build/intermediates/assets/F0F1/debug/app/tns_modules/nativescript-plugin-firebase/node_modules/prompt/node_modules/utile/node_modules/rimraf/node_modules/glob/node_modules/once/node_modules/wrappy/wrappy.js
+npm-debug.log
+.DS_Store
+
+*.js.map
+app/**/*.js
+hooks/
+lib/
+node_modules/
+platforms/
+tmp/
+typings/

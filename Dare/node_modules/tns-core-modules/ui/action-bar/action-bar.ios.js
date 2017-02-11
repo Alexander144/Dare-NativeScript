@@ -147,6 +147,11 @@ var ActionBar = (function (_super) {
         else {
             barButtonItem = UIBarButtonItem.alloc().initWithTitleStyleTargetAction(item.text + "", 0, tapHandler, "tap");
         }
+        if (item.text) {
+            barButtonItem.isAccessibilityElement = true;
+            barButtonItem.accessibilityLabel = item.text;
+            barButtonItem.accessibilityTraits = UIAccessibilityTraitButton;
+        }
         return barButtonItem;
     };
     ActionBar.prototype.updateColors = function (navBar) {

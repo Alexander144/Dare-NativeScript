@@ -185,10 +185,12 @@ var ActionBar = (function (_super) {
                 var drawableOrId = getDrawableOrResourceId(navButton.icon, this._appResources);
                 this._toolbar.setNavigationIcon(drawableOrId);
             }
+            var navBtn_1 = new WeakRef(navButton);
             this._toolbar.setNavigationOnClickListener(new android.view.View.OnClickListener({
                 onClick: function (v) {
-                    if (navButton) {
-                        navButton._raiseTap();
+                    var owner = navBtn_1.get();
+                    if (owner) {
+                        owner._raiseTap();
                     }
                 }
             }));
@@ -366,8 +368,25 @@ var ActionBarStyler = (function () {
         }
         v._nativeView.setTitleTextColor(nativeValue);
     };
+    ActionBarStyler.getBackgroundColorProperty = function (view) {
+        var toolbar = view._nativeView;
+        return toolbar.getBackground();
+    };
+    ActionBarStyler.setBackgroundColorProperty = function (v, newValue) {
+        var toolbar = v._nativeView;
+        if (toolbar) {
+            toolbar.setBackgroundColor(newValue);
+        }
+    };
+    ActionBarStyler.resetBackgroundColorProperty = function (v, nativeValue) {
+        var toolbar = v._nativeView;
+        if (toolbar) {
+            toolbar.setBackgroundColor(nativeValue);
+        }
+    };
     ActionBarStyler.registerHandlers = function () {
         style.registerHandler(style.colorProperty, new style.StylePropertyChangedHandler(ActionBarStyler.setColorProperty, ActionBarStyler.resetColorProperty), "ActionBar");
+        style.registerHandler(style.backgroundColorProperty, new style.StylePropertyChangedHandler(ActionBarStyler.setBackgroundColorProperty, ActionBarStyler.resetBackgroundColorProperty, ActionBarStyler.getBackgroundColorProperty), "ActionBar");
     };
     return ActionBarStyler;
 }());

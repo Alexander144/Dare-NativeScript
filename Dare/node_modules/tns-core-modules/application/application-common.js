@@ -8,6 +8,18 @@ function ensureBuilder() {
         builder = require("ui/builder");
     }
 }
+var platform;
+function ensurePlatform() {
+    if (!platform) {
+        platform = require("platform");
+    }
+}
+var fileNameResolver;
+function ensureFileNameResolver() {
+    if (!fileNameResolver) {
+        fileNameResolver = require("file-system/file-name-resolver");
+    }
+}
 var styleScope = undefined;
 var events = new observable.Observable();
 global.moduleMerge(events, exports);
@@ -19,12 +31,20 @@ exports.lowMemoryEvent = "lowMemory";
 exports.uncaughtErrorEvent = "uncaughtError";
 exports.orientationChangedEvent = "orientationChanged";
 exports.cssFile = "app.css";
+function setCssFileName(cssFileName) {
+    exports.cssFile = cssFileName;
+}
+exports.setCssFileName = setCssFileName;
 exports.appSelectors = [];
 exports.additionalSelectors = [];
 exports.cssSelectors = [];
 exports.cssSelectorVersion = 0;
 exports.keyframes = {};
 exports.resources = {};
+function setResources(res) {
+    exports.resources = res;
+}
+exports.setResources = setResources;
 exports.onUncaughtError = undefined;
 exports.onLaunch = undefined;
 exports.onSuspend = undefined;
@@ -72,8 +92,8 @@ function __onLiveSync() {
         global.errorPage = undefined;
     }
     try {
-        var fileResolver = require("file-system/file-name-resolver");
-        fileResolver.clearCache();
+        ensureFileNameResolver();
+        fileNameResolver.clearCache();
         loadCss();
         global.__onLiveSyncCore();
     }
@@ -89,4 +109,11 @@ function __onLiveSyncCore() {
 }
 exports.__onLiveSyncCore = __onLiveSyncCore;
 global.__onLiveSyncCore = __onLiveSyncCore;
+function _onOrientationChanged() {
+    ensurePlatform();
+    platform.screen.mainScreen._invalidate();
+    ensureFileNameResolver();
+    fileNameResolver._invalidateResolverInstance();
+}
+exports._onOrientationChanged = _onOrientationChanged;
 //# sourceMappingURL=application-common.js.map
