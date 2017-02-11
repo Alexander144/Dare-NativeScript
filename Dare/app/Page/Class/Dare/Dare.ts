@@ -5,12 +5,14 @@ class Dare{
     OutputDare: string;
     From: string;
     Date: Date;
+    StatusOnDare: string;
     
     constructor(Id:string, OutputDare:string, From:string, Username:string){
        this.Id = Id;
        this.OutputDare = OutputDare;
        this.From = From;
        this.Username = Username;
+       this.StatusOnDare = "Received";
     }
     SetDate(Date:Date){
         this.Date = Date;

@@ -8,7 +8,20 @@
 
     <ScrollView orientation="vertical">
       <StackLayout>
-        
+      <Repeater items="{{ Dares }}" >
+          <Repeater.itemTemplate>
+            
+            <GridLayout rows="24" columns="1*">
+            
+                  <Label class="labels" text="From" horizontalAlignment="left" rows="12" col="1" ></Label>
+                  <Label class="labels" text="{{StatusOnDare}}" horizontalAlignment="right" rows="12" col="12" ></Label>
+                  <Label text="{{ From }}" horizontalAlignment="right" rows="14" col="13"></Label> 
+            
+            </GridLayout>
+         
+          </Repeater.itemTemplate>
+        </Repeater>
+
         <DockLayout>
           <Label text="This is the MainPage"></Label>
           <Button text="Add Friends" tap="{{GoToFriendsPage}}"></Button>

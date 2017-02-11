@@ -13,7 +13,7 @@ button {
     horizontal-align: center;
     background-color: white;
 }
-.TextFields{
+.textFields{
     background-color: white;
     horizontal-align: center;
     width: 60%;
@@ -23,13 +23,6 @@ button {
     text-align: center;
 }
 
-.message {
-    font-size: 20%;
-    color: #284848;
-    horizontal-align: center;
-    margin: 0 20;
-    text-align: center;
-}
 .pageProperties{
     background-color: #7af442;
 }
@@ -37,4 +30,11 @@ ActionBar{
     background-color:#7af442;
     color:white;
 
+}
+.labels{
+    margin-top: 10%;
+    margin: 10%;
+}
+.showYourDareGrid{
+    margin-top: 10%;
 }

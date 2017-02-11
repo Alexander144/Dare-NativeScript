@@ -2,9 +2,9 @@
   <StackLayout>
     <Label class="title" text="Dare"> </Label>
     
-    <TextField class="TextFields" text="{{Username}}" hint="Username"></TextField>
-    <TextField class="TextFields" text="{{Email}}" hint="Email Address" keyboardType="email"></TextField>
-    <TextField class="TextFields" text="{{Password}}" hint="Password" secure="true"></TextField>
+    <TextField class="textFields" text="{{Username}}" hint="Username"></TextField>
+    <TextField class="textFields" text="{{Email}}" hint="Email Address" keyboardType="email"></TextField>
+    <TextField class="textFields" text="{{Password}}" hint="Password" secure="true"></TextField>
    
     <Button id="loginButton" class="TextFields" text="Log in" tap="{{Login}}"> </Button>
     <Button id="registrerUserButton" text="Registrer a new user" tap="{{SignUp}}"> </Button>
