@@ -1,9 +1,6 @@
 
-Dare/*.js.map
-Dare/app/**/*.js
-Dare/hooks/
-Dare/lib/
-Dare/node_modules/
-Dare/platforms/
-Dare/tmp/
-Dare/typings/
+*.js.map
+Dare/hooks/*
+Dare/lib/*
+Dare/node_modules/*
+Dare/platforms/*
