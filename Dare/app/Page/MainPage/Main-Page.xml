@@ -8,20 +8,25 @@
 
     <ScrollView orientation="vertical">
       <StackLayout>
-      <Repeater items="{{ Dares }}" >
-          <Repeater.itemTemplate>
+      <ListView items="{{ Dares }}" >
+          <ListView.itemTemplate>
             
-            <GridLayout class="boxDare" columns="*, *, *" rows="*, *, *" tap="{{ ShowDareSetting }}">
+            <GridLayout class="boxDare" columns="*,auto, *" rows="*, auto, *" tap="{{ ShowDareSetting }}">
                   <Label class="dareLabelsTop" text="{{ DareIsFromOrTo }}" row="0" col="0" horizontalAlignment="left"></Label>
                   <Label class="dareLabelsTop" text="{{ StatusOnDare }}" row="0" col="2" horizontalAlignment="right"></Label>
                   <Label class="dareLabelsBottom" text="{{ From }}" row="1" col="0" horizontalAlignment="left"></Label> 
                   <Label class="dareLabelsBottom" id="darePoint" text="{{ Points }}" row="1" col="2" horizontalAlignment="right"></Label>
-                  <Label id="dareInput" text="{{OutputDare}}" row="2" col="1" horizontalAlignment="center" visibility="{{ DareSettingHide }}"></Label>
+                  <StackLayout id="dareInputBox" row="2" col="1" >
+                          <TextView id="dareInput" text="{{OutputDare}}" horizontalAlignment="center" visibility="{{ DareSettingHide }}"></TextView>
+                          <Button class="dareButtonAccept" text="Accept" row="4" col="0" visibility="{{ DareSettingHide }}"></Button>
+                          <Button class="dareButtonDecline" text="Decline" row="4" col="2" visibility="{{ DareSettingHide }}"></Button>
+                  </StackLayout>
+                 
              
             </GridLayout>
          
-          </Repeater.itemTemplate>
-        </Repeater>
+          </ListView.itemTemplate>
+        </ListView>
 
         <DockLayout>
           <Label text="This is the MainPage"></Label>
@@ -38,15 +43,15 @@
 
         <Label text="Your Dares"> </Label>
      
-        <Repeater items="{{ Dares }}" >
-          <Repeater.itemTemplate>
+        <ListView items="{{ Dares }}" >
+          <ListView.itemTemplate>
             <GridLayout columns="1*, 3*, 3*">
               <Label col="0" text="{{ OutputDare }}"></Label>
               <Label col="1" text="{{ From }}"></Label>
               <Button col="2" text="Accept" tap="{{DoneDare}}"> </Button>
             </GridLayout>
-          </Repeater.itemTemplate>
-        </Repeater>
+          </ListView.itemTemplate>
+        </ListView>
 
         <Button text="Logout" tap="{{Logout}}"></Button>
       </StackLayout>

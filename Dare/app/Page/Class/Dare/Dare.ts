@@ -3,6 +3,7 @@ import { Image } from "ui/image";
 import{ Observable } from "data/observable";
 import { ObservableArray } from "data/observable-array";
 import {EventData} from "data/observable";
+import enums = require("ui/enums");
 
 class Dare extends Observable{
     Username: string;
@@ -30,7 +31,8 @@ class Dare extends Observable{
        this.DareIsFromOrTo = "From";
        this.ImageToAcceptDare = null;
        this.DareSettingToogle = false;
-       this.DareSettingHide = 'collapsed';
+       this.DareSettingHide = "collapse";
+       this.set("DareSettingToogle", this.DareSettingToogle);
     }
     SetDate(Date:Date){
         this.Date = Date;
@@ -40,12 +42,13 @@ class Dare extends Observable{
       this.DareSettingToogle = !this.DareSettingToogle;
       if(this.DareSettingToogle)
       {
-          this.set("DareSettingHide", 'visible');
+          this.set("DareSettingHide", "visible");
       }
       else
       {
-          this.set("DareSettingHide", 'collapsed');
+          this.set("DareSettingHide", "collapse");
       }
+      this.set("DareSettingToogle", this.DareSettingToogle);
        console.log(this.DareSettingToogle);
     }
      DoneDare(){

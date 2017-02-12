@@ -7,34 +7,34 @@
           <TextField text="{{AddUser}}" hint="Username"></TextField>
           <Button text="Add" tap="{{SearchUser}}"></Button>
         </DockLayout>
-        <Repeater items="{{ FriendsSearch }}" >
-          <Repeater.itemTemplate>
+        <ListView items="{{ FriendsSearch }}" >
+          <ListView.itemTemplate>
             <GridLayout columns="1*, 3*, 3*">
               <Label col="1" text="{{ FriendsUsername }}"></Label>
               <Button col="2" text="Send" tap="{{SendRequest}}"> </Button>
             </GridLayout>
-          </Repeater.itemTemplate>
-        </Repeater>
+          </ListView.itemTemplate>
+        </ListView>
 
         <Label text="Ask if you wanna be friends"></Label>
         
-        <Repeater items="{{ FriendsAsk }}" > 
-          <Repeater.itemTemplate>
+        <ListView items="{{ FriendsAsk }}" > 
+          <ListView.itemTemplate>
             <GridLayout columns="1*, 3*, 3*">
               <Label col="1" text="{{  FriendsUsername }}"></Label>
               <Button col="2" text="Accept" tap="{{AcceptFriendRequest}}"> </Button>
             </GridLayout>
-          </Repeater.itemTemplate>
-        </Repeater>
+          </ListView.itemTemplate>
+        </ListView>
         <Label text="Your Friends"></Label>
-        <Repeater items="{{ Friends }}" >
-          <Repeater.itemTemplate>
+        <ListView items="{{ Friends }}" >
+          <ListView.itemTemplate>
             <GridLayout columns="1*, 3*, 3*">
               <Label col="1" text="{{  FriendsUsername }}"></Label>
               <Button col="2" text="Delete" tap="{{Delete}}"> </Button>
             </GridLayout>
-          </Repeater.itemTemplate>
-        </Repeater>
+          </ListView.itemTemplate>
+        </ListView>
 
         <Button text="GoBack" tap="{{GoBack}}"></Button>
       </StackLayout>
