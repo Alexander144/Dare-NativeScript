@@ -11,12 +11,13 @@
       <Repeater items="{{ Dares }}" >
           <Repeater.itemTemplate>
             
-            <GridLayout rows="24" columns="1*">
-            
-                  <Label class="labels" text="From" horizontalAlignment="left" rows="12" col="1" ></Label>
-                  <Label class="labels" text="{{StatusOnDare}}" horizontalAlignment="right" rows="12" col="12" ></Label>
-                  <Label text="{{ From }}" horizontalAlignment="right" rows="14" col="13"></Label> 
-            
+            <GridLayout class="boxDare" columns="*, *, *" rows="*, *, *" tap="{{ ShowDareSetting }}">
+                  <Label class="dareLabelsTop" text="{{ DareIsFromOrTo }}" row="0" col="0" horizontalAlignment="left"></Label>
+                  <Label class="dareLabelsTop" text="{{ StatusOnDare }}" row="0" col="2" horizontalAlignment="right"></Label>
+                  <Label class="dareLabelsBottom" text="{{ From }}" row="1" col="0" horizontalAlignment="left"></Label> 
+                  <Label class="dareLabelsBottom" id="darePoint" text="{{ Points }}" row="1" col="2" horizontalAlignment="right"></Label>
+                  <Label id="dareInput" text="Take" row="2" col="1" horizontalAlignment="center"></Label>
+             
             </GridLayout>
          
           </Repeater.itemTemplate>
@@ -29,6 +30,7 @@
 
         <Label text="{{GUIUser}}"></Label>
         
+        <image  src="{{Image}}"></image>
         <DockLayout>
           <TextField text="{{InputDare}}" hint="I Dare You To"> </TextField>
           <Button text="Send" tap="{{SendDare}}"></Button>

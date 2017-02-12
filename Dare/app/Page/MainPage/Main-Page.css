@@ -1,0 +1,27 @@
+#darePoint
+{
+	color: #ECC55C;
+}
+
+.boxDare{
+    border-color: #DCDCDC;
+    border-width: 0%, 0%, 1%, 0%;
+    border-style: solid;
+}
+
+.dareLabelsTop{
+	color: #C6C5C6;
+	margin: 3%;
+	font-size: 20;
+}
+.dareLabelsBottom{
+	margin: 3%;
+	color: #A4A3A4;
+	font-size: 25;
+}
+#dareInput
+{
+
+	color: #A4A3A4;
+	font-size: 25;
+}

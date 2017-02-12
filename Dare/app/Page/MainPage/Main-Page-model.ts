@@ -14,13 +14,15 @@ class MainModel extends Observable{
     Username: string;
     InputDare: string;
     Score: number;
+    Image: string;
 
-
-    constructor(){
+    constructor()
+    {
         super();
         this.Dares = new ObservableArray<Dare>();
         this.User = null;
         this.Score = 0;
+        this.Image = "https://1.bp.blogspot.com/-YIfQT6q8ZM4/Vzyq5z1B8HI/AAAAAAAAAAc/UmWSSMLKtKgtH7CACElUp12zXkrPK5UoACLcB/s1600/image00.png";
        
         //Vet ikke om denne fungerer
           firebase.keepInSync(
@@ -34,7 +36,7 @@ class MainModel extends Observable{
             console.log("firebase.keepInSync error: " + error);
         });
         
-}
+    }
     
     GetDares()
     {
@@ -102,6 +104,24 @@ class MainModel extends Observable{
 
     SendDare()
     { 
+        firebase.uploadFile({
+        // the full path of the file in your Firebase storage (folders will be created)
+        remoteFullPath: 'uploads/images/telerik-logo-uploaded.png',
+        // option 2: a full file path (ignored if 'localFile' is set)
+        localFullPath: this.Image,
+        // get notified of file upload progress
+        onProgress: function(status) {
+          console.log("Uploaded fraction: " + status.fractionCompleted);
+          console.log("Percentage complete: " + status.percentageCompleted);
+        }
+      }).then(
+            (uploadedFile) => {
+              console.log("File uploaded: " + JSON.stringify(uploadedFile));
+            },
+            (error) => {
+            console.log("firebase.keepInSync error: " + error);
+        });
+
         Page.topmost().navigate(
         {
             moduleName: "Page/SendTo/SendTo",
@@ -160,7 +180,7 @@ class MainModel extends Observable{
             }
             );
     }
-
+    
     Logout()
     {
         this.User = "";
