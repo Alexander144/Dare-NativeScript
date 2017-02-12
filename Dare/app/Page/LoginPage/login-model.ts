@@ -7,7 +7,7 @@ import firebase = require("nativescript-plugin-firebase");
 var self;
 class LoginModel extends Observable{
 
-   Username: string;
+   LoginUsername: string;
    Add: string;
    message: Observable;
    LoginEmail: string;
@@ -31,9 +31,6 @@ class LoginModel extends Observable{
         firebase.login({ type: firebase.LoginType.PASSWORD, 
                         email: this.LoginEmail,
                         password: this.LoginPassword }).then((user) => {
-            this.set("Username", null);
-            this.set("Email", null);
-            this.set("Password", null);
             this.GetUsernameFromDatabase(user.uid);
             
         },(error) => {
@@ -69,13 +66,12 @@ class LoginModel extends Observable{
        
         this.LoginEmail = this.get("Email");
         this.LoginPassword = this.get("Password");
+        this.LoginUsername = this.get("Username");
         firebase.createUser({ email: this.LoginEmail,
                         password: this.LoginPassword }).then((user) => {
-            this.set("Username", null);
-            this.set("Email", null);
-            this.set("Password", null);
-            alert("Sucess");
-            firebase.setValue("Users/"+this.get("Username"),{ 'ID' : user.key,'Score' : 0});
+            
+            alert("Sucess" + this.LoginUsername +  this.LoginEmail + "   " + this.LoginPassword);
+            firebase.setValue("Users/"+this.LoginUsername,{ 'ID' : user.key,'Score' : 0});
         },(error) => {
             alert("Error: " + error);
         });

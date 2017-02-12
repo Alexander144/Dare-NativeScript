@@ -1,6 +1,8 @@
 import firebase = require("nativescript-plugin-firebase");
 import { Image } from "ui/image";
 import{ Observable } from "data/observable";
+import { ObservableArray } from "data/observable-array";
+import {EventData} from "data/observable";
 
 class Dare extends Observable{
     Username: string;
@@ -13,6 +15,9 @@ class Dare extends Observable{
     DareIsFromOrTo: string;
     ImageToAcceptDare: Image;
     DareSettingToogle: boolean;
+    DareSettingHide: string;
+
+
     
     constructor(Id:string, OutputDare:string, From:string, Username:string){
       super();
@@ -25,6 +30,7 @@ class Dare extends Observable{
        this.DareIsFromOrTo = "From";
        this.ImageToAcceptDare = null;
        this.DareSettingToogle = false;
+       this.DareSettingHide = 'collapsed';
     }
     SetDate(Date:Date){
         this.Date = Date;
@@ -32,7 +38,14 @@ class Dare extends Observable{
     ShowDareSetting()
     {
       this.DareSettingToogle = !this.DareSettingToogle;
-      this.set("DareSettingToogle", this.DareSettingToogle);
+      if(this.DareSettingToogle)
+      {
+          this.set("DareSettingHide", 'visible');
+      }
+      else
+      {
+          this.set("DareSettingHide", 'collapsed');
+      }
        console.log(this.DareSettingToogle);
     }
      DoneDare(){

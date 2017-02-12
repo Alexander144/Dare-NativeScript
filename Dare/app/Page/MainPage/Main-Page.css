@@ -11,10 +11,12 @@
 
 .dareLabelsTop{
 	color: #C6C5C6;
+	visibility: visible;
 	margin: 3%;
 	font-size: 20;
 }
 .dareLabelsBottom{
+	visibility: visible;
 	margin: 3%;
 	color: #A4A3A4;
 	font-size: 25;

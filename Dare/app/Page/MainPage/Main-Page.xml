@@ -16,7 +16,7 @@
                   <Label class="dareLabelsTop" text="{{ StatusOnDare }}" row="0" col="2" horizontalAlignment="right"></Label>
                   <Label class="dareLabelsBottom" text="{{ From }}" row="1" col="0" horizontalAlignment="left"></Label> 
                   <Label class="dareLabelsBottom" id="darePoint" text="{{ Points }}" row="1" col="2" horizontalAlignment="right"></Label>
-                  <Label id="dareInput" text="Take" row="2" col="1" horizontalAlignment="center"></Label>
+                  <Label id="dareInput" text="{{OutputDare}}" row="2" col="1" horizontalAlignment="center" visibility="{{ DareSettingHide }}"></Label>
              
             </GridLayout>
          
