@@ -8,13 +8,13 @@
     <Label text="{{SUser}}"></Label>
     
   <Label text="Friends"> </Label>
-   <Repeater items="{{ Friends }}" >
-     <Repeater.itemTemplate>
+   <ListView items="{{ Friends }}" >
+     <ListView.itemTemplate>
            
                 <Button color="{{Color}}" col="1" text="{{ FriendsUsername }}" tap="{{Select}}"> </Button>
            
-        </Repeater.itemTemplate>
-  </Repeater>
+        </ListView.itemTemplate>
+  </ListView>
   <Button text="Send" tap="{{Send}}"></Button>
     <Button text="GoBack" tap="{{GoBack}}"></Button>
   </StackLayout>
