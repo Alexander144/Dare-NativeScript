@@ -1,5 +1,5 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="PageLoaded">
-
+  <?xml-stylesheet type="text/css" href="Main-Page.css"?>
     <ActionBar title="Dare">
       <NavigationButton text="Go Back" visibility="false"></NavigationButton>
       <ActionItem tap="onEdit" ios.systemIcon="4" android.systemIcon="ic_menu_edit" android.position="left" ios.position="left"/>

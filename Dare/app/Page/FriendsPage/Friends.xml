@@ -1,17 +1,18 @@
 <Page actionBarHidden="true" xmlns="http://schemas.nativescript.org/tns.xsd" loaded="PageLoaded">
+  <?xml-stylesheet type="text/css" href="Friends.css"?>
   <ScrollView>
     <StackLayout>
       <Label text="{{GUIUser}}"></Label>
 
         <DockLayout>
-          <TextField text="{{AddUser}}" hint="Username"></TextField>
-          <Button text="Add" tap="{{SearchUser}}"></Button>
+          <TextField class="Username" text="{{AddUser}}" hint="Username"></TextField>
+          <Button class="AddButton" text="Add" tap="{{SearchUser}}"></Button>
         </DockLayout>
         <Repeater items="{{ FriendsSearch }}" >
           <Repeater.itemTemplate>
             <GridLayout columns="1*, 3*, 3*">
               <Label col="1" text="{{ FriendsUsername }}"></Label>
-              <Button col="2" text="Send" tap="{{SendRequest}}"> </Button>
+              <Button class="SendButton" col="2" text="Send" tap="{{SendRequest}}"> </Button>
             </GridLayout>
           </Repeater.itemTemplate>
         </Repeater>
@@ -22,7 +23,7 @@
           <Repeater.itemTemplate>
             <GridLayout columns="1*, 3*, 3*">
               <Label col="1" text="{{  FriendsUsername }}"></Label>
-              <Button col="2" text="Accept" tap="{{AcceptFriendRequest}}"> </Button>
+              <Button class="AcceptButton" col="2" text="Accept" tap="{{AcceptFriendRequest}}"> </Button>
             </GridLayout>
           </Repeater.itemTemplate>
         </Repeater>
@@ -31,12 +32,12 @@
           <Repeater.itemTemplate>
             <GridLayout columns="1*, 3*, 3*">
               <Label col="1" text="{{  FriendsUsername }}"></Label>
-              <Button col="2" text="Delete" tap="{{Delete}}"> </Button>
+              <Button class="DeleteButton" col="2" text="Delete" tap="{{Delete}}"> </Button>
             </GridLayout>
           </Repeater.itemTemplate>
         </Repeater>
 
-        <Button text="GoBack" tap="{{GoBack}}"></Button>
+        <Button class="BackButton" text="GoBack" tap="{{GoBack}}"></Button>
       </StackLayout>
    </ScrollView>
 </Page>
