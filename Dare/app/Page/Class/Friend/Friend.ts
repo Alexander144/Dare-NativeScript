@@ -62,6 +62,9 @@ class Friend extends Observable{
          this.SelectedFriend = false;
          this.set("Color", "red");
     }
+    GetUsername(){
+        return this.FriendsUsername;
+    }
 } 
 
 export default Friend;

@@ -63,6 +63,7 @@ class MainModel extends Observable{
                   self.DeleteFriend(result.key);
               }
     }
+        console.log("User" + this.User);
         let pathToFriends = "/Users/"+this.User + "/Friends/Accept";
         firebase.addChildEventListener(onChildEvent,pathToFriends);
     }
@@ -78,6 +79,7 @@ class MainModel extends Observable{
     }
     AddFriendsToList(AFriend:string){
         this.Friends.push(new Friend(this.User,AFriend,true));
+        console.log("Key:" + AFriend);
     }
 
   
