@@ -1,0 +1,71 @@
+*
+{
+	background-color: #F5FFFA;
+}
+
+.Username
+{
+	/*background-color: red;*/
+	border: solid black 1px;
+	width: 25%;
+	margin-left: 5%;
+}
+
+.AddButton
+{
+	color: white;
+	font-size: 25%;
+	border-radius: 10px;
+	background-color: #7af442;
+	width: 40%;
+	margin-left: 18%;
+}
+
+.SendButton
+{
+	color: white;
+	font-size: 25%;
+	border-radius: 10px;
+	background-color: #7af442;
+	width: 40%;
+	margin-right: 20%;
+}
+
+.Acceptbutton
+{
+	color: white;
+	font-size: 25%;
+	border-radius: 10px;
+	background-color: #7af442;
+	width: 40%;
+	margin-right: 20%;
+}
+
+.DeleteButton
+{
+	color: white;
+	font-size: 25%;
+	border-radius: 10px;
+	background-color: #FF4500;
+	width: 40%;
+	margin-right: 20%;
+}
+
+.BackButton
+{
+	color: white;
+	font-size: 25%;
+	border-radius: 10px;
+	background-color: #7af442;
+	width: 40%;
+	margin-left: 47%;
+}
+
+/*DockLayOut
+{
+	background-color: red;
+}
+GridLayOut
+{
+	background-color: green;
+}*/

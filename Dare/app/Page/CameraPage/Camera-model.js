@@ -1,0 +1,17 @@
+"use strict";
+var observable_1 = require("data/observable");
+var self;
+var pagel;
+var CameraModel = (function (_super) {
+    __extends(CameraModel, _super);
+    function CameraModel() {
+        _super.call(this);
+        self = this;
+    }
+    CameraModel.prototype.TakePicture = function () {
+    };
+    return CameraModel;
+}(observable_1.Observable));
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = CameraModel;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQ2FtZXJhLW1vZGVsLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiQ2FtZXJhLW1vZGVsLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFFQSwyQkFBMEIsaUJBQWlCLENBQUMsQ0FBQTtBQUk1QyxJQUFJLElBQUksQ0FBQztBQUNULElBQUksS0FBSyxDQUFDO0FBQ1Y7SUFBMEIsK0JBQVU7SUFNaEM7UUFFSSxpQkFBTyxDQUFDO1FBRVIsSUFBSSxHQUFHLElBQUksQ0FBQztJQUNoQixDQUFDO0lBQ0QsaUNBQVcsR0FBWDtJQUdBLENBQUM7SUFDTCxrQkFBQztBQUFELENBQUMsQUFoQkQsQ0FBMEIsdUJBQVUsR0FnQm5DO0FBRUQ7a0JBQWUsV0FBVyxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0ICogYXMgY2FtZXJhIGZyb20gXCJjYW1lcmFcIjtcbmltcG9ydCB7IEltYWdlIH0gZnJvbSBcInVpL2ltYWdlXCI7XG5pbXBvcnR7IE9ic2VydmFibGUgfSBmcm9tIFwiZGF0YS9vYnNlcnZhYmxlXCI7XG5pbXBvcnQgeyBPYnNlcnZhYmxlQXJyYXkgfSBmcm9tIFwiZGF0YS9vYnNlcnZhYmxlLWFycmF5XCI7XG5cblxudmFyIHNlbGY7XG52YXIgcGFnZWw7XG5jbGFzcyBDYW1lcmFNb2RlbCBleHRlbmRzIE9ic2VydmFibGVcbntcbiAgICBcbiAgICAvL1BsYWNlaG9sZGVySW1hZ2U6IHN0cmluZztcbiAgICAvL1BpY3R1cmVUYWtlbjogT2JzZXJ2YWJsZTxJbWFnZT47XG4gICAgVFdPOiBzdHJpbmc7XG4gICAgY29uc3RydWN0b3IoKVxuICAgIHtcbiAgICAgICAgc3VwZXIoKTtcblxuICAgICAgICBzZWxmID0gdGhpcztcbiAgICB9XG4gICAgVGFrZVBpY3R1cmUoKVxuICAgIHtcblxuICAgIH1cbn0gXG5cbmV4cG9ydCBkZWZhdWx0IENhbWVyYU1vZGVsOyJdfQ==
