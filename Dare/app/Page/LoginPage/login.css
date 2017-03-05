@@ -1,6 +1,7 @@
 #loginButton{
     background-color:black;
     color: white;
+    font-size: 17%;
 }
 #registrerUserButton{
     color:gray;
