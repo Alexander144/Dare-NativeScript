@@ -13,8 +13,8 @@
     }
   },
   "dependencies": {
+    "nativescript-plugin-firebase": "^3.10.1",
     "nativescript-theme-core": "~1.0.2",
-    "nativescript-plugin-firebase": "^3.5.4",
     "tns-core-modules": "^2.5.0",
     "tns-core-modules-widgets": "^2.5.0"
   },

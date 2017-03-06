@@ -1,7 +1,13 @@
 <Page class="pageProperties" xmlns="http://schemas.nativescript.org/tns.xsd" loaded="PageLoaded">
+  <ScrollView>
   <StackLayout>
-  <Label id="{{texti}}"></Label>
-  	<Image id="TakenPicture"></Image>
-    <Button text="Snap" tap="{{TakePicture}}"></Button>
+ 	<Label text="Dare: "></Label>
+ 	<Label text="{{OutputDare}}"></Label>
+  	<Label text="From"></Label>
+  	<Label text="{{ From }}"></Label>
+  	<Image src="{{PictureTaken}}"></Image>
+    <Button text="{{TakePictureText}}" tap="{{TakePicture}}"></Button>
+    <Button text="Accept Dare" visibility="{{AccepDareButtonHide}}" tap="{{AcceptDareWithPicture}}"></Button>
   </StackLayout>
+</ScrollView>
 </Page>

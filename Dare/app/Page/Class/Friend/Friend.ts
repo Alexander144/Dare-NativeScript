@@ -58,7 +58,7 @@ class Friend extends Observable{
     
    
     Send(InputDare){
-         firebase.push("Dares/"+this.FriendsUsername,{'From': this.Username, 'Dare':InputDare});
+         firebase.push("Dares/"+this.FriendsUsername,{'From': this.Username, 'Dare':InputDare, 'Status': "Recived"});
          this.SelectedFriend = false;
          this.set("Color", "red");
     }

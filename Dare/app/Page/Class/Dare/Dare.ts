@@ -1,4 +1,5 @@
 import firebase = require("nativescript-plugin-firebase");
+import Page = require("ui/frame");
 import { Image } from "ui/image";
 import{ Observable } from "data/observable";
 import { ObservableArray } from "data/observable-array";
@@ -20,13 +21,13 @@ class Dare extends Observable{
 
 
     
-    constructor(Id:string, OutputDare:string, From:string, Username:string){
+    constructor(Id:string, StatusOnDare: string, OutputDare:string, From:string, Username:string){
       super();
        this.Id = Id;
        this.OutputDare = OutputDare;
        this.From = From;
        this.Username = Username;
-       this.StatusOnDare = "Received";
+       this.StatusOnDare = StatusOnDare;
        this.Points = "0P";
        this.DareIsFromOrTo = "From";
        this.ImageToAcceptDare = null;
@@ -51,8 +52,23 @@ class Dare extends Observable{
       this.set("DareSettingToogle", this.DareSettingToogle);
        console.log(this.DareSettingToogle);
     }
-     DoneDare(){
-        firebase.remove("/Dares/" + this.Username + "/" + this.Id);
+
+    AcceptDare(){
+            Page.topmost().navigate({
+              
+              moduleName: "Page/CameraPage/Camera",
+               context:{ DareToAccept: this
+                  },
+              transition: {
+                  name: "slideBottom",
+                  duration: 380,
+                  curve: "easeIn"
+               },
+              animated: true
+              });
+    }
+    DeclineDare(){
+
     }
 } 
 

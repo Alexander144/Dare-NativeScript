@@ -158,13 +158,6 @@ class MainModel extends Observable{
             this.path = "";
     }
 
-    Send()
-    {
-        firebase.push("Dares/"+this.Username,{'From': this.Username, 'Dare':this.InputDare});
-        this.set("Username","");
-        this.set("InputDare","");
-    }
-
     SetApplication(Username:string)
     {
         self = this;

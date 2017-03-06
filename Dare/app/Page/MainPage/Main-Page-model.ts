@@ -3,6 +3,7 @@ import { ObservableArray } from "data/observable-array";
 import firebase = require("nativescript-plugin-firebase");
 import listPickerModule = require("ui/list-picker");
 import {EventData} from "data/observable";
+import scrollViewModule = require("ui/scroll-view");
 
 import Page = require("ui/frame");
 import Dare from "../Class/Dare/Dare";
@@ -23,7 +24,7 @@ class MainModel extends Observable{
         this.User = null;
         this.Score = 0;
         this.Image = "https://1.bp.blogspot.com/-YIfQT6q8ZM4/Vzyq5z1B8HI/AAAAAAAAAAc/UmWSSMLKtKgtH7CACElUp12zXkrPK5UoACLcB/s1600/image00.png";
-       
+        var scrollView = new scrollViewModule.ScrollView();
         //Vet ikke om denne fungerer
           firebase.keepInSync(
              "/Dares", // which path in your Firebase needs to be kept in sync?
@@ -52,7 +53,7 @@ class MainModel extends Observable{
 
                 if(self.CheckIfDareAdded(result.key) == true)
                 {
-                self.NewDare(result.key, result.value.Dare, result.value.From);
+                self.NewDare(result.key, result.value.Status, result.value.Dare, result.value.From);
                 }
             }
         }
@@ -97,31 +98,13 @@ class MainModel extends Observable{
         }
     }
 
-    NewDare(id:string, nDare:string, From:string)
+    NewDare(id:string, StatusOnDare: string, nDare:string, From:string)
     {
-        this.Dares.push(new Dare(id,nDare,From,this.User));
+        this.Dares.push(new Dare(id, StatusOnDare,nDare,From,this.User));
     }
 
     SendDare()
     { 
-        firebase.uploadFile({
-        // the full path of the file in your Firebase storage (folders will be created)
-        remoteFullPath: 'uploads/images/telerik-logo-uploaded.png',
-        // option 2: a full file path (ignored if 'localFile' is set)
-        localFullPath: this.Image,
-        // get notified of file upload progress
-        onProgress: function(status) {
-          console.log("Uploaded fraction: " + status.fractionCompleted);
-          console.log("Percentage complete: " + status.percentageCompleted);
-        }
-      }).then(
-            (uploadedFile) => {
-              console.log("File uploaded: " + JSON.stringify(uploadedFile));
-            },
-            (error) => {
-            console.log("firebase.keepInSync error: " + error);
-        });
-
         Page.topmost().navigate(
         {
             moduleName: "Page/SendTo/SendTo",
